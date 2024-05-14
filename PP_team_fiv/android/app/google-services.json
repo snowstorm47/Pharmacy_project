@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "914941901972",
+    "project_id": "try-ph",
+    "storage_bucket": "try-ph.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914941901972:android:c3244e59fe38cf1bd80881",
+        "android_client_info": {
+          "package_name": "com.pharma.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-nicW0cwxEEI5cldksSh03rQrn1-bl7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
