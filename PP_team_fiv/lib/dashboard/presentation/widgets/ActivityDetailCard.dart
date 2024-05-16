@@ -1,7 +1,8 @@
-import 'package:admin_dashboard2/data/health_details.dart';
-import 'package:admin_dashboard2/utill/responsive.dart';
-import 'package:admin_dashboard2/widget/custom_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
+
+import '../../data/quick_info_data.dart';
+import 'custom_card_widget.dart';
 
 class ActivityDetailsCard extends StatelessWidget {
   const ActivityDetailsCard({super.key});
@@ -10,39 +11,68 @@ class ActivityDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final healthDetails = HealthDetails();
     return GridView.builder(
-      itemCount: healthDetails.HealthData.length,
+      itemCount: healthDetails.healthData.length,
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
-        crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
+        crossAxisCount: 4,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 1.0,
+        // Responsive.isMobile(context) ? 2 : 4,
+        // crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
       ),
       itemBuilder: (context, index) => CustomCard(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              child: healthDetails.HealthData[index].icon,
-              width: 50.0,
-              height: 50.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 4),
-              child: Text(
-                healthDetails.HealthData[index].value,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18.0,
-                  color: Colors.white,
-                ),
+            Text(
+              healthDetails.healthData[index].title,
+              style: TextStyle(
+                // fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+                fontSize: 25.0,
+                color: Color(0xFF0B054C),
               ),
             ),
-            Text(
-              healthDetails.HealthData[index].title,
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 20.0,
+                ),
+                CircleAvatar(
+                  backgroundColor: healthDetails.healthData[index].color,
+                  radius: 30.0,
+                  child: SizedBox(
+                    child: healthDetails.healthData[index].icon,
+                    width: 50.0,
+                    height: 50.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 30.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: Text(
+                    healthDetails.healthData[index].value,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 38.0,
+                      color: Color(0xFF0B054C),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Link(
+              uri: Uri.parse('www.youtube.com'),
+              builder: (context, followLink) => Text(
+                "Show Details",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ],

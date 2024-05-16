@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
-class quickInfoData {
+class HealthModel {
+  final Color color;
   final Icon icon;
   final String value;
   final String title;
 
-  const quickInfoData(
-      {required this.icon, required this.value, required this.title});
+  const HealthModel(
+      {required this.color,
+      required this.icon,
+      required this.value,
+      required this.title});
 }

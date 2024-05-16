@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="" />
+    <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Pharmacy_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pharmacy_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/data/quick_info_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/data/quick_info_data.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/domain/models/dashboard_cards_modes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/domain/models/dashboard_cards_modes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugins.cmake" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,15 +34,22 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2gPOYX8X413q0zH24hxVtDk5f42" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,19 +60,44 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/android studio/Pharmacy_project",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "git-widget-placeholder": "yakob__pharma__app",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/android studio/admin_dashboard2/lib/constants/constant_color.dart",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "flutter.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\presentation\widgets" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\shared\widget" />
       <recent name="C:\android studio\Pharmacy_project" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts\a" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\models" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\entities" />
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\presentation\widgets" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter.main.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -56,5 +109,16 @@
       <updated>1715595793874</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
