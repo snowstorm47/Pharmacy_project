@@ -49,7 +49,7 @@ Future<PUser?> SigninUser(  {required email , required password})async{
     }
   return null;
 }
-//fuction obtaining the document using the user id
+//function obtaining the document using the user id
 Future<DocumentSnapshot<Map<String, dynamic>>?> getData(String uid) async {
     final DocRef= _firebaseFirestore.collection('users').doc('user.id');
    final docSnapshot = await DocRef.get();
