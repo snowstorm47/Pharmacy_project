@@ -31,6 +31,7 @@ class _SidemenuwidgetState extends State<Sidemenuwidget> {
         Text(
             data.menu[index].title,
           style: TextStyle(
+            fontFamily: 'Poppins',
             fontSize: 16,
             color: Colors.black,
             fontWeight: FontWeight.normal,
