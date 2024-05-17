@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Pharmacy_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pharmacy_project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/data/quick_info_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/data/quick_info_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/domain/models/dashboard_cards_modes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/domain/models/dashboard_cards_modes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +48,10 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "yakob__pharma__app",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/android studio/admin_dashboard2/lib/constants/constant_color.dart",
+    "last_opened_file_path": "C:/android studio/admin_dashboard2",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",

@@ -11,6 +11,18 @@ class DashboardWidget extends StatelessWidget {
       children: <Widget>[
         // const SizedBox(height: 18),
         const ActivityDetailsCard(),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return AddRoleScreen();
+                  },
+                ),
+              );
+            },
+            child: Text("To add role page")),
       ],
     );
   }
