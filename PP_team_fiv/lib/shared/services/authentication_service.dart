@@ -60,6 +60,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>?> getData(String uid) async {
     return null;
   }
 }
+//function sending verification email
 Future<void> verifyEmail() async{
   User? user = _firebaseAuth.currentUser;
   if (user!= null && !user.emailVerified) {
@@ -70,6 +71,7 @@ Future<void> verifyEmail() async{
  }
 
 }
+//function for signing out 
 Future<void> Signout() async{
  await _firebaseAuth.signOut();
 }
