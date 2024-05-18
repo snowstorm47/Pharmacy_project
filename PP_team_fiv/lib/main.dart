@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Pie_chart(dataMap: dataMap),
+      home: MonthlyDataChart(
+  seriesList: MonthlyDataChart.createSampleData(),
+),
+      //Pie_chart(dataMap: dataMap),
             //new_pPage()
            // Header()
     );
