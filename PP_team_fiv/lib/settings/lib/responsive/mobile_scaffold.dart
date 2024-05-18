@@ -58,7 +58,80 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 fontFamily: 'Poppins',
               ),
             ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF7193E9)),
+            ),
           ),
+          SizedBox(height: 16),
+          Container(
+            color: Color(0xFF7193E9),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'NO',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Employee name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Role',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Permitted Action',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'System Access',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Actions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
           // Tiles below it
           Expanded(
             child: ListView.builder(
