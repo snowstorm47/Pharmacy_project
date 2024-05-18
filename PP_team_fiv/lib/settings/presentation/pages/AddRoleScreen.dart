@@ -1,220 +1,171 @@
 import 'package:flutter/material.dart';
 
-class AddRoleScreen extends StatelessWidget {
-  const AddRoleScreen({super.key});
+class AddRole extends StatelessWidget {
+  final TextEditingController _descriptionController = TextEditingController();
+
+  AddRole({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 60.0),
-              child: Text(
-                "Add Role",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    fontSize: 30.0),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Add Role',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 60.0),
-              child: Text(
-                "Add Role and Permisions For Employees",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    fontSize: 15.0),
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(
-              height: 70.0,
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 60.0),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text(
-            //         'Role Name',
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             fontFamily: 'Poppins',
-            //             fontSize: 15.0),
-            //       ),
-            //       SizedBox(
-            //         height: 20.0,
-            //       ),
-            //       TextField(
-            //         maxLines: 1,
-            //         decoration: InputDecoration(
-            //           hintText: 'Role Name',
-            //           border: OutlineInputBorder(),
-            //         ),
-            //       ),
-            //       /*Permited action*/
-            //       Text(
-            //         'Permited Action',
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             fontFamily: 'Poppins',
-            //             fontSize: 15.0),
-            //       ),
-            //       SizedBox(
-            //         height: 20.0,
-            //       ),
-            //       TextField(
-            //         maxLines: 1,
-            //         decoration: InputDecoration(
-            //           hintText: 'Permited Action',
-            //           border: OutlineInputBorder(),
-            //         ),
-            //       ),
-            //
-            //       /*Assigned Staff*/
-            //       Text(
-            //         'Assigned Staff',
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             fontFamily: 'Poppins',
-            //             fontSize: 15.0),
-            //       ),
-            //       SizedBox(
-            //         height: 20.0,
-            //       ),
-            //       TextField(
-            //         maxLines: 1,
-            //         decoration: InputDecoration(
-            //           hintText: 'Assigned Staff',
-            //           border: OutlineInputBorder(),
-            //         ),
-            //       ),
-            //
-            //       /*System Access*/
-            //       Text(
-            //         'System Access',
-            //         style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             fontFamily: 'Poppins',
-            //             fontSize: 15.0),
-            //       ),
-            //       SizedBox(
-            //         height: 20.0,
-            //       ),
-            //       TextField(
-            //         maxLines: 1,
-            //         decoration: InputDecoration(
-            //           hintText: 'System Access',
-            //           border: OutlineInputBorder(),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            GridView.builder(
-              itemCount: 4,
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 1.0,
-                // Responsive.isMobile(context) ? 2 : 4,
-                // crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
+              Text(
+                'Add Role and permission for employee',
+                style: TextStyle(fontSize: 20.0),
               ),
-              itemBuilder: (context, index) => Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(
+                height: 40,
+              ),
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 40,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       _buildTextButton('Role Name', width: 400, height: 40),
+              //       _buildTextButton('Permitted Action',
+              //           width: 400, height: 40),
+              //     ],
+              //   ),
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildTextButton('Role Name',
+                        width: 400.0, height: 40.0),
+                  ),
+                  SizedBox(width: 50), // Add spacing between buttons
+                  Expanded(
+                    child: _buildTextButton('Permitted Action',
+                        width: 400.0, height: 40.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15.0),
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 40,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       _buildTextButton('Assigned Staff', width: 400, height: 40),
+              //       _buildTextButton('System Access', width: 400, height: 40),
+              //     ],
+              //   ),
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: _buildTextButton('Assigned Staff',
+                        width: 400.0, height: 40.0),
+                  ),
+                  SizedBox(width: 50), // Add spacing between buttons
+                  Expanded(
+                    child: _buildTextButton('System Access',
+                        width: 400.0, height: 40.0),
+                  ),
+                ],
+              ),
+              SizedBox(height: 35.0),
+              Padding(
+                padding: const EdgeInsets.only(right: 95.0),
+                child: TextField(
+                  controller: _descriptionController,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    hintText: 'Description',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 760.0),
+                child: Row(
                   children: [
-                    Text(
-                      'Role Name',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          fontSize: 15.0),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextField(
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        hintText: 'Role Name',
-                        border: OutlineInputBorder(),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle form submission here
+                        print('Description: ${_descriptionController.text}');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 14, 196,
+                            20), // Set the background color of the "Save" button
+                        foregroundColor: Colors
+                            .white, // Set the text color of the "Save" button
                       ),
+                      child: Text('Save'),
                     ),
-
-                    /*Permited action*/
-                    Text(
-                      'Permited Action',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          fontSize: 15.0),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextField(
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        hintText: 'Permited Action',
-                        border: OutlineInputBorder(),
+                    SizedBox(width: 16.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle form submission here
+                        print('Description: ${_descriptionController.text}');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors
+                            .red, // Set the background color of the "Save" button
+                        foregroundColor: Colors
+                            .white, // Set the text color of the "Save" button
                       ),
-                    ),
-
-                    /*Assigned Staff*/
-                    Text(
-                      'Assigned Staff',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          fontSize: 15.0),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextField(
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        hintText: 'Assigned Staff',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-
-                    /*System Access*/
-                    Text(
-                      'System Access',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                          fontSize: 15.0),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextField(
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        hintText: 'System Access',
-                        border: OutlineInputBorder(),
-                      ),
+                      child: Text('Discard'),
                     ),
                   ],
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextButton(String title,
+      {double width = 150, double height = 60}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          width: width,
+          height: height,
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: title,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(
+                  color: Colors.grey.shade400, // Set the border color
+                  width: 1.0, // Set the border width
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

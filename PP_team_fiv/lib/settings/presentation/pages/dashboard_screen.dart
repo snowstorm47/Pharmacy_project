@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'AddRoleScreen.dart';
+import 'package:clean_a/settings/presentation/pages/AddRoleScreen.dart';
 
 class DashBoardScreenn extends StatelessWidget {
   const DashBoardScreenn({super.key});
@@ -18,7 +17,7 @@ class DashBoardScreenn extends StatelessWidget {
             ),
             Expanded(
               flex: 10,
-              child: AddRoleScreen(),
+              child: AddRole(),
             ),
           ],
         ),
