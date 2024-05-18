@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:viewrolespage/constants.dart';
 
 class MyBox extends StatelessWidget {
   const MyBox({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        color: Colors.blue,
-      ),
+    return Scaffold(
+      backgroundColor: myDefaultBackground,
     );
   }
 }
