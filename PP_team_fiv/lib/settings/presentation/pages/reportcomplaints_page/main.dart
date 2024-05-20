@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:viewrolespage/responsive/responsive_layout.dart';
-import 'responsive/mobile_scaffold.dart';
-import 'responsive/tablet_scaffold.dart';
-import 'responsive/desktop_scaffold.dart';
+import 'responsive/report_mobile.dart';
+import 'responsive/report_tablet.dart';
+import 'responsive/report_desktop.dart';
 
 void main() {
   runApp(const MyApp());

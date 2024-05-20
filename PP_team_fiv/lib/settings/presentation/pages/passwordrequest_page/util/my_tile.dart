@@ -99,7 +99,7 @@ class MyTile extends StatelessWidget {
                     child: Text(
                       'Actions',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: 'Poppins',
                         color: Colors.white,
                       ),
