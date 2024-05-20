@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:viewrolespage/constants.dart';
-
+// import 'package:viewrolespage/constants.dart';
+import '../util/constants.dart';
 import '../util/my_tile.dart';
 
 class tabletScaffold extends StatefulWidget {

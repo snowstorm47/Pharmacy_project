@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:viewrolespage/constants.dart';
-// import 'package:viewrolespage/util/my_tile.dart';
-// import 'package:viewrolespage/util/my_box.dart';
 import '../util/constants.dart';
 import '../util/my_tile.dart';
 
-class MobileScaffold extends StatefulWidget {
-  const MobileScaffold({Key? key});
+class tabletScaffold extends StatefulWidget {
+  const tabletScaffold({super.key});
 
   @override
-  State<MobileScaffold> createState() => _MobileScaffoldState();
+  State<tabletScaffold> createState() => _tabletScaffoldState();
 }
 
-class _MobileScaffoldState extends State<MobileScaffold> {
+class _tabletScaffoldState extends State<tabletScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar,
       backgroundColor: myDefaultBackground,
+      appBar: myAppBar,
       drawer: myDrawer,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'View Roles',
+            'Password Requests',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 24,
@@ -33,106 +30,147 @@ class _MobileScaffoldState extends State<MobileScaffold> {
           ),
           SizedBox(height: 4),
           Text(
-            'Edit, Update and Remove roles',
+            'View and send password for password Requests',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 16,
               color: Colors.grey[700],
             ),
           ),
-          SizedBox(height: 16),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Search for roles',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: () {
-              // Add filter functionality
-            },
-            icon: Icon(Icons.menu),
-            label: Text(
-              'Filter by',
-              style: TextStyle(
-                fontFamily: 'Poppins',
+          SizedBox( height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: 150, // Adjust the width as needed
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Add filter functionality
+                  },
+                  icon: Icon(Icons.menu),
+                  label: Text(
+                    'Filter by',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF7193E9)),
+                  ),
+                ),
               ),
-            ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF7193E9)),
-            ),
+            ],
           ),
+          SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: 150, // Adjust the width as needed
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Add filter functionality
+                  },
+                  icon: Icon(
+                    Icons.refresh,
+                    color: Colors.black,
+                  ),
+                  label: Text(
+                    'Recycle',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFF1EFEF)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
           SizedBox(height: 16),
           Container(
             color: Color(0xFF7193E9),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'NO',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'NO',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Employee name',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      'Employee Email',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Role',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      'Role',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Permitted Action',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      'Time Stamp',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'System Access',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      'Ip address',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Actions',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      'Attempt',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      'Actions',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-
 
           // Tiles below it
           Expanded(

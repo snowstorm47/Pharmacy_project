@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:viewrolespage/constants.dart';
-import 'package:viewrolespage/util/my_tile.dart';
-import 'package:viewrolespage/util/my_box.dart';
+// import 'package:viewrolespage/constants.dart';
+// import 'package:viewrolespage/util/my_tile.dart';
+// import 'package:viewrolespage/util/my_box.dart';
+import '../util/constants.dart';
+import '../util/my_tile.dart';
 
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({Key? key});

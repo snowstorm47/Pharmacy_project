@@ -108,11 +108,11 @@ class MyTile extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF7193E9)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Text(
                       'Actions',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 8,
                         fontFamily: 'Poppins',
                         color: Colors.white,
                       ),

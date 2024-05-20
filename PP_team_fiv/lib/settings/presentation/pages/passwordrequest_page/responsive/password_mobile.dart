@@ -24,7 +24,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'View Roles',
+            'Password Requests',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 24,
@@ -33,22 +33,13 @@ class _MobileScaffoldState extends State<MobileScaffold> {
           ),
           SizedBox(height: 4),
           Text(
-            'Edit, Update and Remove roles',
+            'View and send password for password Requests',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 16,
               color: Colors.grey[700],
             ),
           ),
-          SizedBox(height: 16),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Search for roles',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 16),
           ElevatedButton.icon(
             onPressed: () {
               // Add filter functionality
@@ -65,6 +56,27 @@ class _MobileScaffoldState extends State<MobileScaffold> {
             ),
           ),
           SizedBox(height: 16),
+          ElevatedButton.icon(
+            onPressed: () {
+              // Add recycle functionality
+            },
+            icon: Icon(
+                Icons.refresh,
+                color: Colors.black,
+            ), // Assuming you want to use the refresh icon
+            label: Text(
+              'Refresh',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.black,
+              ),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFF1EFEF)), // Adjust the background color as needed
+            ),
+          ),
+          SizedBox(height: 16),
+
           Container(
             color: Color(0xFF7193E9),
             child: Row(
@@ -81,7 +93,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 ),
                 Expanded(
                   child: Text(
-                    'Employee name',
+                    'Employee Email',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -101,7 +113,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 ),
                 Expanded(
                   child: Text(
-                    'Permitted Action',
+                    'Time Stamp',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -111,7 +123,17 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 ),
                 Expanded(
                   child: Text(
-                    'System Access',
+                    'Ip address',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Attempt',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -137,7 +159,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
           // Tiles below it
           Expanded(
             child: ListView.builder(
-              itemCount: 3, // Specify the number of tiles here
+              itemCount: 5, // Specify the number of tiles here
               itemBuilder: (context, index) {
                 return const MyTile();
               },

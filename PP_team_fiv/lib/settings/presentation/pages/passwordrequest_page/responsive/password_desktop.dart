@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:viewrolespage/constants.dart'
+// import 'package:viewrolespage/constants.dart';
 import '../util/constants.dart';
-
 import '../util/my_tile.dart';
 
 class desktopScaffold extends StatefulWidget {
@@ -35,7 +34,7 @@ class _desktopScaffoldState extends State<desktopScaffold> {
                         children: [
                           Expanded(
                             child: Text(
-                              'Report Complaints',
+                              'Password Requests',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 24,
@@ -94,7 +93,7 @@ class _desktopScaffoldState extends State<desktopScaffold> {
                       ),
                       SizedBox(height: 1), // Add spacing below the title
                       Text(
-                        'View and take actions to complaints on report',
+                        'View and send password for password Requests',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
@@ -122,7 +121,17 @@ class _desktopScaffoldState extends State<desktopScaffold> {
                           ),
                           Expanded(
                             child: Text(
-                              'Employee Name',
+                              'Employee Email',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Role',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Poppins',
@@ -142,7 +151,7 @@ class _desktopScaffoldState extends State<desktopScaffold> {
                           ),
                           Expanded(
                             child: Text(
-                              'Category',
+                              'Ip address',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Poppins',
@@ -152,7 +161,7 @@ class _desktopScaffoldState extends State<desktopScaffold> {
                           ),
                           Expanded(
                             child: Text(
-                              'Status',
+                              'Attempt',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Poppins',
