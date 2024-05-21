@@ -75,4 +75,18 @@ Future<void> verifyEmail() async{
 Future<void> Signout() async{
  await _firebaseAuth.signOut();
 }
+//function sending password reset
+Future<void> sendPasswordResetEmail({required email}) async {
+  try {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    print('Password reset email sent!');
+  } on FirebaseAuthException catch (error) {
+    if (error.code == 'user-not-found') {
+      print('No user found for this email.');
+    } else {
+      print('Error sending password reset email: $error');
+    }
+  }
+}
+
 }

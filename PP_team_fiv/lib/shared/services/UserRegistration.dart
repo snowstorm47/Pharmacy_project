@@ -50,9 +50,9 @@ class RegisterService{
          permission: permission, 
          photoUrl:  bytes!=null?await getDownloadUrl(user.uid):null, 
          role: role,
-          uid: user.uid,
-           name: name,
-            branch: branch.isEmpty?null:branch,
+         uid: user.uid,
+         name: name,
+          branch: branch.isEmpty?null:branch,
              email: email,
 
       );
