@@ -26,7 +26,7 @@ class RegisterService{
 
 //function returning the user object
  Future<PUser?>  registerUser(
-   {required String branch, required String role, required String email, required String password, required String name, required List<String> permission, required List<String> access, Uint8List? bytes}) async
+   {required String branch, required String role, required String email, required String password, required String FirstName, required String LastName,required List<String> permission, required List<String> access, Uint8List? bytes}) async
  {
   try{
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
@@ -51,7 +51,8 @@ class RegisterService{
          photoUrl:  bytes!=null?await getDownloadUrl(user.uid):null, 
          role: role,
          uid: user.uid,
-         name: name,
+         FirstName: FirstName,
+         LastName: LastName,
           branch: branch.isEmpty?null:branch,
              email: email,
 
@@ -84,9 +85,8 @@ Future<void> uploadProfileImage(String uid, Uint8List? bytes) async {
       await imageRef.putData(bytes,SettableMetadata(contentType:"jpeg"));
       return; // Success, break out of loop
     } on FirebaseException catch (e) {
-      print('Error uploading image (attempt ${retryCount + 1}): $e');
-      final waitTime = Duration(seconds:100000000); // Exponential backoff
-      await Future.delayed(waitTime);
+         print(e.toString());
+   
     }
   }
 
