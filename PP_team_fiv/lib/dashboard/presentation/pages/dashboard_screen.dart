@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../responsive/responsive.dart';
 import '../widgets/ActivityDetailCard.dart';
 
 class DashBoardScreen extends StatelessWidget {
@@ -7,15 +8,21 @@ class DashBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = Responsive.isDesktop(context, context);
+
     return Scaffold(
       appBar: AppBar(),
+      drawer: !isDesktop
+          ? Expanded(flex: 2, child: Container(color: Colors.grey))
+          : null,
       body: SafeArea(
         child: Row(
           children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(color: Colors.grey),
-            ),
+            if (isDesktop)
+              Expanded(
+                flex: 2,
+                child: Container(color: Colors.grey),
+              ),
             Expanded(
                 flex: 10,
                 child: Container(

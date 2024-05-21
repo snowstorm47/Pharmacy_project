@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 
 import '../../data/quick_info_data.dart';
+import '../../responsive/responsive.dart';
 import 'custom_card_widget.dart';
 
 class ActivityDetailsCard extends StatelessWidget {
@@ -15,11 +16,9 @@ class ActivityDetailsCard extends StatelessWidget {
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 1.0,
-        // Responsive.isMobile(context) ? 2 : 4,
-        // crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
+        crossAxisCount: Responsive.isMobile(context, context) ? 2 : 4,
+        crossAxisSpacing: Responsive.isMobile(context, context) ? 12.0 : 15.0,
+        mainAxisSpacing: 10.0,
       ),
       itemBuilder: (context, index) => CustomCard(
         child: Column(

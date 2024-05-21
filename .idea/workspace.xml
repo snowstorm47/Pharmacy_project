@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/responsive/responsive.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/dashboard_cards_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/responsive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/responsive/responsive.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" afterDir="false" />
     </list>
@@ -50,7 +55,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "yakob__pharma__app",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/Yakob/Desktop/Pharmacy_project",
+    "last_opened_file_path": "C:/Users/Yakob/Desktop/Pharmacy_project/PP_team_fiv/lib/settings",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -60,17 +65,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\settings" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\presentation\widgets" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\shared\widget" />
       <recent name="C:\android studio\Pharmacy_project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\responsive" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts\a" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\models" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\entities" />
-      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\presentation\widgets" />
     </key>
   </component>
   <component name="RunManager">
@@ -105,16 +111,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart</url>
-          <line>134</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

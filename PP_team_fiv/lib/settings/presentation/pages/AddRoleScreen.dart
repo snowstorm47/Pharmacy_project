@@ -1,3 +1,4 @@
+import 'package:clean_a/settings/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 
 class AddRole extends StatelessWidget {
@@ -85,7 +86,7 @@ class AddRole extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 95.0),
                 child: TextField(
                   controller: _descriptionController,
-                  maxLines: 3,
+                  maxLines: Responsive.isTablet(context, context) ? 2 : 2,
                   decoration: InputDecoration(
                     hintText: 'Description',
                     border: OutlineInputBorder(
@@ -94,39 +95,43 @@ class AddRole extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Padding(
-                padding: const EdgeInsets.only(left: 760.0),
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle form submission here
-                        print('Description: ${_descriptionController.text}');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 14, 196,
-                            20), // Set the background color of the "Save" button
-                        foregroundColor: Colors
-                            .white, // Set the text color of the "Save" button
+                padding: const EdgeInsets.all(0.0), // No padding needed here
+                child: Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.8, // Adjust width as needed
+                  child: Row(
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          // Handle form submission here
+                          print('Description: ${_descriptionController.text}');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 14, 196,
+                              20), // Set the background color of the "Save" button
+                          foregroundColor: Colors
+                              .white, // Set the text color of the "Save" button
+                        ),
+                        child: Text('Save'),
                       ),
-                      child: Text('Save'),
-                    ),
-                    SizedBox(width: 16.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle form submission here
-                        print('Description: ${_descriptionController.text}');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors
-                            .red, // Set the background color of the "Save" button
-                        foregroundColor: Colors
-                            .white, // Set the text color of the "Save" button
+                      SizedBox(width: 16.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Handle form submission here
+                          print('Description: ${_descriptionController.text}');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors
+                              .red, // Set the background color of the "Save" button
+                          foregroundColor: Colors
+                              .white, // Set the text color of the "Save" button
+                        ),
+                        child: Text('Discard'),
                       ),
-                      child: Text('Discard'),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
