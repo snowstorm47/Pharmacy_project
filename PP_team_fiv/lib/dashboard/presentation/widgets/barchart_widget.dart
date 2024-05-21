@@ -19,7 +19,7 @@ class MonthlyDataChart extends StatelessWidget {
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
-              blurRadius: 5,
+              blurRadius: 7,
               offset: Offset(0, 3),
             ),
           ],
@@ -75,9 +75,9 @@ class MonthlyDataChart extends StatelessWidget {
                   behaviorPosition: charts.BehaviorPosition.top,
                   titleOutsideJustification: charts.OutsideJustification.middleDrawArea,
                   titleStyleSpec: charts.TextStyleSpec(
-                    color: charts.Color.fromHex(code: '#666666'),
+                    color: charts.Color.fromHex(code: '#000000'),
                     fontWeight: 'bold',
-                    fontSize: 16,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -94,17 +94,31 @@ class MonthlyDataChart extends StatelessWidget {
       OrdinalSales('Feb', 32),
       OrdinalSales('Mar', 41),
       OrdinalSales('Apr', 28),
-    
+    ];
+
+    final gradientColors = [
+      charts.ColorUtil.fromDartColor(Color(0xFF5D67C3)),
+      charts.ColorUtil.fromDartColor(Color(0xFF6F76CC)),
+      charts.ColorUtil.fromDartColor(Color(0xFF8285D5)),
+
+      charts.ColorUtil.fromDartColor(Color(0xFFBAB2F0)),
+      charts.ColorUtil.fromDartColor(Color(0xFFD9D9D9)),
     ];
 
     return [
       charts.Series<OrdinalSales, String>(
         id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.indigo.shadeDefault,
+        colorFn: (OrdinalSales sales, int? index) {
+          if (index != null && index < gradientColors.length) {
+            return gradientColors[index];
+          }
+          return charts.MaterialPalette.gray.shadeDefault;
+        },
         domainFn: (OrdinalSales sales, _) => sales.month,
         measureFn: (OrdinalSales sales, _) => sales.sales,
         data: data,
-      )
+        labelAccessorFn: (OrdinalSales sales, _) => '\$${sales.sales.toString()}',
+      ),
     ];
   }
 }

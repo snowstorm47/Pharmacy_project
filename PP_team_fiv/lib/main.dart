@@ -4,6 +4,7 @@ import 'package:clean_a/header.dart';
 import 'package:clean_a/login_p/presentation/new_p.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'responsive_layout.dart'; // Import the responsive_layout.dart file
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       'B': 3,
       'C': 2,
        'D': 3,
-      'E': 2,
+      'E': 4,
     };
 
     return MaterialApp(
@@ -30,12 +31,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MonthlyDataChart(
+      home: /*MonthlyDataChart(
   seriesList: MonthlyDataChart.createSampleData(),
-),
+),*/
       //Pie_chart(dataMap: dataMap),
-            //new_pPage()
-           // Header()
+     NewPPage(),
+          // Header(),
     );
   }
-}
+}  
