@@ -53,8 +53,8 @@ class RegisterService{
          uid: user.uid,
          FirstName: FirstName,
          LastName: LastName,
-          branch: branch.isEmpty?null:branch,
-             email: email,
+         branch: branch.isEmpty?null:branch,
+         email: email,
 
       );
      //saving the data to the firebase firestore document
