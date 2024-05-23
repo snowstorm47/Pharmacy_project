@@ -1,6 +1,8 @@
+import 'package:clean_a/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:clean_a/dashboard/presentation/widgets/barchart_widget.dart';
 import 'package:clean_a/dashboard/presentation/widgets/piechart_widget.dart';
 import 'package:clean_a/header.dart';
+
 import 'package:clean_a/login_p/presentation/new_p.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +37,10 @@ class MyApp extends StatelessWidget {
   seriesList: MonthlyDataChart.createSampleData(),
 ),*/
       //Pie_chart(dataMap: dataMap),
-     NewPPage(),
-          // Header(),
+   // NewPPage(),
+         const Header(title: ''),
+       // Dashboard_screen(),
+       
     );
   }
-}  
+}        
