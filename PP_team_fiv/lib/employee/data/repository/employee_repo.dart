@@ -113,24 +113,13 @@ class EmployeeRepo{
  
 //uploads the cv
 Future<String?> uploadCv(String uid,Uint8List? file) async {
-  Uint8List? fileData = file;
-  if (fileData != null) {
-    // Create temporary file
-    final tempDir = await getTemporaryDirectory();
-    final tempPath = tempDir.path;
-    final tempFile = await File('$tempPath/cv_${DateTime.now().millisecondsSinceEpoch}').create();
-
-    // Write file data to temporary file
-    await tempFile.writeAsBytes(fileData);
-
+  
+  if (file!= null) {
+    // upload the file as Uint8List
     final reference = _firebaseStorage.ref().child('cv/$uid');
-    final task = reference.putFile(tempFile);
+    final task = reference.putData(file);
     final snapshot = await task.whenComplete(() => null);
     final url = await snapshot.ref.getDownloadURL();
-
-    // Delete temporary file
-    await tempFile.delete();
-
     return url;
   } else {
     throw Exception("Error occurred, couldn't access the file path");
