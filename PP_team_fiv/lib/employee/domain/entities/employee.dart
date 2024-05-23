@@ -51,5 +51,23 @@ class Employee extends PUser{
     Salary: data['Salary'] as int,
     CvURL: data['CvURL'] as String,
   );
-
+  
+   Map<String,dynamic> toMap()=>{
+   'uid':uid,
+   'email':email,
+   'FirstName':FirstName,
+   'LastName':LastName,
+   'role':role,
+   if(branch !=null)  'branch':branch,
+   if(photoUrl!=null) 'photoUrl':photoUrl,
+   'permission':permission,
+   'Access':access,
+   'Status':Status,
+    'Phone': Phone,
+    'DoB': DoB,
+    'Gender':Gender,
+    'Address': Address,
+    'Salary': Salary,
+    'CvURL': CvURL,
+  };
 }
