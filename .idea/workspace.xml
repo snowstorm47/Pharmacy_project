@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/responsive/responsive.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/ActivityDetailCard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/widgets/custom_card_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/responsive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/responsive/responsive.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/responsive/responsive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/responsive/responsive.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +50,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "yakob__pharma__app",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/Yakob/Desktop/Pharmacy_project/PP_team_fiv/lib/settings",
+    "last_opened_file_path": "C:/android studio/admin_dashboard2",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
