@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../shared/models/puser.dart';
+import '../../domain/entities/attendance.dart';
 
 //picks CV files from the user device
 Future<Uint8List?> pickFile() async {
@@ -46,10 +47,18 @@ class EmployeeRepo{
   final FirebaseAuth _firebaseAuth;
   EmployeeRepo(this._firebaseStorage,this._firebaseFirestore,this._firebaseAuth);
  
-  Future<List<Object?>> listEmployees()async{
+  
+
+
+
+
+
+
+
+  Future<List<Map<dynamic,dynamic>>> listEmployees()async{
     final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
     final snapshot = await employeeCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+   return snapshot.docs.map((doc) => doc.data() as Map<dynamic, dynamic>).toList();
   }
   Future<Employee> getEmployee(String uid) async {
     final docRef = _firebaseFirestore.collection('Employees').doc(uid);
@@ -103,14 +112,13 @@ class EmployeeRepo{
       }
   // Convert Employee object to Map
   }
-  Future<List<Object?>> RemoveEmployee(String uid) async{
+  Future<List<Map<dynamic,dynamic>>> RemoveEmployee(String uid) async{
       final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
     await employeeCollection.doc(uid).delete();
     return await listEmployees(); 
  
   }
 
- 
 //uploads the cv
 Future<String?> uploadCv(String uid,Uint8List? file) async {
   
@@ -125,5 +133,39 @@ Future<String?> uploadCv(String uid,Uint8List? file) async {
     throw Exception("Error occurred, couldn't access the file path");
   }
 }
-  
+Future<void> addAttendance(String uid, {required DateTime checkIn, required DateTime checkOut, required String status}) async {
+  final collectionReference = _firebaseFirestore.collection('Attendance');
+  final attendance = Attendance(checkIn: checkIn, checkOut: checkOut, status: status);
+
+  // Transaction to ensure data consistency
+  await _firebaseFirestore.runTransaction((transaction) async {
+    final documentSnapshot = await transaction.get(collectionReference.doc(uid));
+
+    List<Map<String, dynamic>> existingAttendance = [];
+    if (documentSnapshot.exists) {
+      existingAttendance = documentSnapshot.data()!['attendance'] as List<Map<String, dynamic>>;
+    }
+
+    existingAttendance.add(attendance.toMap());  // Add new attendance to the list
+
+    transaction.set(collectionReference.doc(uid), {
+      'attendance': existingAttendance,
+    });
+  });
+}
+Future<List<Attendance>> getAttendance(String uid) async {
+  final collectionReference = _firebaseFirestore.collection('Attendance');
+  final documentSnapshot = await collectionReference.doc(uid).get();
+
+  if (!documentSnapshot.exists) {
+    return []; // No document found, returns empty list
+  }
+
+  final List<Map<String, dynamic>> attendanceData = documentSnapshot.data()!['attendance'] as List<Map<String, dynamic>>;
+
+  final List<Attendance> attendances = attendanceData.map((data) => Attendance.fromMap(data)).toList();
+  return attendances;
+}
+
+
 }
