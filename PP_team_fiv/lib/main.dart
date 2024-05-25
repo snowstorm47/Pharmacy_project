@@ -1,3 +1,5 @@
+import 'package:clean_a/customer/presentation/add_autho_user.dart';
+import 'package:clean_a/customer/presentation/auto_user_list.dart';
 import 'package:clean_a/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:clean_a/dashboard/presentation/widgets/barchart_widget.dart';
 import 'package:clean_a/dashboard/presentation/widgets/piechart_widget.dart';
@@ -38,9 +40,13 @@ class MyApp extends StatelessWidget {
 ),*/
       //Pie_chart(dataMap: dataMap),
    // NewPPage(),
-         const Header(title: ''),
+        // const Header(title: ''),
        // Dashboard_screen(),
-       
+      // AuthoUser(),
+       AddAuto(),
+
     );
   }
+  
+  
 }        
