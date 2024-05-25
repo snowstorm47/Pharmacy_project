@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'AddNewCorporateCustomer.dart';
+import 'AddAuthorizedUser.dart';
 
 class DashBoardScreennn extends StatelessWidget {
   const DashBoardScreennn({super.key});
@@ -18,7 +18,7 @@ class DashBoardScreennn extends StatelessWidget {
             ),
             Expanded(
               flex: 10,
-              child: AddNewCorporateCustomer(),
+              child: AddAuthorizedUser(),
             ),
           ],
         ),
