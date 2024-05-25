@@ -47,13 +47,6 @@ class EmployeeRepo{
   final FirebaseAuth _firebaseAuth;
   EmployeeRepo(this._firebaseStorage,this._firebaseFirestore,this._firebaseAuth);
  
-  
-
-
-
-
-
-
 
   Future<List<Map<dynamic,dynamic>>> listEmployees()async{
     final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
@@ -132,6 +125,25 @@ Future<String?> uploadCv(String uid,Uint8List? file) async {
   } else {
     throw Exception("Error occurred, couldn't access the file path");
   }
+}
+Future<void> editEmployee(String uid, {required Map<String, dynamic> updatedData}) async {
+  final collectionReference = _firebaseFirestore.collection('employees');
+  final document = collectionReference.doc(uid);
+
+  // Transaction for data consistency
+  await _firebaseFirestore.runTransaction((transaction) async {
+    final documentSnapshot = await transaction.get(document);
+
+    if (!documentSnapshot.exists) {
+      throw Exception('Employee with ID: $uid not found'); // Handle non-existent employee
+    }
+
+    // Update only specified fields (prevents overwriting entire document)
+    final existingData = documentSnapshot.data()!;
+    existingData.updateAll((key, value) => updatedData.containsKey(key) ? updatedData[key] : value);
+
+    transaction.set(document, existingData);
+  });
 }
 Future<void> addAttendance(String uid, {required DateTime checkIn, required DateTime checkOut, required String status}) async {
   final collectionReference = _firebaseFirestore.collection('Attendance');
