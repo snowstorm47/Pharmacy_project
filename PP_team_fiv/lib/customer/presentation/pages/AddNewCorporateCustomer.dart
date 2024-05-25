@@ -284,7 +284,7 @@ class AddNewCorporateCustomer extends StatelessWidget {
                           ),
                           SizedBox(width: 30),
                           Expanded(
-                            child: _textField('Add Notes or Comments', '',
+                            child: _buildTextButton('Add Notes or Comments',
                                 width: 300.0, height: 100.0),
                           ),
                           SizedBox(width: 30),
@@ -310,8 +310,8 @@ class AddNewCorporateCustomer extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Padding(
-                        padding:
-                            const EdgeInsets.all(0.0), // No padding needed here
+                        padding: const EdgeInsets.only(
+                            left: 900.0), // No padding needed here
                         child: Container(
                           width: MediaQuery.of(context).size.width *
                               0.8, // Adjust width as needed
@@ -332,22 +332,7 @@ class AddNewCorporateCustomer extends StatelessWidget {
                                   foregroundColor: Colors
                                       .white, // Set the text color of the "Save" button
                                 ),
-                                child: Text('Save'),
-                              ),
-                              SizedBox(width: 16.0),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Handle form submission here
-                                  print(
-                                      'Description: ${_descriptionController.text}');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors
-                                      .red, // Set the background color of the "Save" button
-                                  foregroundColor: Colors
-                                      .white, // Set the text color of the "Save" button
-                                ),
-                                child: Text('Discard'),
+                                child: Text('Submit'),
                               ),
                             ],
                           ),

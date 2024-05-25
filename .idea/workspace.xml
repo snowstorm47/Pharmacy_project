@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/data/repositry/employee_repo.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/domain/entities/dashclasses.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/domain/models/dash_modes.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddNewCorporateCustomer.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/dashboard_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/widgets/sidemenu.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddNewCorporateCustomer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddNewCorporateCustomer.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
