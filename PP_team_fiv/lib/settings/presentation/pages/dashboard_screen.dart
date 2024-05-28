@@ -1,8 +1,8 @@
 import 'package:clean_a/settings/presentation/pages/AddRoleScreen.dart';
 import 'package:flutter/material.dart';
 
-class DashBoardScreenn extends StatelessWidget {
-  const DashBoardScreenn({super.key});
+class DashBoardScreensettings extends StatelessWidget {
+  const DashBoardScreensettings({super.key});
 
   @override
   Widget build(BuildContext context) {

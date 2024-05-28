@@ -1,6 +1,5 @@
+import 'package:clean_a/finance/presentation/pages/dashboard_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'customer/presentation/pages/dashboard_screen.dart';
 
 void main() {
   // AwesomeNotifications().initialize(
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DashBoard',
-      home: DashBoardScreennn(),
+      home: DashBoardScreenFinance(),
     );
   }
 }

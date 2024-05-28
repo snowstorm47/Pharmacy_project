@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'AddAuthorizedUser.dart';
 
-class DashBoardScreennn extends StatelessWidget {
-  const DashBoardScreennn({super.key});
+class DashBoardScreenCustomer extends StatelessWidget {
+  const DashBoardScreenCustomer({super.key});
 
   @override
   Widget build(BuildContext context) {
