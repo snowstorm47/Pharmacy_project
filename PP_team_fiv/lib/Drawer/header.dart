@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
                   color: Colors.black.withOpacity(0.1),
                   spreadRadius: 0,
                   blurRadius: 8,
-                  offset: Offset(0, 2), // changes position of shadow
+                  offset: const Offset(0, 2), // changes position of shadow
                 ),
               ],
             ),
@@ -30,22 +30,20 @@ class Header extends StatelessWidget {
               ),
               centerTitle: true,
               leading: Padding(
-                padding: const EdgeInsets.all( 1.0),
+                padding: const EdgeInsets.all(1.0),
                 child: SizedBox(
-                   width: 10,
-                    height: 40,
+                  width: 10,
+                  height: 40,
                   child: Image.asset(
                     'lib/image/hub.jpg',
-                   fit: BoxFit.contain,
+                    fit: BoxFit.contain,
                   ),
                 ),
-                
               ),
-              
               actions: [
                 const Icon(Icons.search, color: Colors.grey),
                 const SizedBox(width: 40),
-                Text('Search',style: TextStyle(color: Colors.grey)),
+                const Text('Search', style: TextStyle(color: Colors.grey)),
                 const SizedBox(width: 900),
                 Padding(
                   padding: const EdgeInsets.only(right: 40.0),
@@ -79,7 +77,7 @@ class Header extends StatelessWidget {
               elevation: 0,
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Center(child: Text('')),
           ),
         ],
@@ -87,5 +85,3 @@ class Header extends StatelessWidget {
     );
   }
 }
-
-

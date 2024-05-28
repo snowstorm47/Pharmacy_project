@@ -73,7 +73,8 @@ class MonthlyDataChart extends StatelessWidget {
                 charts.ChartTitle(
                   'Sales Performance',
                   behaviorPosition: charts.BehaviorPosition.top,
-                  titleOutsideJustification: charts.OutsideJustification.middleDrawArea,
+                  titleOutsideJustification:
+                      charts.OutsideJustification.middleDrawArea,
                   titleStyleSpec: charts.TextStyleSpec(
                     color: charts.Color.fromHex(code: '#000000'),
                     fontWeight: 'bold',
@@ -99,8 +100,7 @@ class MonthlyDataChart extends StatelessWidget {
     final gradientColors = [
       charts.ColorUtil.fromDartColor(Color(0xFF5D67C3)),
       charts.ColorUtil.fromDartColor(Color.fromARGB(255, 159, 166, 235)),
-     
-charts.ColorUtil.fromDartColor(Color.fromARGB(255, 169, 160, 229)),
+      charts.ColorUtil.fromDartColor(Color.fromARGB(255, 169, 160, 229)),
       charts.ColorUtil.fromDartColor(Color(0xFFBAB2F0)),
       charts.ColorUtil.fromDartColor(Color(0xFFD9D9D9)),
     ];
@@ -117,7 +117,8 @@ charts.ColorUtil.fromDartColor(Color.fromARGB(255, 169, 160, 229)),
         domainFn: (OrdinalSales sales, _) => sales.month,
         measureFn: (OrdinalSales sales, _) => sales.sales,
         data: data,
-        labelAccessorFn: (OrdinalSales sales, _) => '\$${sales.sales.toString()}',
+        labelAccessorFn: (OrdinalSales sales, _) =>
+            '\$${sales.sales.toString()}',
       ),
     ];
   }

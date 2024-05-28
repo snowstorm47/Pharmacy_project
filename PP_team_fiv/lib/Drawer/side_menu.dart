@@ -1,145 +1,102 @@
-import 'package:clean_a/Drawer/data.dart';
+import 'package:clean_a/dashboard/presentation/widgets/ActivityDetailCard.dart';
+import 'package:clean_a/dashboard/presentation/widgets/piechart_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../shared/utility/responsiveDrawer.dart';
+import 'package:clean_a/dashboard/presentation/widgets/barchart_widget.dart';
+import 'package:clean_a/dashboard/presentation/pages/sidemenupage.dart';
+import 'package:clean_a/dashboard/presentation/pages/header.dart';
+import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
-class SideMenuPage extends StatefulWidget {
-  const SideMenuPage({Key? key}) : super(key: key);
+// Import your new chart widget
+// Import the ActivityDetailsCard widget
+
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key});
 
   @override
-  State<SideMenuPage> createState() => _SideMenuPageState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _SideMenuPageState extends State<SideMenuPage> {
+class _DashboardPageState extends State<DashboardPage> {
   bool showSideMenu = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pharmacy Hub"),
-        centerTitle: true,
-        leading: !ResponsiveD.isDesktop(context)
-            ? IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  setState(() {
-                    showSideMenu = !showSideMenu; // Toggle showSideMenu value
-                  });
-                },
-              )
-            : null,
-      ),
+      backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
-        child: ResponsiveD.isDesktop(context)
-            ? const Drawer(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-                width: 250,
-                child: SideMenu(),
-              )
-            : showSideMenu
-                ? const Drawer(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                    width: 200,
-                    child: SideMenu(),
-                  )
-                : Container(), // Show an empty container if showSideMenu is false
-      ),
-    );
-  }
-}
-
-class SideMenu extends StatelessWidget {
-  const SideMenu({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            Container(
-              height: 100,
-              child: DrawerHeader(
-                child: Column(
-                  children: [
-                    Image.asset(
-                      "assets/download.jpg",
-                      height: 36,
+            // Main content area
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Sidebar (only for desktop)
+                if (ResponsiveD.isDesktop(context))
+                  Expanded(
+                    child: SideMenu(
+                      onClose: () {},
                     ),
-                    const Text("Pharmacy Hub")
-                  ],
+                  ),
+                // Main content
+                Expanded(
+                  flex: 4, // Adjust flex ratio as needed
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header
+                      HeaderPage(
+                        onMenuPressed: () {
+                          setState(() {
+                            showSideMenu = !showSideMenu;
+                          });
+                        },
+                        isSideMenuOpen: showSideMenu,
+                      ),
+                      // Content
+                      const Expanded(
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 16),
+                              Text(
+                                'Dashboard',
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              // Integrate the ActivityDetailsCard widget instead of CardsPlaceholder
+                              ActivityDetailsCard(),
+                              SizedBox(height: 16),
+                              // Responsive layout for graph and pie chart placeholders
+                              ResponsiveLayout(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            // Sidebar (for mobile and tablet)
+            if (!ResponsiveD.isDesktop(context) && showSideMenu)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: SideMenu(
+                  onClose: () {
+                    setState(() {
+                      showSideMenu = false;
+                    });
+                  },
                 ),
               ),
-            ),
-            DrawerListTile(
-              title: 'Dashboard',
-              falIcon: FontAwesomeIcons.dashcube,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Customer',
-              falIcon: FontAwesomeIcons.user,
-              press: () {},
-              dropdownItems: CustomerData.items,
-            ),
-            DrawerListTile(
-              title: 'Medicine',
-              falIcon: FontAwesomeIcons.pills,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Sales',
-              falIcon: FontAwesomeIcons.chartLine,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Stock',
-              falIcon: FontAwesomeIcons.box,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Report',
-              falIcon: FontAwesomeIcons.fileMedical,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Supplier',
-              falIcon: FontAwesomeIcons.truckFast,
-              press: () {},
-              dropdownItems: SupplierData.items,
-            ),
-            DrawerListTile(
-              title: 'Branch',
-              falIcon: FontAwesomeIcons.building,
-              press: () {},
-              dropdownItems: BranchData.items,
-            ),
-            DrawerListTile(
-              title: 'Return',
-              falIcon: FontAwesomeIcons.undoAlt,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Finance',
-              falIcon: FontAwesomeIcons.dollarSign,
-              press: () {},
-            ),
-            DrawerListTile(
-              title: 'Setting',
-              falIcon: FontAwesomeIcons.cogs,
-              press: () {},
-            ),
           ],
         ),
       ),
@@ -147,79 +104,40 @@ class SideMenu extends StatelessWidget {
   }
 }
 
-class DrawerListTile extends StatefulWidget {
-  const DrawerListTile({
-    super.key,
-    required this.title,
-    required this.falIcon,
-    required this.press,
-    this.dropdownItems,
-  });
-
-  final String title;
-  final IconData falIcon;
-  final VoidCallback press;
-  final List<String>? dropdownItems;
-
-  @override
-  _DrawerListTileState createState() => _DrawerListTileState();
-}
-
-class _DrawerListTileState extends State<DrawerListTile> {
-  bool isExpanded = false;
+class ResponsiveLayout extends StatelessWidget {
+  const ResponsiveLayout({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: ListTile(
-            onTap: widget.dropdownItems == null
-                ? widget.press
-                : () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
-            horizontalTitleGap: 20,
-            leading: FaIcon(
-              widget.falIcon,
-              color: Colors.grey[500],
-              size: 20,
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.title,
-                  style: TextStyle(color: Colors.black87),
-                ),
-                if (widget.dropdownItems != null)
-                  Icon(
-                    isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-                    color: Colors.grey[500],
-                  ),
-              ],
-            ),
-          ),
-        ),
-        if (isExpanded && widget.dropdownItems != null)
-          Column(
-            children: widget.dropdownItems!.map((item) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 70),
-                child: ListTile(
-                  title: Text(item),
-                  onTap: () {
-                    // Handle sub-item tap
-                    print('Selected: $item');
-                  },
-                ),
-              );
-            }).toList(),
-          ),
-      ],
-    );
+    final sampleData = MonthlyDataChart.createSampleData();
+    final pieChartData = {
+      'Branch A': 34.0,
+      'Branch B': 32.0,
+      'Branch C': 26.0,
+      'Branch D': 28.0,
+      'Branch E': 30.0,
+    };
+
+    if (ResponsiveD.isDesktop(context)) {
+      return Row(
+        children: [
+          Expanded(child: MonthlyDataChart(seriesList: sampleData)),
+          const SizedBox(width: 16),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Pie_chart(dataMap: pieChartData),
+          )),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          MonthlyDataChart(seriesList: sampleData),
+          const SizedBox(height: 16),
+          Pie_chart(dataMap: pieChartData),
+        ],
+      );
+    }
   }
 }
