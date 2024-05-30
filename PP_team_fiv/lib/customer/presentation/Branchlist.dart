@@ -1,62 +1,72 @@
+
+
+
+
 import 'package:clean_a/header.dart';
-import 'package:clean_a/shared/constants/constants.dart';
-import 'package:clean_a/shared/constants/datamodel.dart';
+import 'package:clean_a/shared/constants/BranchdataL.dart';
+import 'package:clean_a/shared/constants/DataB.dart';
+
 import 'package:flutter/material.dart';
 
-class AuthoUser extends StatelessWidget {
-  const AuthoUser({super.key});
+class BranchList extends StatefulWidget {
+  const BranchList({super.key});
 
+  @override
+  State<BranchList> createState() => _SupplierListsState();
+}
+
+class _SupplierListsState extends State<BranchList> {
   @override
   Widget build(BuildContext context) {
      int _totalPages = 3;
     final data = [
-      DataModel(
-        employeeId: '01',
-        employeeName: 'yohannes dereje',
-        phone: '+2311149021',
-        companyName: 'Metec',
-        email: '@example.com',
+      DataBL(
+        Branch_id: '01',
+      Name: 'yohannes dereje',
+       BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
-      DataModel(
-        employeeId: '02',
-        employeeName: 'Eyuna li',
-        phone: '+2311149021',
-        companyName: 'ABC',
-        email: '@example.com',
+      DataBL(
+       Branch_id: '01',
+      Name: 'yohannes dereje',
+       BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
-      DataModel(
-        employeeId: '03',
-        employeeName: 'johna',
-        phone: '+2311149021',
-        companyName: 'XY',
-        email: '@example.com',
+      DataBL(
+         Branch_id: '01',
+      Name: 'yohannes dereje',
+         BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
-      DataModel(
-        employeeId: '04',
-        employeeName: 'dfht',
-        phone: '+2311149021',
-        companyName: 'LT',
-        email: '@example.com',
+      DataBL(
+       Branch_id: '01',
+      Name: 'yohannes dereje',
+         BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
-      DataModel(
-        employeeId: '05',
-        employeeName: 'eric',
-        phone: '+2311149021',
-        companyName: 'AY',
-        email: '@example.com', 
+      DataBL(
+       Branch_id: '01',
+      Name: 'yohannes dereje',
+       BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
-      DataModel(
-        employeeId: '06',
-        employeeName: 'wertz',
-        phone: '+2311149021',
-        companyName: 'SIT',
-        email: '@example.com',
+      DataBL(
+       Branch_id: '01',
+      Name: 'yohannes dereje',
+     BranchMananger: 'abel',
+    Adress:'Gulele',
+    Email:'AbelaTechB@gmail.com'
       ),
      
     ];
 
     return Scaffold(
-      appBar: Header(title: 'Customer'),
+      appBar: Header(title: 'Branches'),
       
       body: Padding(
         padding: EdgeInsets.all(50.0),
@@ -64,7 +74,7 @@ class AuthoUser extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Authorized Users List',
+              'Branch List',
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Poppins.regular',
@@ -72,7 +82,7 @@ class AuthoUser extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Here are the Authorized Users of Corporate Customers',
+              'View and Edit Branch List',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20.0),
@@ -87,16 +97,7 @@ class AuthoUser extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                SizedBox(width: 20.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(236, 27, 228, 4)),
-                  onPressed: () {},
-                  child: Text(
-                    '+  Add User',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+               
               ],
             ),
             SizedBox(height: 20.0),
@@ -133,8 +134,11 @@ class AuthoUser extends StatelessWidget {
                 onPressed: (){}, // No functionality needed
                 child: Text('Next',),
               ),
-            ],
+            SizedBox(width: 700.0),
+           ],
           ),
+    
+
           ],
         ),
       ),
@@ -152,10 +156,10 @@ class AuthoUser extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildHeaderCell('Employee_Id'),
-            _buildHeaderCell('Employee_Name'),
-            _buildHeaderCell('Phone'),
-            _buildHeaderCell('Company Name'),
+            _buildHeaderCell('Branch_Id'),
+            _buildHeaderCell('Name'),
+            _buildHeaderCell('Branch Manager'),
+            _buildHeaderCell('Adress'),
             _buildHeaderCell('Email'),
             _buildHeaderCell('Actions'),
           ],
@@ -164,7 +168,7 @@ class AuthoUser extends StatelessWidget {
     );
   }
 
-  Widget _buildDataRow(DataModel data) {
+  Widget _buildDataRow(DataBL data) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -185,14 +189,14 @@ class AuthoUser extends StatelessWidget {
                     },
                   ),
                   SizedBox(width: 8.0),
-                  _buildDataCell(data.employeeId),
+                  _buildDataCell(data.Branch_id),
                 ],
               ),
             ),
-            _buildDataCell(data.employeeName),
-            _buildDataCell(data.phone),
-            _buildDataCell(data.companyName),
-            _buildDataCell(data.email),
+            _buildDataCell(data.Name),
+            _buildDataCell(data.BranchMananger),
+            _buildDataCell(data.Adress),
+            _buildDataCell(data.Email),
             _buildDataCell('', isAction: true),
           ],
         ),
@@ -244,6 +248,4 @@ class AuthoUser extends StatelessWidget {
             ),
     );
   }
-// ignore: non_constant_identifier_names
-
 }

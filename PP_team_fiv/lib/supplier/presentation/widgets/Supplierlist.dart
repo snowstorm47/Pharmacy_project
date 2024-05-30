@@ -1,62 +1,68 @@
+
+
 import 'package:clean_a/header.dart';
-import 'package:clean_a/shared/constants/constants.dart';
-import 'package:clean_a/shared/constants/datamodel.dart';
+import 'package:clean_a/shared/constants/dataS.dart';
 import 'package:flutter/material.dart';
 
-class AuthoUser extends StatelessWidget {
-  const AuthoUser({super.key});
+class SupplierLists extends StatefulWidget {
+  const SupplierLists({super.key});
 
+  @override
+  State<SupplierLists> createState() => _SupplierListsState();
+}
+
+class _SupplierListsState extends State<SupplierLists> {
   @override
   Widget build(BuildContext context) {
      int _totalPages = 3;
     final data = [
-      DataModel(
-        employeeId: '01',
-        employeeName: 'yohannes dereje',
-        phone: '+2311149021',
-        companyName: 'Metec',
-        email: '@example.com',
+      DataS(
+        Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'active',
+        Adress: '@example.com',
       ),
-      DataModel(
-        employeeId: '02',
-        employeeName: 'Eyuna li',
-        phone: '+2311149021',
-        companyName: 'ABC',
-        email: '@example.com',
+      DataS(
+        Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'Active',
+        Adress: '@example.com',
       ),
-      DataModel(
-        employeeId: '03',
-        employeeName: 'johna',
-        phone: '+2311149021',
-        companyName: 'XY',
-        email: '@example.com',
+      DataS(
+         Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'inactive',
+        Adress: '@example.com',
       ),
-      DataModel(
-        employeeId: '04',
-        employeeName: 'dfht',
-        phone: '+2311149021',
-        companyName: 'LT',
-        email: '@example.com',
+      DataS(
+        Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'active',
+        Adress: '@example.com',
       ),
-      DataModel(
-        employeeId: '05',
-        employeeName: 'eric',
-        phone: '+2311149021',
-        companyName: 'AY',
-        email: '@example.com', 
+      DataS(
+        Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'inacctive',
+        Adress: '@example.com',
       ),
-      DataModel(
-        employeeId: '06',
-        employeeName: 'wertz',
-        phone: '+2311149021',
-        companyName: 'SIT',
-        email: '@example.com',
+      DataS(
+        Supplier_id: '01',
+       Name: 'yohannes dereje',
+        Phone: '+2311149021',
+      Status: 'active',
+        Adress: '@example.com',
       ),
      
     ];
 
     return Scaffold(
-      appBar: Header(title: 'Customer'),
+      appBar: Header(title: 'Supplier'),
       
       body: Padding(
         padding: EdgeInsets.all(50.0),
@@ -64,7 +70,7 @@ class AuthoUser extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Authorized Users List',
+              'Supplier Lists',
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Poppins.regular',
@@ -72,7 +78,7 @@ class AuthoUser extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Here are the Authorized Users of Corporate Customers',
+              'Here are your list of supliers :-',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20.0),
@@ -133,8 +139,17 @@ class AuthoUser extends StatelessWidget {
                 onPressed: (){}, // No functionality needed
                 child: Text('Next',),
               ),
-            ],
+            SizedBox(width: 700.0),
+            ElevatedButton(
+               style:  ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 239, 237, 237),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
+                onPressed: (){}, // No functionality needed
+                child: Text('Delete selected medicines',),
+              ),],
           ),
+    
+
           ],
         ),
       ),
@@ -152,11 +167,11 @@ class AuthoUser extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildHeaderCell('Employee_Id'),
-            _buildHeaderCell('Employee_Name'),
+            _buildHeaderCell('Supplier_Id'),
+            _buildHeaderCell('Name'),
             _buildHeaderCell('Phone'),
-            _buildHeaderCell('Company Name'),
-            _buildHeaderCell('Email'),
+            _buildHeaderCell('Status'),
+            _buildHeaderCell('Adress'),
             _buildHeaderCell('Actions'),
           ],
         ),
@@ -164,7 +179,7 @@ class AuthoUser extends StatelessWidget {
     );
   }
 
-  Widget _buildDataRow(DataModel data) {
+  Widget _buildDataRow(DataS data) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -185,14 +200,14 @@ class AuthoUser extends StatelessWidget {
                     },
                   ),
                   SizedBox(width: 8.0),
-                  _buildDataCell(data.employeeId),
+                  _buildDataCell(data.Supplier_id),
                 ],
               ),
             ),
-            _buildDataCell(data.employeeName),
-            _buildDataCell(data.phone),
-            _buildDataCell(data.companyName),
-            _buildDataCell(data.email),
+            _buildDataCell(data.Name),
+            _buildDataCell(data.Phone),
+            _buildDataCell(data.Status),
+            _buildDataCell(data.Adress),
             _buildDataCell('', isAction: true),
           ],
         ),
@@ -244,6 +259,4 @@ class AuthoUser extends StatelessWidget {
             ),
     );
   }
-// ignore: non_constant_identifier_names
-
 }

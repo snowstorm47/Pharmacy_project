@@ -1,14 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:clean_a/header.dart';
 
-class AddAuto extends StatefulWidget {
-  const AddAuto({super.key});
+class AddSupplier extends StatefulWidget {
+  const AddSupplier({super.key});
 
   @override
-  State<AddAuto> createState() => _AddAutoState();
+  State<AddSupplier> createState() => _AddAutoState();
 }
 
-class _AddAutoState extends State<AddAuto> {
+class _AddAutoState extends State<AddSupplier> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -16,7 +17,7 @@ class _AddAutoState extends State<AddAuto> {
 
     return Scaffold(
       appBar: Header(
-        title: 'Customer',
+        title: 'Supplier',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,7 +33,7 @@ class _AddAutoState extends State<AddAuto> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Add authorized User',
+          'Add Supplier',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -41,7 +42,7 @@ class _AddAutoState extends State<AddAuto> {
         ),
         SizedBox(height: 7),
         Text(
-          'You can add your new authorized user information here',
+          'You can add your new Supplier information here',
           style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
         SizedBox(height: 20),
@@ -57,7 +58,7 @@ class _AddAutoState extends State<AddAuto> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Add authorized User',
+          'Add Supplier',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -66,7 +67,7 @@ class _AddAutoState extends State<AddAuto> {
         ),
         SizedBox(height: 7),
         Text(
-          'You can add your new authorized user information here',
+          'You can add your new Supplier information here',
           style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
         SizedBox(height: 20),
@@ -83,7 +84,7 @@ class _AddAutoState extends State<AddAuto> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Employee Name',
+                        labelText: 'Supplier Name',
                       ),
                     ),
                     SizedBox(height: 30),
@@ -97,7 +98,7 @@ class _AddAutoState extends State<AddAuto> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Role/position',
+                        labelText: 'Status',
                       ),
                     ),
                   ],
@@ -123,14 +124,14 @@ class _AddAutoState extends State<AddAuto> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'City',
+                        labelText: 'Supplies',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Employee Id',
+                        labelText: 'Payment',
                       ),
                     ),
                   ],

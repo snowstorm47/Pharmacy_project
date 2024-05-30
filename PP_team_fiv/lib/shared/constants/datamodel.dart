@@ -10,6 +10,8 @@ class DataModel {
     required this.employeeName,
     required this.phone,
     required this.companyName,
-    required this.email,
+    required this.email, 
   });
+
+  
 }
