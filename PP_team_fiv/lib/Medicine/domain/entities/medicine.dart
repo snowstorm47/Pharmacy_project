@@ -2,62 +2,58 @@
 
 
 import 'package:app/Medicine/domain/entities/batch.dart';
-
 class Medicine {
-  final String MedicineName;
-  final int balance;
+  final String medicineName;
   final List<Batch> batch; // Assuming Batch is a defined class
-  final String Catagory;
+  final String catagory;
   final String weight;
-  final String GenericName;
-  final int SuppliersPrice;
-  final int SellingPrice;
-  final bool Taxable;
-  final bool PrescriptionBased;
-  final String Details;
+  final String genericName;
+  final int suppliersPrice;
+  final int sellingPrice;
+  final bool taxable;
+  final bool prescriptionBased;
+  final String details;
  Medicine({
-  required this.MedicineName,
-  required this.balance,
+  required this.medicineName,
   required this.batch,
-  required this.Catagory,
+  required this.catagory,
   required this.weight,
-  required this.Details,
-  required this.GenericName,
-  required this.PrescriptionBased,
-  required this.SellingPrice,
-  required this.SuppliersPrice,
-  required this.Taxable
+  required this.details,
+  required this.genericName,
+  required this.prescriptionBased,
+  required this.sellingPrice,
+  required this.suppliersPrice,
+  required this.taxable
   
  });
   factory Medicine.fromMap(Map<String, dynamic> map) {
     return Medicine(
-      MedicineName: map['MedicineName'] as String,
-      balance: map['balance'] as int,
+      medicineName: map['medicineName'] as String,
+      
       batch: (map['batch'] as List<dynamic>).cast<Batch>(), // Assuming Batch has a fromMap function
-      Catagory: map['Catagory'] as String,
+      catagory: map['Catagory'] as String,
       weight: map['weight'] as String,
-      GenericName: map['GenericName'] as String,
-      SuppliersPrice: map['SuppliersPrice'] as int,
-      SellingPrice: map['SellingPrice'] as int,
-      Taxable: map['Taxable'] as bool,
-      PrescriptionBased: map['PrescriptionBased'] as bool,
-      Details: map['Details'] as String,
+      genericName: map['GenericName'] as String,
+      suppliersPrice: map['SuppliersPrice'] as int,
+      sellingPrice: map['SellingPrice'] as int,
+      taxable: map['Taxable'] as bool,
+      prescriptionBased: map['PrescriptionBased'] as bool,
+      details: map['Details'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'MedicineName': MedicineName,
-      'balance': balance,
+      'medicineName': medicineName,
       'batch': batch, // Assuming Batch has a toMap function
-      'Catagory': Catagory,
+      'catagory': catagory,
       'weight': weight,
-      'GenericName': GenericName,
-      'SuppliersPrice': SuppliersPrice,
-      'SellingPrice': SellingPrice,
-      'Taxable': Taxable,
-      'PrescriptionBased': PrescriptionBased,
-      'Details': Details,
+      'genericName': genericName,
+      'suppliersPrice': suppliersPrice,
+      'sellingPrice': sellingPrice,
+      'taxable': taxable,
+      'prescriptionBased': prescriptionBased,
+      'details': details,
     };
   }
 }
