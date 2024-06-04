@@ -4,11 +4,10 @@ import 'package:app/Medicine/domain/entities/batch.dart';
 import 'package:app/Medicine/domain/entities/medicine.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-class MedicineRepo{
-   final FirebaseStorage _firebaseStorage;
+import 'package:flutter/material.dart';class MedicineRepo{
+
   final FirebaseFirestore _firebaseFirestore;
-  MedicineRepo(this._firebaseFirestore,this._firebaseStorage);
+  MedicineRepo(this._firebaseFirestore);
  
 Future<void>  addMedicine(
   {
@@ -28,31 +27,26 @@ Future<void>  addMedicine(
   }
   )async{
   
-  final CollectionReference medRef = _firebaseFirestore.collection('Medicine');
+  final CollectionReference medRef = _firebaseFirestore.collection('medicine');
   final docName = medicineName;
-  final  List<Batch>batchList=[];
   final batchNumber= dateAdded.toString();
-  final batch= Batch(
-    location: location,
-     batchNumber:batchNumber, 
-     expiryDate:expiryDate,
-      dateAdded: dateAdded, 
-      stock: stock
-           );
-     batchList.add(batch);
-    final med = Medicine(
-      catagory: catagory,
-       medicineName: medicineName,
-         weight:weight, 
-         batch: batchList,
-          details: details,
-           genericName:genericName,
-            prescriptionBased: prescriptionBased,
-             sellingPrice: sellingPrice, 
-             suppliersPrice: suppliersPrice,
-              taxable: taxable,     
-    );
-      await medRef.doc(docName).set(med);
+ final batchRef = medRef.doc(docName).collection('batches');
+ final batchId = batchRef.doc().id;
+final batch= Batch(location: location, expiryDate: expiryDate, batchNumber: dateAdded.toString(), stock: stock, dateAdded: dateAdded,batchId:batchId);
+await batchRef.doc(batchId).set(batch.toMap());
+    
+      await medRef.doc(docName).set({
+    'catagory': catagory,
+    'medicineName': medicineName,
+    'weight': weight,
+    'details': details,
+    'genericName': genericName,
+    'prescriptionBased': prescriptionBased,
+    'sellingPrice': sellingPrice,
+    'suppliersPrice': suppliersPrice,
+    'taxable': taxable,
+  
+  });
   }
   Future<void> deleteMedicince({
     required medicineName,
@@ -62,47 +56,34 @@ Future<void>  addMedicine(
     required details,
   }) async{
  CollectionReference medRef =  _firebaseFirestore.collection('medicine');
-  try{
- QuerySnapshot querysnapshot = await medRef.where('MedicineName' ,isEqualTo: medicineName).get();
- if(querysnapshot == null){
-  print("the medicine you want to delete doesn't exist");
- }
- else{
-  querysnapshot.docs.forEach((doc)async{
-    await medRef.doc(doc.id).delete();
-    print("medicine is deleted successfully");
-  });
- }
-  }catch(e){
-    print(e.toString());
+    
+
+  try {
+    // Delete the medicine document by name
+    await medRef.doc(medicineName).delete();
+    print('Medicine "$medicineName" deleted successfully.');
+  } catch (error) {
+    // Handle potential errors (e.g., document not found, network issues)
+    print('Error deleting medicine: $error');
   }
   }
-Future<void> removeBatch({required medicineName,required batchNumber}) async {
-  final medRef = _firebaseFirestore.collection('medicine').doc(medicineName);
-  final batchNum = batchNumber;
-  final transaction = await _firebaseFirestore.runTransaction((transaction)async{
- final docSnapshot = await transaction.get(medRef);
-  if(docSnapshot.exists){
-final data = docSnapshot.data();
-if(data!=null){
-  if(data.containsKey('batch')){
-    final List<Batch> batchList = List.from(data['batch'] as List<Batch>);
-    batchList.removeWhere((batch)=>batch.batchNumber== batchNum);
-    transaction.update(medRef,{'batch':batchList});
-  }else{
-    print("the doc doesn't have the key batch");
+Future<void> removeBatch({required medicineName,required batchid}) async {
+
+  final CollectionReference medRef = _firebaseFirestore.collection('medicine');
+
+  try {
+    // Create a reference to the specific batch document
+    final batchRef = medRef.doc(medicineName).collection('batches').doc(batchid);
+
+    // Delete the batch document
+    await batchRef.delete();
+    print('Batch "$batchid" from medicine "$medicineName" deleted successfully.');
+  } catch (error) {
+    // Handle potential errors (e.g., document not found, network issues)
+    print('Error deleting batch: $error');
   }
-}
-  }else{
-    print('there is no file');
-  }
-  }); 
- if(transaction!=null){
-  print('batch remove successfully');
- }
- else{
-  print('falied to remove batch');
- }
+
+
 }
 
 Future<void> updateMedicine( String medicineName, {required Map<String,dynamic> updatedData}) async{
@@ -120,42 +101,52 @@ await _firebaseFirestore.runTransaction((transaction) async {
 });
 }
 
-Future<List<QueryDocumentSnapshot>?>searchMedicine({required String medicineName})async{
- final searchMed = medicineName;
- final medRef = _firebaseFirestore.collection('medicine');
- final query= medRef.where('medicineName', isGreaterThanOrEqualTo: searchMed );
-  final querySnapshot = await query.get();
-  return querySnapshot.docs;
+Future<List<Object>?> searchMedicine( String medicineName) async {
+  final searchTerm = medicineName.toLowerCase(); // Lowercase search term
+  final medRef = _firebaseFirestore.collection('medicine');
+  final query = medRef.where('medicineName', isEqualTo: searchTerm); // Match exact name
+ return query.get().then((querySnapshot) {
+    print(querySnapshot.docs); // Print retrieved documents
+     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();;
+  });
 }
 
-Future<bool> checkExpiry(Batch batch) async{
-  DateTime now = DateTime.now();
-  Duration oneDay = const Duration(days: 1);
-  Duration oneMonth =const  Duration(days: 30); 
-  // Assuming 30 days per month
 
-  // Calculate minimum and maximum expiry dates within the range
-  DateTime minExpiryDate = now.add(oneDay);
-  DateTime maxExpiryDate = now.add(oneMonth);
-  
-        if(batch.expiryDate == DateTime.now()){
-          return true;
-        }
-        if(batch.expiryDate.isAtSameMomentAs(minExpiryDate) ||
-         batch.expiryDate.isAfter(minExpiryDate) &&batch.expiryDate.isBefore(maxExpiryDate.add(oneDay))){
-        
-           return false;
-         }
-         else{
-          return false;
-         }
+Future<bool> checkExpiry(String medicineName,String batchNumber)async{
+ 
+  final CollectionReference medRef = _firebaseFirestore.collection('medicine');
+
+  try {
+    // Create a reference to the specific batch document
+    final batchRef = medRef.doc(medicineName).collection('batches').doc(batchNumber);
+
+    final docSnapshot = await batchRef.get();
+
+    if (docSnapshot.exists) {
+      final batchData = docSnapshot.data()!;
+      final expiryDate = batchData['expiryDate'] as Timestamp;
+
+      // Check if expiry date has passed
+      return expiryDate.toDate().isBefore(DateTime.now());
+    } else {
+      // Handle case where batch document doesn't exist
+      print('Batch "$batchNumber" not found in medicine "$medicineName".');
+      return false; // Or handle differently based on your logic
+    }
+  } catch (error) {
+    // Handle potential errors (e.g., document not found, network issues)
+    print('Error checking batch expiry: $error');
+    return false; // Or handle differently based on your logic
+  }
+
+
 }
 
 Future<Color?> colorCoding(String batchNum,String medicineName) async{
    final searchItem = batchNum;
    final med = medicineName;
-   final medRef = _firebaseFirestore.collection('medicine');
-   final document = medRef.doc(med);
+
+   final batchRef = _firebaseFirestore.collection('medicine').doc(med).collection('batches').doc(searchItem);
   DateTime now = DateTime.now();
   Duration oneDay = const Duration(days: 1);
   Duration oneMonth = const Duration(days: 30); 
@@ -165,136 +156,99 @@ Future<Color?> colorCoding(String batchNum,String medicineName) async{
   DateTime minExpiryDate = now.add(oneDay);
   DateTime maxExpiryDate = now.add(oneMonth);
 
-   final transaction = await _firebaseFirestore.runTransaction((transaction)async{
- final docSnapshot = await transaction.get(document);
+  
+ final docSnapshot = await batchRef.get() ;
   if(docSnapshot.exists){
 final data = docSnapshot.data();
 if(data!=null){
-  if(data.containsKey('batch')){
-    final List<Batch> batchList = List.from(data['batch'] as List<Batch>);
-     for(Batch batch in batchList){
-       if(batch.batchNumber == searchItem){
-        if(batch.expiryDate == DateTime.now()){
-          Color color =  Colors.red;
-          return color;
-        }
-        if(batch.expiryDate.isAtSameMomentAs(minExpiryDate) ||
-         batch.expiryDate.isAfter(minExpiryDate) &&batch.expiryDate.isBefore(maxExpiryDate.add(oneDay))){
-           Color color = Colors.yellow;
-           return color;
-         }
-         else{
-          Color color = Colors.green;
-          return color;
-         }
+          if (data['expiryDate'] != null) {
+              final batchExpiryDate = data['expiryDate'] as Timestamp;
+              final expiryDate = batchExpiryDate.toDate();
 
-       }
-     }
-  }else{
-    print("the doc doesn't have the batch");
-  }
-}
+              if (expiryDate == now) {
+                return Colors.red; // Expired
+              } else if (expiryDate.isAtSameMomentAs(minExpiryDate) ||
+                  expiryDate.isAfter(minExpiryDate) &&
+                      expiryDate.isBefore(maxExpiryDate.add(oneDay))) {
+                return Colors.yellow; // Nearly Expired
+              } else {
+                return Colors.green; // Not Expired
+              }
+     }}
+
+
   }else{
     print('there is no file');
   }
-  });
+ 
    return null;
  
-
-
 }  
-
 Future<void> sellItem(String medicineName, int quantityToSell) async {
-  final itemRef = _firebaseFirestore.collection('medicine').doc(medicineName);
+  final medicineRef = _firebaseFirestore.collection('medicine').doc(medicineName);
+  final CollectionReference batchRef = _firebaseFirestore.collection('medicine').doc(medicineName).collection('batches'); 
+  final docSnapshot = await batchRef.get();
+  await _firebaseFirestore.runTransaction((transaction) async {
+     if(docSnapshot!= null){
+        final documents = docSnapshot.docs;
+        for(final doc in documents){
+          final batch = doc.data()!;
+          
+           if(batch != null){
+           final batchList = batch as Map<String,dynamic>;
+           final quantity = batchList['stock'];
+           if(quantity >= quantityToSell){
+             final newquantity = quantity -quantityToSell;
+             if(newquantity == 0){
+              final batchId = batchList['batchId'];
+              await transaction.delete(batchRef.doc(batchId));
+             }
+             else{
+              final batchId = batchList['batchId'];
+              await transaction.update(batchRef.doc(batchId),{'stock':newquantity});
+             }
+           }
+           else{
+             print('there was nothing inside the batch');
+           }
+           }
+          }
+        }
+     
+     else{
+      print('there is no document');
+     }
+  });
+  }
+
+
+
+  Future<void> addBatch({
+  required String medicineName,
+  required String location,
+  required DateTime expiryDate,
+  required String batchNumber,
+  required int stock,
+  required DateTime dateAdded,
+}) async {
+  final medicineRef = _firebaseFirestore.collection('medicine').doc(medicineName);
 
   await _firebaseFirestore.runTransaction((transaction) async {
-    final itemSnapshot = await transaction.get(itemRef);
-    if (!itemSnapshot.exists) {
-      // Handle the case where the item doesn't exist
-      return;
+    final medicineSnapshot = await transaction.get(medicineRef);
+    if (medicineSnapshot.exists) {
+      // Reference the "batches" subcollection
+      final batchRef = medicineRef.collection('batches');
+      final batchId = batchRef.id;
+      // Create a new batch document with the provided data
+      final batchData = Batch(
+          location: location, expiryDate: expiryDate, batchNumber: batchNumber, stock: stock, dateAdded: dateAdded, batchId: batchId)
+          .toMap();
+      await transaction.set(batchRef.doc(), batchData);
+      print('Batch added successfully');
+    } else {
+      print('Medicine document $medicineName does not exist');
     }
-
-    final itemData = itemSnapshot.data()!;
-    final batches = itemData['batch'] as List<Batch>;
-
-    if (batches.isEmpty) {
-      // Handle the case where there are no batches
-      return;
-    }
-
-    final firstBatchQuantity = batches.first;
-   
-    if (firstBatchQuantity.stock < quantityToSell) {
-      // Handle the case where not enough items are available
-    
-      for(Batch batch in  batches){
-          if(batch.stock > quantityToSell){
-    final newQuantity = batch.stock - quantityToSell;
-          if(newQuantity == 0){
-      batches.remove(batch);
-            }
-    transaction.update(itemRef, {
-      'batch': [newQuantity, ...batches.sublist(1)],
-    });
-          return;
-          }
-          else{
-            for(Batch batch in batches){
-              int cumulativeStock=0;
-              cumulativeStock += batch.stock;
-                if(cumulativeStock >= quantityToSell){
-               
-            }
-            }
-          
-          }
-      }
-      return null;
-    }
-
-    final newQuantity = firstBatchQuantity.stock - quantityToSell;
-    transaction.update(itemRef, {
-      'batch': [newQuantity, ...batches.sublist(1)],
-    });
   });
 }
-Future<void> addBatch(
-  {
-    required medicineName,
-    required location,
-    required expiryDate,
-    required batchNumber,
-    required stock,
-    required dateAdded,
-  }
-)async{
-  final medRef= _firebaseFirestore.collection('medicine').doc(medicineName);
-  final batch= Batch(location: location, expiryDate: expiryDate, batchNumber: batchNumber, stock: stock, dateAdded: dateAdded);
-  
- final transaction = await _firebaseFirestore.runTransaction((transaction)async{
- final docSnapshot = await transaction.get(medRef);
-  if(docSnapshot.exists){
-  final data = docSnapshot.data();
-if(data!=null){
-  if(data.containsKey('batch')){
-    final List<Batch> batchList = List.from(data['batch'] as List<Batch>);
-    batchList.add(batch);
-    transaction.update(medRef,{'batch':batchList});
-  }else{
-    print("the doc doesn't have the key batch");
-  }
-}
-  }else{
-    print('there is no file');
-  }
-  }); 
- if(transaction!=null){
-  print('batch added successfully');
- }
- else{
-  print('falied to added batch');
- }
-
 }
 
-}
