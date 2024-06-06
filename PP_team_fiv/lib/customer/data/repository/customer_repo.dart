@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 
+
 Future<List<List<dynamic>>?> pickAndReadCsv() async {
   final result = await FilePicker.platform.pickFiles(
     allowMultiple: false, // Only allow selecting a single file
@@ -16,7 +17,7 @@ Future<List<List<dynamic>>?> pickAndReadCsv() async {
   if (result != null) {
     final file = result.files.single.bytes;
     if(file!= null){
-    final csvList = const CsvToListConverter().convert(String.fromCharCodes(file));
+    final csvList = const CsvToListConverter(eol:'\n').convert(String.fromCharCodes(file));
     return csvList;
     }
   } else {
@@ -44,45 +45,11 @@ class CustomerRepo{
     required policyNumber,
     required emergencyContact,
     required details,
+    required empData,
   })async{
     
    final customerRef = _firebaseFirestore.collection('Customer');
-   final csvData = await pickAndReadCsv();
-   try{
-   if(csvData != null){
-     final info = <Object>[];
-     double credit =0;
-      for (final row in csvData.skip(1)) { // Skip the header row (assuming the first row has column names)
-    if (row.length >= 10) { // Ensure enough columns for name, description, and price
-      final employeeId = row[0] as String;
-      final company = row[1] as String ?? companyName;
-      final firstName = row[2]as String;
-      final lastName = row[3] as String;
-      final email = row[4] as String;
-      final address= row[5] as String;
-      final city = row[6] as String;
-      final subCity = row[7] as String;
-      final role = row[8] as String;
-      final details = row[9] as String;
-      final employee =  Corpemployee(
-       employeeId: employeeId,
-       firstName:firstName,
-        lastName:lastName,
-        email:email,
-        company:company,
-        address:address,
-        city:city,
-        subCity:subCity,
-        role:role,
-        details:details,
-       credit:credit,
-       );
-      info.add(employee
-       );
-    } else {
-      print('Invalid row: ${row.join(",")}'); // Handle invalid rows (optional)
-    }
-  }
+   final csvData = empData;
      corporateCustomer customer = corporateCustomer(
       companyAddress: companyAddress, 
      paymentTerms: paymentTerms,
@@ -97,24 +64,50 @@ class CustomerRepo{
      policyNumber: policyNumber
             );
             await customerRef.doc(companyName).set(customer.toMap());
+final employeeRef = customerRef.doc(companyName).collection('employees');
+   try{
+   if(csvData != null){
+     var info = <Map<String,dynamic>> [];
+    
+      for (final row in csvData.skip(1)) { // Skip the header row (assuming the first row has column names)
+    if (row.length >= 10) { // Ensure enough columns for name, description, and price
+      final employeeId = row[0] as String;
+      final company = row[1] as String ;
+      final firstName = row[2]as String;
+      final lastName = row[3] as String;
+      final email = row[4] as String;
+      final address= row[5] as String;
+      final city = row[6] as String;
+      final subCity = row[7] as String;
+      final role = row[8] as String;
+      final details = row[9] as String;
+       var employee =  Corpemployee(
+       employeeId: employeeId,
+       firstName:firstName,
+        lastName:lastName,
+        email:email,
+        company:company,
+        address:address,
+        city:city,
+        subCity:subCity,
+        role:role,
+        details:details,
+       credit:0,
+       );
+       info.add(employee.toMap());
+    } else {
+      print('Invalid row: ${row.join(",")}'); // Handle invalid rows (optional)
+    }
+  }
+           print(info);
     for(final employeeData in info){
        if(employeeData!= null){
         final employeeRef = customerRef.doc(companyName).collection('employees');
-        final employeeInfo = employeeData as Map<String,dynamic>;
-        final employeeId= employeeInfo['employeeId'];
-       final employee = Corpemployee(credit: 0, 
-       company: employeeInfo['company'],
-       email: employeeInfo['email'],
-       employeeId: employeeId, 
-       firstName: employeeInfo['firstName'],
-       lastName: employeeInfo['lastName'],
-       address: employeeInfo['address'],
-       city: employeeInfo['city'],
-        details: employeeInfo['details'],
-         role: employeeInfo['role'], 
-          subCity: employeeInfo['subCity']);
-        await employeeRef.doc(employeeId).set(employee.toMap());
-      
+        final employee = employeeData;
+        await employeeRef.doc(employee['employeeId']).set(employee);
+       }
+       else{
+        print('there is problem here');
        }
     }
    }}
@@ -191,15 +184,12 @@ Future<List<Object>?> findCustomer(String company, String searchString) async {
 }
 
 // returns list of customers from different companies
-Future<List<Object>?> getAllProductsFromAllDocuments() async {
+Future<List<Object>?> getAllcustomers() async {
   final customerRef = _firebaseFirestore.collection('Customer');
-  final customers = <Corpemployee>[];
-
   try {
     final querySnapshot = await customerRef.get();
     for (final docSnapshot in querySnapshot.docs) {
       final companyData = docSnapshot.data()!;
-
       final companyName = companyData['companyName'] as String;
       final employeeRef = customerRef.doc(companyName).collection('employees');
       QuerySnapshot employeeSnapshot = await employeeRef.get();
