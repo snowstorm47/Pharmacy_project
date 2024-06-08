@@ -1,11 +1,13 @@
 class Batch{
  String location;
+ String branchId;
  String batchId;
  DateTime expiryDate;
  int stock;
  String batchNumber;
  DateTime dateAdded;
   Batch({
+    required this.branchId,
   required this.batchId,
   required   this.location,
   required this.expiryDate,
@@ -15,6 +17,7 @@ class Batch{
   });
   factory Batch.fromMap(Map<String, dynamic> map) {
     return Batch(
+      branchId:map['branchId'] as String,
       batchId:map['batchId'] as String,
       location: map['location'] as String,
       expiryDate: map['expiryDate'] as DateTime,
@@ -31,6 +34,7 @@ class Batch{
       'expiryDate': expiryDate,
       'batchNumber': batchNumber,
       'dateAdded': dateAdded, 
+      'branchId':branchId
     };
   }
 }

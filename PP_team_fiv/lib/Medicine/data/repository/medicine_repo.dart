@@ -4,14 +4,19 @@ import 'package:app/Medicine/domain/entities/batch.dart';
 import 'package:app/Medicine/domain/entities/medicine.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';class MedicineRepo{
+import 'package:flutter/material.dart';
+
+
+class MedicineRepo{
 
   final FirebaseFirestore _firebaseFirestore;
   MedicineRepo(this._firebaseFirestore);
  
 Future<void>  addMedicine(
   {
+   
      required medicineName,
+     required branchId,
     required location,
     required catagory,
     required weight,
@@ -28,11 +33,11 @@ Future<void>  addMedicine(
   )async{
   
   final CollectionReference medRef = _firebaseFirestore.collection('medicine');
-  final docName = medicineName;
+  final docName= medicineName;
   final batchNumber= dateAdded.toString();
- final batchRef = medRef.doc(docName).collection('batches');
+ final batchRef = medRef.doc(branchId).collection('batches');
  final batchId = batchRef.doc().id;
-final batch= Batch(location: location, expiryDate: expiryDate, batchNumber: dateAdded.toString(), stock: stock, dateAdded: dateAdded,batchId:batchId);
+final batch= Batch(location: location, expiryDate: expiryDate, batchNumber: dateAdded.toString(), stock: stock, dateAdded: dateAdded,batchId:batchId,branchId:branchId);
 await batchRef.doc(batchId).set(batch.toMap());
     
       await medRef.doc(docName).set({
@@ -45,38 +50,65 @@ await batchRef.doc(batchId).set(batch.toMap());
     'sellingPrice': sellingPrice,
     'suppliersPrice': suppliersPrice,
     'taxable': taxable,
+    'branchId':branchId
   
   });
   }
   Future<void> deleteMedicince({
     required medicineName,
+    required branchId,
     required catagory,
     required reason,
     required stock,
     required details,
   }) async{
  CollectionReference medRef =  _firebaseFirestore.collection('medicine');
-    
+// Create a query to find the product document with matching name (doc ID) and store ID
+final query = medRef
+  .where('medicineName', isEqualTo: medicineName)
+  .where('branchId', isEqualTo: branchId);  // Name matches doc ID
 
-  try {
-    // Delete the medicine document by name
-    await medRef.doc(medicineName).delete();
-    print('Medicine "$medicineName" deleted successfully.');
-  } catch (error) {
-    // Handle potential errors (e.g., document not found, network issues)
-    print('Error deleting medicine: $error');
+ final future = query.get().then((querySnapshot) {
+  if (querySnapshot.docs.isNotEmpty) {
+    // Get the document reference from the first document (assuming there should be only one)
+    final docRef = querySnapshot.docs.first.reference;
+    // Delete the document
+    return docRef.delete();
+  } else {
+    // Handle the case where no document is found (optional)
+    print('No product found with that name and store ID');
+    return null;
   }
+});
+
+// Optionally, handle the future result (success or failure)
+future.then((_) => print('Product deleted successfully')).catchError((error) => print('Error deleting product: $error'));
   }
-Future<void> removeBatch({required medicineName,required batchid}) async {
+Future<void> removeBatch({required medicineName,required batchid,required branchId}) async {
 
   final CollectionReference medRef = _firebaseFirestore.collection('medicine');
 
   try {
     // Create a reference to the specific batch document
-    final batchRef = medRef.doc(medicineName).collection('batches').doc(batchid);
+    
+    final query = medRef
+  .where('medicineName', isEqualTo: medicineName)
+  .where('branchId', isEqualTo: branchId);  // Name matches doc ID
 
-    // Delete the batch document
-    await batchRef.delete();
+ final future = query.get().then((querySnapshot) {
+  if (querySnapshot.docs.isNotEmpty) {
+    // Get the document reference from the first document (assuming there should be only one)
+    final docRef = querySnapshot.docs.first.reference;
+    // Delete the document
+    final batchRef =docRef.collection('batches').doc(batchid);
+    batchRef.delete();
+  } else {
+    // Handle the case where no document is found (optional)
+    print('No product found with that name and store ID');
+    return null;
+  }
+});
+   
     print('Batch "$batchid" from medicine "$medicineName" deleted successfully.');
   } catch (error) {
     // Handle potential errors (e.g., document not found, network issues)
@@ -184,10 +216,14 @@ if(data!=null){
    return null;
  
 }  
-Future<void> sellItem(String medicineName, int quantityToSell) async {
-  final medicineRef = _firebaseFirestore.collection('medicine').doc(medicineName);
-  final CollectionReference batchRef = _firebaseFirestore.collection('medicine').doc(medicineName).collection('batches'); 
-  final docSnapshot = await batchRef.get();
+Future<void> sellItem(String medicineName, int quantityToSell,String branchId) async {
+  final medicineRef = _firebaseFirestore.collection('medicine');
+  final query= medicineRef.where('medicineName',isEqualTo:medicineName).where('branchId',isEqualTo:branchId);
+   final querySnapshot = await query.get();
+   final med= await querySnapshot.docs.first.reference;
+   final batchRef= med.collection('batches');
+   final docSnapshot = await  batchRef.get();
+
   await _firebaseFirestore.runTransaction((transaction) async {
      if(docSnapshot!= null){
         final documents = docSnapshot.docs;
@@ -224,6 +260,7 @@ Future<void> sellItem(String medicineName, int quantityToSell) async {
 
 
   Future<void> addBatch({
+    required String branchId,
   required String medicineName,
   required String location,
   required DateTime expiryDate,
@@ -241,7 +278,7 @@ Future<void> sellItem(String medicineName, int quantityToSell) async {
       final batchId = batchRef.id;
       // Create a new batch document with the provided data
       final batchData = Batch(
-          location: location, expiryDate: expiryDate, batchNumber: batchNumber, stock: stock, dateAdded: dateAdded, batchId: batchId)
+          location: location, expiryDate: expiryDate, batchNumber: batchNumber, stock: stock, dateAdded: dateAdded, batchId: batchId,branchId:branchId)
           .toMap();
       await transaction.set(batchRef.doc(), batchData);
       print('Batch added successfully');
