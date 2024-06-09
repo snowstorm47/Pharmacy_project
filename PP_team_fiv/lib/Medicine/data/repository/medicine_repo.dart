@@ -1,9 +1,9 @@
-import 'dart:ui';
+
 
 import 'package:app/Medicine/domain/entities/batch.dart';
-import 'package:app/Medicine/domain/entities/medicine.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -34,7 +34,7 @@ Future<void>  addMedicine(
   
   final CollectionReference medRef = _firebaseFirestore.collection('medicine');
   final docName= medicineName;
-  final batchNumber= dateAdded.toString();
+
  final batchRef = medRef.doc(branchId).collection('batches');
  final batchId = batchRef.doc().id;
 final batch= Batch(location: location, expiryDate: expiryDate, batchNumber: dateAdded.toString(), stock: stock, dateAdded: dateAdded,batchId:batchId,branchId:branchId);
@@ -220,7 +220,7 @@ Future<void> sellItem(String medicineName, int quantityToSell,String branchId) a
   final medicineRef = _firebaseFirestore.collection('medicine');
   final query= medicineRef.where('medicineName',isEqualTo:medicineName).where('branchId',isEqualTo:branchId);
    final querySnapshot = await query.get();
-   final med= await querySnapshot.docs.first.reference;
+   final med=  querySnapshot.docs.first.reference;
    final batchRef= med.collection('batches');
    final docSnapshot = await  batchRef.get();
 
@@ -237,11 +237,11 @@ Future<void> sellItem(String medicineName, int quantityToSell,String branchId) a
              final newquantity = quantity -quantityToSell;
              if(newquantity == 0){
               final batchId = batchList['batchId'];
-              await transaction.delete(batchRef.doc(batchId));
+               transaction.delete(batchRef.doc(batchId));
              }
              else{
               final batchId = batchList['batchId'];
-              await transaction.update(batchRef.doc(batchId),{'stock':newquantity});
+               transaction.update(batchRef.doc(batchId),{'stock':newquantity});
              }
            }
            else{
