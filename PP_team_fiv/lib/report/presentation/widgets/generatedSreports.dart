@@ -53,7 +53,7 @@ class GeneratedSReports extends StatelessWidget {
     return Scaffold(
       appBar: Header(title: 'Report'),
       body: Padding(
-        padding: const EdgeInsets.all(106.0), // Changed to 16.0 for better UI
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -62,79 +62,141 @@ class GeneratedSReports extends StatelessWidget {
               style: TextStyle(fontSize: 23),
             ),
             SizedBox(height: 40),
-            Row(
-              children: [
-                Container(
-                  color: const Color.fromARGB(255, 198, 195, 195),
-                  alignment: Alignment.center,
-                  width: 100,
-                  height: 40,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Export',
-                          style: TextStyle(fontSize: 13),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth < 600) {
+                  // Small screen layout
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: const Color.fromARGB(255, 198, 195, 195),
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Export',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              PopupMenuButton<String>(
+                                onSelected: (String value) {
+                                  // Handle the selected value here
+                                  print(value);
+                                },
+                                icon: Icon(Icons.arrow_drop_down),
+                                itemBuilder: (BuildContext context) => [
+                                  PopupMenuItem(
+                                    value: 'Export as PDF',
+                                    child: Text('Export as PDF'),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 'Export as Excel',
+                                    child: Text('Export as Excel'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                    PopupMenuButton<String>(
-                          onSelected: (String value) {
-                            // Handle the selected value here
-                            print(value);
-                          },
-                          icon: Icon(Icons.arrow_drop_down),
-                          itemBuilder: (BuildContext context) => [
-                            PopupMenuItem(
-                              value: 'Export as PDF',
-                              child: Text('Export as PDF'),
-                            ),
-                            PopupMenuItem(
-                              value: 'Export as Excel',
-                              child: Text('Export as Excel'),
-                            ),
-                          ],
-                        )
-                    
-                      
-                      
-                      
-                    
-                      ],
-                    ),
-                  ),
-                    
-
-
-                ),
-                Spacer(),
-                SizedBox(
-                  width: 200,
-                  height: 30,
-                  child: TextField(
-                    
-                    decoration: InputDecoration(
-                  fillColor: Color.fromARGB(255, 198, 195, 195),
-                  filled: true,
-                      hintText: 'Search',
-                      suffixIcon: Icon(
-                        Icons.search,
-                        size: 20,
                       ),
-                     
-                    ),
-                  ),
-                ),
-              ],
+                      SizedBox(height: 10),
+                      SizedBox(
+                        width: 200,
+                        height: 30,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Color.fromARGB(255, 198, 195, 195),
+                            filled: true,
+                            hintText: 'Search',
+                            suffixIcon: Icon(
+                              Icons.search,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  // Large screen layout
+                  return Row(
+                    children: [
+                      Container(
+                        color: const Color.fromARGB(255, 198, 195, 195),
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Export',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              PopupMenuButton<String>(
+                                onSelected: (String value) {
+                                  // Handle the selected value here
+                                  print(value);
+                                },
+                                icon: Icon(Icons.arrow_drop_down),
+                                itemBuilder: (BuildContext context) => [
+                                  PopupMenuItem(
+                                    value: 'Export as PDF',
+                                    child: Text('Export as PDF'),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 'Export as Excel',
+                                    child: Text('Export as Excel'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        width: 200,
+                        height: 30,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Color.fromARGB(255, 198, 195, 195),
+                            filled: true,
+                            hintText: 'Search',
+                            suffixIcon: Icon(
+                              Icons.search,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
             ),
-            SizedBox(height: 40),
-            _buildHeaderRow(),
+            
             SizedBox(height: 10),
             Expanded(
-              child: ListView.separated(
-                itemBuilder: (context, index) => _buildDataRow(data[index]),
-                separatorBuilder: (context, index) => SizedBox(height: 10),
-                itemCount: data.length,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeaderRow(),
+                    SizedBox(height: 10),
+                    Column(
+                      children: data.map((item) => _buildDataRow(item)).toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -152,7 +214,6 @@ class GeneratedSReports extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(12.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildHeaderCell('No'),
             _buildHeaderCell('Medicine Name'),
@@ -175,7 +236,6 @@ class GeneratedSReports extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(12.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildDataCell(data.no),
             _buildDataCell(data.medicinename),
@@ -190,7 +250,8 @@ class GeneratedSReports extends StatelessWidget {
   }
 
   Widget _buildHeaderCell(String text) {
-    return Expanded(
+    return Container(
+      width: 100, // Specify a fixed width to make it scrollable
       child: Text(
         text,
         style: TextStyle(
@@ -202,7 +263,8 @@ class GeneratedSReports extends StatelessWidget {
   }
 
   Widget _buildDataCell(String text) {
-    return Expanded(
+    return Container(
+      width: 100, // Specify a fixed width to make it scrollable
       child: Text(
         text,
         style: TextStyle(

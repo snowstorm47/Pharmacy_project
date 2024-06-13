@@ -1,240 +1,178 @@
-
-
-
 import 'package:clean_a/header.dart';
 import 'package:clean_a/shared/constants/DataB.dart';
-
 import 'package:flutter/material.dart';
 
-class RefillRequest extends StatefulWidget {
+class RefillRequest extends StatelessWidget {
   const RefillRequest({super.key});
 
   @override
-  State<RefillRequest> createState() => _SupplierListsState();
-}
-
-class _SupplierListsState extends State<RefillRequest> {
-  @override
   Widget build(BuildContext context) {
-     int _totalPages = 3;
     final data = [
       DataB(
         Branch_id: '01',
-      Name: 'yohannes dereje',
-       Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
       DataB(
-       Branch_id: '01',
-      Name: 'yohannes dereje',
-       Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Branch_id: '01',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
       DataB(
-         Branch_id: '01',
-      Name: 'yohannes dereje',
-       Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Branch_id: '01',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
       DataB(
-       Branch_id: '01',
-      Name: 'yohannes dereje',
-       Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Branch_id: '01',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
       DataB(
-       Branch_id: '01',
-      Name: 'yohannes dereje',
-       Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Branch_id: '01',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
       DataB(
-       Branch_id: '01',
-      Name: 'yohannes dereje',
-    Request: 'Paractamol',
-     Date: '2/12/23',
-        Requested_By: 'JohnD',
+        Branch_id: '01',
+        Name: 'yohannes dereje',
+        Request: 'abel',
+        Date: 'Gulele',
+        Requested_By: 'AbelaTechB@gmail.com',
       ),
-     
     ];
 
     return Scaffold(
-      appBar: Header(title: 'Branches'),
-      
-      body: Padding(
-        padding: EdgeInsets.all(50.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Refill Requests',
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'Poppins.regular',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'List of refill requests',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  onPressed: () {},
-                  child: Text(
-                    'Filter By',
-                    style: TextStyle(color: Colors.white),
+      appBar: Header(title: 'Return'),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isTablet = constraints.maxWidth > 600;
+          double padding = isTablet ? 46.0 : 16.0;
+
+          return Padding(
+            padding: EdgeInsets.all(padding),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Refill requests',
+                    style: TextStyle(fontSize: isTablet ? 23 : 20),
                   ),
-                ),
-               
-              ],
-            ),
-            SizedBox(height: 20.0),
-            _buildHeaderRow(),
-            SizedBox(height: 10.0),
-            Expanded(
-              child: ListView.separated(
-                itemCount: data.length,
-                separatorBuilder: (context, index) => SizedBox(height: 10.0),
-                itemBuilder: (context, index) => _buildDataRow(data[index]),
+                  Text(
+                    'List of refill requests',
+                    style: TextStyle(fontSize: isTablet ? 23 : 20),
+                  ),
+                  SizedBox(height: isTablet ? 40 : 20),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      children: [
+                        _buildHeaderRow(isTablet),
+                        Column(
+                          children: data.map((item) => _buildDataRow(item, isTablet)).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-                 SizedBox(height: 20.0),
-            Row(
-              
-          
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                onPressed: (){}, // No functionality needed
-                child: Text('Prev',style: TextStyle(color: Colors.black),),
-                
-              ),
-              SizedBox(width: 1.0),
-              for (int i = 1; i <= _totalPages; i++)
-                ElevatedButton(
-                 style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                  onPressed: null, // No functionality needed
-                  child: Text('$i'),
-                ),
-            
-              ElevatedButton(
-               style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                onPressed: (){}, // No functionality needed
-                child: Text('Next',),
-              ),
-            SizedBox(width: 700.0),
-           ],
-          ),
-    
-
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildHeaderRow() {
+  Widget _buildHeaderRow(bool isTablet) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(2.0),
-      ),
+      color: Colors.blue,
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildHeaderCell('Branch_Id'),
-            _buildHeaderCell('Name'),
-            _buildHeaderCell('Request'),
-            _buildHeaderCell('Date'),
-            _buildHeaderCell('Requested By'),
-            _buildHeaderCell('Actions'),
+            _buildHeaderCell('Branch_Id', isTablet),
+            _buildHeaderCell('Name', isTablet),
+            _buildHeaderCell('Request', isTablet),
+            _buildHeaderCell('Date', isTablet),
+            _buildHeaderCell('Requested By', isTablet),
+            _buildHeaderCell('Actions', isTablet),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDataRow(DataB data) {
+  Widget _buildDataRow(DataB data, bool isTablet) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {
-                      // Add your checkbox functionality here
-                    },
-                  ),
-                  SizedBox(width: 8.0),
-                  _buildDataCell(data.Branch_id),
-                ],
-              ),
-            ),
-            _buildDataCell(data.Name),
-            _buildDataCell(data.Request),
-            _buildDataCell(data.Date),
-            _buildDataCell(data.Requested_By),
-            _buildDataCell('', isAction: true),
+            _buildDataCell(data.Branch_id, isTablet),
+            _buildDataCell(data.Name, isTablet),
+            _buildDataCell(data.Request, isTablet),
+            _buildDataCell(data.Date, isTablet),
+            _buildDataCell(data.Requested_By, isTablet),
+            _buildDataCell('', isAction: true, isTablet),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeaderCell(String text) {
-    return Expanded(
+  Widget _buildHeaderCell(String text, bool isTablet) {
+    return Container(
+      width: isTablet ? 150 : 120,
       child: Text(
         text,
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
 
-  Widget _buildDataCell(String text, {bool isAction = false}) {
-    return Expanded(
+  Widget _buildDataCell(String text, bool isTablet, {bool isAction = false}) {
+    return Container(
+      width: isTablet ? 150 : 120,
       child: isAction
           ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   Icons.message,
-                  color: Colors.black54,
-                  size: 17,
+                  color: Colors.black,
+                  size: isTablet ? 17 : 15,
                 ),
-                SizedBox(width: 7.0),
+                SizedBox(width: isTablet ? 17 : 10),
                 Icon(
                   Icons.delete,
                   color: Colors.red,
-                  size: 17,
+                  size: isTablet ? 17 : 15,
                 ),
-                SizedBox(width: 7.0),
+                SizedBox(width: isTablet ? 17 : 10),
                 Icon(
                   Icons.edit,
-                  color: Colors.black54,
-                  size: 17,
+                  color: Colors.black,
+                  size: isTablet ? 17 : 15,
                 ),
               ],
             )
@@ -242,7 +180,9 @@ class _SupplierListsState extends State<RefillRequest> {
               text,
               style: TextStyle(
                 color: Colors.black,
+                fontSize: isTablet ? 16 : 14,
               ),
+              textAlign: TextAlign.center,
             ),
     );
   }

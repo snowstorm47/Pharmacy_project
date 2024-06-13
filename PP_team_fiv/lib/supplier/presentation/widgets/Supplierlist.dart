@@ -1,88 +1,78 @@
-
-
 import 'package:clean_a/header.dart';
+import 'package:clean_a/shared/constants/DataB.dart';
 import 'package:clean_a/shared/constants/dataS.dart';
 import 'package:flutter/material.dart';
 
-class SupplierLists extends StatefulWidget {
+class SupplierLists extends StatelessWidget {
   const SupplierLists({super.key});
 
   @override
-  State<SupplierLists> createState() => _SupplierListsState();
-}
-
-class _SupplierListsState extends State<SupplierLists> {
-  @override
   Widget build(BuildContext context) {
-     int _totalPages = 3;
     final data = [
       DataS(
         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'active',
-        Adress: '@example.com',
+        Name: 'yohannes dereje',
+        Phone: 'abel',
+       Status: 'Gulele',
+       Adress: 'AbelaTechB@gmail.com',
       ),
       DataS(
         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'Active',
-        Adress: '@example.com',
-      ),
-      DataS(
-         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'inactive',
-        Adress: '@example.com',
+        Name: 'yohannes dereje',
+        Phone: 'abel',
+       Status: 'Gulele',
+       Adress: 'AbelaTechB@gmail.com',
       ),
       DataS(
         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'active',
-        Adress: '@example.com',
+        Name: 'yohannes dereje',
+        Phone: 'abel',
+       Status: 'Gulele',
+       Adress: 'AbelaTechB@gmail.com',
       ),
       DataS(
         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'inacctive',
-        Adress: '@example.com',
+        Name: 'yohannes dereje',
+        Phone: 'abel',
+       Status: 'Gulele',
+       Adress: 'AbelaTechB@gmail.com',
       ),
       DataS(
         Supplier_id: '01',
-       Name: 'yohannes dereje',
-        Phone: '+2311149021',
-      Status: 'active',
-        Adress: '@example.com',
+        Name: 'yohannes dereje',
+        Phone: 'abel',
+       Status: 'Gulele',
+       Adress: 'AbelaTechB@gmail.com',
       ),
-     
+      
+      
     ];
 
     return Scaffold(
       appBar: Header(title: 'Supplier'),
-      
-      body: Padding(
-        padding: EdgeInsets.all(50.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Supplier Lists',
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'Poppins.regular',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              'Here are your list of supliers :-',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20.0),
-            Row(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isTablet = constraints.maxWidth > 600;
+          double padding = isTablet ? 46.0 : 16.0;
+
+          return Padding(
+            padding: EdgeInsets.all(padding),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Supplier Lists',
+                    style: TextStyle(fontSize: isTablet ? 23 : 20),
+                  ),
+                    SizedBox(height: 20),
+                  Text(
+                    'Here are your list of suppliers ',
+                    style: TextStyle(fontSize: isTablet ? 23 : 20),
+                  ),
+                  SizedBox(height: isTablet ? 40 : 20),
+                    Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
@@ -105,149 +95,105 @@ class _SupplierListsState extends State<SupplierLists> {
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
-            _buildHeaderRow(),
-            SizedBox(height: 10.0),
-            Expanded(
-              child: ListView.separated(
-                itemCount: data.length,
-                separatorBuilder: (context, index) => SizedBox(height: 10.0),
-                itemBuilder: (context, index) => _buildDataRow(data[index]),
+            SizedBox(height: 20,),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      children: [
+                        _buildHeaderRow(isTablet),
+                        Column(
+                          children: data.map((item) => _buildDataRow(item, isTablet)).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-                 SizedBox(height: 20.0),
-            Row(
-              
-          
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                onPressed: (){}, // No functionality needed
-                child: Text('Prev',style: TextStyle(color: Colors.black),),
-                
-              ),
-              SizedBox(width: 1.0),
-              for (int i = 1; i <= _totalPages; i++)
-                ElevatedButton(
-                 style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                  onPressed: null, // No functionality needed
-                  child: Text('$i'),
-                ),
-            
-              ElevatedButton(
-               style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                onPressed: (){}, // No functionality needed
-                child: Text('Next',),
-              ),
-            SizedBox(width: 700.0),
-            ElevatedButton(
-               style:  ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 239, 237, 237),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                onPressed: (){}, // No functionality needed
-                child: Text('Delete selected medicines',),
-              ),],
-          ),
-    
-
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildHeaderRow() {
+  Widget _buildHeaderRow(bool isTablet) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(2.0),
-      ),
+      color: Colors.blue,
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildHeaderCell('Supplier_Id'),
-            _buildHeaderCell('Name'),
-            _buildHeaderCell('Phone'),
-            _buildHeaderCell('Status'),
-            _buildHeaderCell('Adress'),
-            _buildHeaderCell('Actions'),
+            _buildHeaderCell('Supplier_Id', isTablet),
+            _buildHeaderCell('Name', isTablet),
+            _buildHeaderCell('Phone', isTablet),
+            _buildHeaderCell('Status', isTablet),
+            _buildHeaderCell('Adress', isTablet),
+            _buildHeaderCell('Actions', isTablet),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDataRow(DataS data) {
+  Widget _buildDataRow(DataS data, bool isTablet) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {
-                      // Add your checkbox functionality here
-                    },
-                  ),
-                  SizedBox(width: 8.0),
-                  _buildDataCell(data.Supplier_id),
-                ],
-              ),
-            ),
-            _buildDataCell(data.Name),
-            _buildDataCell(data.Phone),
-            _buildDataCell(data.Status),
-            _buildDataCell(data.Adress),
-            _buildDataCell('', isAction: true),
+            _buildDataCell(data.Supplier_id, isTablet),
+            _buildDataCell(data.Name, isTablet),
+            _buildDataCell(data.Phone, isTablet),
+            _buildDataCell(data.Status, isTablet),
+            _buildDataCell(data.Adress, isTablet),
+            _buildDataCell('', isAction: true, isTablet),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeaderCell(String text) {
-    return Expanded(
+  Widget _buildHeaderCell(String text, bool isTablet) {
+    return Container(
+      width: isTablet ? 150 : 120,
       child: Text(
         text,
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
 
-  Widget _buildDataCell(String text, {bool isAction = false}) {
-    return Expanded(
+  Widget _buildDataCell(String text, bool isTablet, {bool isAction = false}) {
+    return Container(
+      width: isTablet ? 150 : 120,
       child: isAction
           ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   Icons.message,
-                  color: Colors.black54,
-                  size: 17,
+                  color: Colors.black,
+                  size: isTablet ? 17 : 15,
                 ),
-                SizedBox(width: 7.0),
+                SizedBox(width: isTablet ? 17 : 10),
                 Icon(
                   Icons.delete,
                   color: Colors.red,
-                  size: 17,
+                  size: isTablet ? 17 : 15,
                 ),
-                SizedBox(width: 7.0),
+                SizedBox(width: isTablet ? 17 : 10),
                 Icon(
                   Icons.edit,
-                  color: Colors.black54,
-                  size: 17,
+                  color: Colors.black,
+                  size: isTablet ? 17 : 15,
                 ),
               ],
             )
@@ -255,7 +201,9 @@ class _SupplierListsState extends State<SupplierLists> {
               text,
               style: TextStyle(
                 color: Colors.black,
+                fontSize: isTablet ? 16 : 14,
               ),
+              textAlign: TextAlign.center,
             ),
     );
   }

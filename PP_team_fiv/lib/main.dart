@@ -1,3 +1,5 @@
+import 'package:clean_a/branch_M/presentation/widgets/Addbranch.dart';
+import 'package:clean_a/branch_M/presentation/widgets/BranchStock.dart';
 import 'package:clean_a/branch_M/presentation/widgets/Refill.dart';
 import 'package:clean_a/customer/presentation/Branchlist.dart';
 import 'package:clean_a/customer/presentation/add_autho_user.dart';
@@ -8,10 +10,16 @@ import 'package:clean_a/dashboard/presentation/widgets/piechart_widget.dart';
 import 'package:clean_a/header.dart';
 
 import 'package:clean_a/login_p/presentation/new_p.dart';
+import 'package:clean_a/medicine/presentation/widgets/DeleteMed.dart';
+import 'package:clean_a/medicine/presentation/widgets/add%20med.dart';
+import 'package:clean_a/medicine/presentation/widgets/medicinedetail.dart';
 import 'package:clean_a/report/presentation/widgets/Generated_p_Reports.dart';
 import 'package:clean_a/report/presentation/widgets/generatedSreports.dart';
 import 'package:clean_a/report/presentation/widgets/reportPurchase.dart';
 import 'package:clean_a/report/presentation/widgets/reportgenerate.dart';
+import 'package:clean_a/return/presentation/widgets/addDisposed.dart';
+import 'package:clean_a/return/presentation/widgets/deleteDisposedItem.dart';
+import 'package:clean_a/return/presentation/widgets/disposedlist.dart';
 import 'package:clean_a/sales/presentation/widgets/sales.dart';
 import 'package:clean_a/supplier/presentation/widgets/AddSupplier.dart';
 import 'package:clean_a/supplier/presentation/widgets/Supplierlist.dart';
@@ -48,26 +56,43 @@ class MyApp extends StatelessWidget {
   seriesList: MonthlyDataChart.createSampleData(),
 ),*/
       //Pie_chart(dataMap: dataMap),
-   // NewPPage(),
+   NewPPage(),
         // const Header(title: ''),
        // Dashboard_screen(),
        
        
    ////////////////////////////////////////    //2nd day
-       //AuthoUser(),
+      //AuthoUser(),                  
       //AddAuto(),
-  //sales(),
+ // Sales(),                  
 
-  //reportSGenerate(),
-  //GeneratedSReports(),
- // reportPGenerate(),
- //GeneratedPReports(),
- //
-  //SupplierLists(),
-//AddSupplier(),
-//RefillRequest(),
-BranchList(),
+ // ReportGenerate(),           
+//GeneratedSReports(),             
+  //ReportPGenerate(),             
+ //Generated_p_Reports(),             
  
+  //SupplierLists(),             
+//AddSupplier(),
+
+//RefillRequest(),             
+//BranchList(),          
+
+
+///3rd dayy//////////////////////////////////////////////// 3rd day
+
+//BranchStock(), //
+//AddBranch(),
+/////////////////////////////
+//AddMed(),     //
+//MedicineDetail(),           
+//DeleteMed(),
+
+////////////////////////////////////////////////////
+
+//AddDisposed(),   
+//DisposedList(),             
+//DeleteDisposedItem(),
+
     );
   }
   

@@ -1,56 +1,53 @@
 import 'package:clean_a/header.dart';
-import 'package:clean_a/shared/constants/BranchdataL.dart';
 import 'package:clean_a/shared/constants/dataR.dart';
 import 'package:clean_a/shared/constants/disposedData.dart';
 import 'package:flutter/material.dart';
 
-class BranchList extends StatelessWidget {
-  const BranchList({super.key});
+class DisposedList extends StatelessWidget {
+  const DisposedList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final data = [
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Catagory: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
       ),
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Catagory: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
       ),
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Catagory: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
       ),
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Catagory: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
       ),
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
-      ),
-      DataBL(
-        Branch_id: '01',
-        Name: 'yohannes dereje',
-        BranchMananger: 'abel',
-        Adress: 'Gulele',
-        Email: 'AbelaTechB@gmail.com',
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Catagory: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
       ),
     ];
 
@@ -69,11 +66,7 @@ class BranchList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Branch List',
-                    style: TextStyle(fontSize: isTablet ? 23 : 20),
-                  ),
-                  Text(
-                    'View and Edit branch',
+                    'Disposed Items',
                     style: TextStyle(fontSize: isTablet ? 23 : 20),
                   ),
                   SizedBox(height: isTablet ? 40 : 20),
@@ -137,18 +130,14 @@ class BranchList extends StatelessWidget {
                   SizedBox(height: isTablet ? 40 : 20),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Table(
-                      columnWidths: {
-                        0: FixedColumnWidth(isTablet ? 150 : 120),
-                        1: FixedColumnWidth(isTablet ? 150 : 120),
-                        2: FixedColumnWidth(isTablet ? 150 : 120),
-                        3: FixedColumnWidth(isTablet ? 150 : 120),
-                        4: FixedColumnWidth(isTablet ? 150 : 120),
-                        5: FixedColumnWidth(isTablet ? 150 : 120),
-                      },
+                    child: Column(
                       children: [
                         _buildHeaderRow(isTablet),
-                        ...data.map((item) => _buildDataRow(item, isTablet)).toList(),
+                        SizedBox(height: 10),
+                        ...data.map((item) => Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: _buildDataRow(item, isTablet),
+                        )).toList(),
                       ],
                     ),
                   ),
@@ -161,43 +150,53 @@ class BranchList extends StatelessWidget {
     );
   }
 
-  TableRow _buildHeaderRow(bool isTablet) {
-    return TableRow(
+  Widget _buildHeaderRow(bool isTablet,) {
+    return Container(
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(2.0),
       ),
-      children: [
-        _buildHeaderCell('Branch_Id', isTablet),
-        _buildHeaderCell('Name', isTablet),
-        _buildHeaderCell('Branch_Manager', isTablet),
-        _buildHeaderCell('Adress', isTablet),
-        _buildHeaderCell('Email', isTablet),
-        _buildHeaderCell('Actions', isTablet),
-      ],
+      child: Padding(
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
+        child: Row(
+          children: [
+            _buildHeaderCell('Batch', isTablet),
+            _buildHeaderCell('Product Name', isTablet),
+            _buildHeaderCell('Date', isTablet),
+            _buildHeaderCell('Price', isTablet),
+            _buildHeaderCell('Category', isTablet),
+            _buildHeaderCell('ExpiryDate', isTablet),
+          ],
+        ),
+      ),
     );
   }
 
-  TableRow _buildDataRow(DataBL data, bool isTablet) {
-    return TableRow(
+  Widget _buildDataRow(DataDis data, bool isTablet) {
+    return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(2.0),
       ),
-      children: [
-        _buildDataCell(data.Branch_id, isTablet),
-        _buildDataCell(data.Name, isTablet),
-        _buildDataCell(data.BranchMananger, isTablet),
-        _buildDataCell(data.Adress, isTablet),
-        _buildDataCell(data.Email, isTablet),
-        _buildDataCell('', isAction: true, isTablet),
-      ],
+      child: Padding(
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
+        child: Row(
+          children: [
+            _buildDataCell(data.Batch, isTablet,),
+            _buildDataCell(data.ProductName, isTablet),
+            _buildDataCell(data.Date, isTablet),
+            _buildDataCell(data.Price, isTablet),
+            _buildDataCell(data.Catagory, isTablet),
+            _buildDataCell(data.ExpiryDate, isTablet),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _buildHeaderCell(String text, bool isTablet) {
-    return Padding(
-      padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
+    return Container(
+      width: isTablet ? 150 : 120,
       child: Text(
         text,
         style: TextStyle(
@@ -208,39 +207,15 @@ class BranchList extends StatelessWidget {
     );
   }
 
-  Widget _buildDataCell(String text, bool isTablet, {bool isAction = false}) {
-    return Padding(
-      padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
-      child: isAction
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.message,
-                  color: Colors.black,
-                  size: isTablet ? 17 : 15,
-                ),
-                SizedBox(width: isTablet ? 17 : 10),
-                Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: isTablet ? 17 : 15,
-                ),
-                SizedBox(width: isTablet ? 17 : 10),
-                Icon(
-                  Icons.edit,
-                  color: Colors.black,
-                  size: isTablet ? 17 : 15,
-                ),
-              ],
-            )
-          : Text(
-              text,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: isTablet ? 16 : 14,
-              ),
-            ),
+  Widget _buildDataCell(String text, bool isTablet) {
+    return Container(
+      width: isTablet ? 150 : 120,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
     );
   }
 }

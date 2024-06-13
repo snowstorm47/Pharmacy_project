@@ -1,149 +1,149 @@
-
 import 'package:clean_a/header.dart';
 import 'package:flutter/material.dart';
-class reportPGenerate extends StatefulWidget {
-  const reportPGenerate({super.key});
+
+class ReportPGenerate extends StatefulWidget {
+  const ReportPGenerate({super.key});
 
   @override
-  State<reportPGenerate> createState() => _reportPGenerateState();
+  State<ReportPGenerate> createState() => _ReportPGenerateState();
 }
 
-class _reportPGenerateState extends State<reportPGenerate> {
+class _ReportPGenerateState extends State<ReportPGenerate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: Header(title: 'Report'),
+      appBar: Header(title: 'Report'),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isTablet = constraints.maxWidth > 600;
+          double padding = isTablet ? 108.0 : 16.0;
+          double fontSizeTitle = isTablet ? 23 : 18;
+          double fontSizeButton = isTablet ? 13 : 11;
+          double containerWidth = isTablet ? 400 : constraints.maxWidth - 32;
+          double containerHeight = isTablet ? 270 : 300;
 
-      body: Padding(
-        padding: const EdgeInsets.all(108.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Purchase Reports',
-                  style: TextStyle(
-                    fontSize: 23,
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Purchase Reports',
+                        style: TextStyle(
+                          fontSize: fontSizeTitle,
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(236, 27, 228, 4),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Generate Report',
+                          style: TextStyle(fontSize: fontSizeButton, color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  width: 200,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(236, 27, 228, 4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      )),
-                  onPressed: () {},
-                  child: Text(
-                    'Generate Report',
-                    style: TextStyle(fontSize: 13, color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-SizedBox(height: 49,),
-            Column(
-              children: [
-                Container(
-                  color: Color.fromARGB(255, 197, 194, 194),
-                  width: 400,
-                  height: 270,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      color: Color.fromARGB(255, 197, 194, 194),
+                      width: containerWidth,
+                      height: containerHeight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
                           children: [
-                          Text('Generate Report',   style: TextStyle(fontSize: 17, color: Colors.black,fontWeight: FontWeight.bold),),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text('x',style: TextStyle(fontSize: 17, color: Colors.black,fontWeight: FontWeight.bold),),
-                              ),
-                           ],
-                           ),
-                             SizedBox(height: 37,),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('From',style: TextStyle(fontSize: 17, color: Colors.black),),
-                              
-                                 Text('To',style: TextStyle(fontSize: 17, color: Colors.black),),
+                                Text(
+                                  'Generate Report',
+                                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'x',
+                                    style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ],
                             ),
-                          ),
-                         
-                           Padding(
-                             padding: const EdgeInsets.all(12.0),
-                             child: Row(
-                               children: [
-                               
-                                 Expanded(
-                                   child: TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.white,
-                                      suffixIcon:Icon(Icons.calendar_month,size: 20,color: Colors.black,),
+                            SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'From',
+                                    style: TextStyle(fontSize: 17, color: Colors.black),
+                                  ),
+                                  Text(
+                                    'To',
+                                    style: TextStyle(fontSize: 17, color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.white,
+                                        suffixIcon: Icon(Icons.calendar_month, size: 20, color: Colors.black),
                                       ),
-                                   
                                     ),
-                                 ),
-                              SizedBox(width: 20,),    
-                              Expanded(
-                    
-                                 child: TextField(
-                                                           decoration: InputDecoration(border: OutlineInputBorder(),fillColor: Colors.white,
-                                                                   suffixIcon:Icon(Icons.calendar_month,size: 20,color: Colors.black,),),
-                                                           
-                                                           ),
-                               ),
-                           
-                               ],
-                             ),
-                           ),
-                             SizedBox(height: 20,),
-                             ElevatedButton(
-                              
+                                  ),
+                                  SizedBox(width: 20),
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.white,
+                                        suffixIcon: Icon(Icons.calendar_month, size: 20, color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                                 backgroundColor: Color.fromARGB(236, 27, 228, 4),
-                             
                               ),
-                              
-                              onPressed: (){}, child: Text('Submit',style: TextStyle(color: Colors.white),))
-                            
-                           ],
+                              onPressed: () {},
+                              child: Text(
+                                'Submit',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                          
-                
-                
-                ),
-              ],
-            )
-
-
-          ],
-        ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
-
-
-
-
-
-
-
-
-
-
-
     );
   }
 }
