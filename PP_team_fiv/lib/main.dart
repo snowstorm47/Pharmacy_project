@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
   seriesList: MonthlyDataChart.createSampleData(),
 ),*/
       //Pie_chart(dataMap: dataMap),
-   NewPPage(),
+  // NewPPage(),
         // const Header(title: ''),
        // Dashboard_screen(),
        
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
 
 ///3rd dayy//////////////////////////////////////////////// 3rd day
 
-//BranchStock(), //
+BranchStock(), //
 //AddBranch(),
 /////////////////////////////
 //AddMed(),     //
