@@ -1,4 +1,4 @@
-import 'package:clean_a/finance/presentation/pages/dashboard_screen.dart';
+import 'package:clean_a/settings/presentation/pages/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DashBoard',
-      home: DashBoardScreenFinance(),
+      home: DashBoardScreensettings(),
     );
   }
 }
