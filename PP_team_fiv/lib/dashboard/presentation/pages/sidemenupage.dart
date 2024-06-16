@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/data.dart';
-import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:clean_a/dashboard/presentation/pages/responsive.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SideMenuPageSuper extends StatefulWidget {

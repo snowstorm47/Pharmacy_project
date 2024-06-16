@@ -1,5 +1,6 @@
-import 'package:clean_a/settings/responsive/responsive.dart';
 import 'package:flutter/material.dart';
+
+import '../../../dashboard/responsive/responsive.dart';
 
 class AddRole extends StatelessWidget {
   final TextEditingController _descriptionController = TextEditingController();
@@ -31,7 +32,7 @@ class AddRole extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              if (Responsive.isMobile(context))
+              if (Responsive.isMobile(context, context))
                 SingleChildScrollView(
                   child: Container(
                     color: Colors.yellow,

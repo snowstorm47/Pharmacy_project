@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d21a7836-9a5b-455d-a398-cc60cd8cafbf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddNewCorporateCustomer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddNewCorporateCustomer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddAuthorizedUser.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/AddAuthorizedUser.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/customer/presentation/pages/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/header.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/responsive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/responsive.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/sidemenupage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/dashboard/presentation/pages/sidemenupage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/finance/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/finance/presentation/pages/dashboard_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/AddRoleScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/lib/settings/presentation/pages/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/lib/settings/responsive/responsive.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/PP_team_fiv/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +60,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "yakob__pharma__app",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/android studio/Pharmacy_project_sitra",
+    "last_opened_file_path": "C:/Users/Yakob/Desktop/Pharmacy_project/PP_team_fiv/lib/finance/presentation/pages",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -60,18 +70,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\finance\presentation\pages" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\customer\presentation\pages" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\customer" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\settings" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard" />
-      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\presentation\widgets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\assets" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\responsive" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts\a" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\Fonts" />
       <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\models" />
-      <recent name="C:\Users\Yakob\Desktop\Pharmacy_project\PP_team_fiv\lib\dashboard\domain\entities" />
     </key>
   </component>
   <component name="RunManager">

@@ -1,3 +1,5 @@
+import 'package:clean_a/dashboard/presentation/pages/header.dart'; // Import HeaderPage
+import 'package:clean_a/dashboard/presentation/pages/sidemenupage.dart';
 import 'package:clean_a/finance/presentation/pages/invoice_details.dart';
 import 'package:flutter/material.dart';
 
@@ -7,17 +9,51 @@ class DashBoardScreenFinance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: SafeArea(
         child: Row(
+          // Change Row to Column
           children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(color: Colors.grey),
-            ),
+            Expanded(flex: 2, child: SideMenuPageSuper()),
+            // Expanded(
+            //   flex: 2,
+            //   child: SideMenuPageSuper(),
+            // ),
+            // Expanded(
+            //   // Expand the remaining space
+            //   flex: 1,
+            //   child: Column(
+            //     children: <Widget>[
+            //       HeaderPage(
+            //         // Integrate HeaderPage here
+            //         onMenuPressed: () {
+            //           // Handle menu press logic here (optional)
+            //         },
+            //         isSideMenuOpen: false, // Set isSideMenuOpen as needed
+            //       ),
+            //       Expanded(
+            //         flex: 10,
+            //         child: Invoice_details(),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Expanded(
               flex: 10,
-              child: Invoice_details(),
+              child: Column(
+                children: <Widget>[
+                  HeaderPage(
+                    // Integrate HeaderPage here
+                    onMenuPressed: () {
+                      // Handle menu press logic here (optional)
+                    },
+                    isSideMenuOpen: false, // Set isSideMenuOpen as needed
+                  ),
+                  Expanded(
+                    flex: 10,
+                    child: Invoice_details(),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
