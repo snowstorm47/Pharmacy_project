@@ -58,6 +58,13 @@ class RegisterBranch{
   }
   await batch.commit();
 }
+ Future<Branch?> getBranch(String Branch_Id)async{
+    final branchRef = _firebaseFirestore.collection('Branch').doc(Branch_Id);
+    final snapShot = await branchRef.get();
+    if(snapShot!= null){
+      return Branch.fromMap(snapShot.data() as Map<String,dynamic>);
+    }
+  }
 
 
 }

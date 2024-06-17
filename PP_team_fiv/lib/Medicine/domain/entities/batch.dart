@@ -1,43 +1,42 @@
 class Batch{
  String location;
+
  String branchId;
- String batchId;
  DateTime expiryDate;
  int stock;
  String batchNumber;
  DateTime dateAdded;
+ 
   Batch({
-    required this.branchId,
-  required this.batchId,
+  
   required   this.location,
   required this.expiryDate,
   required this.batchNumber,
   required this.stock,
-  required this.dateAdded
+  required this.dateAdded,
+  required this.branchId
   });
-  factory Batch.fromMap(Map<String, dynamic> map) {
-    return Batch(
-      branchId:map['branchId'] as String,
-      batchId:map['batchId'] as String,
-      location: map['location'] as String,
-      expiryDate: map['expiryDate'] as DateTime,
-      stock: map['stock'] as int,
-      batchNumber: map['batchNumber'] as String,
-      dateAdded: map['dateAdded'] as DateTime,
-    );
-  }
+    factory Batch.fromMap(Map<String,dynamic> data)=> 
+  Batch(
+  
+   location:data['Location'] as String,
+  expiryDate:data['ExpiryDate'] as DateTime,
+  stock:data['Stock'] as int,
+  batchNumber:data['BatchNumber'] as String,
+ dateAdded:data['dateAdded'] as DateTime,
+ branchId: data['branchId'] as String,
+  );
+  Map<String,dynamic> toMap()=>{
+  'location':location,
+  'expiryDate':expiryDate,
+ 'stock':stock,
+  'batchNumber':batchNumber,
+ 'dateAdded':dateAdded,
 
-  Map<String, dynamic> toMap() {
-    return {
-      'batchId':batchId,
-      'location': location,
-      'expiryDate': expiryDate,
-      'batchNumber': batchNumber,
-      'dateAdded': dateAdded, 
-      'branchId':branchId
-    };
+ 'branchId':branchId
+  };
+   
   }
-}
 
 
    

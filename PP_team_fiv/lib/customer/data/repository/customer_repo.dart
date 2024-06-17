@@ -1,11 +1,8 @@
-
-
 import 'package:app/customer/domain/entities/corp_employee.dart';
 import 'package:app/customer/domain/entities/customer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
-
 
 Future<List<List<dynamic>>?> pickAndReadCsv() async {
   final result = await FilePicker.platform.pickFiles(
@@ -26,7 +23,6 @@ Future<List<List<dynamic>>?> pickAndReadCsv() async {
   }
   return null;
 }
-
 
 class CustomerRepo{
  final FirebaseFirestore _firebaseFirestore;
@@ -64,7 +60,7 @@ class CustomerRepo{
      policyNumber: policyNumber
             );
             await customerRef.doc(companyName).set(customer.toMap());
-final employeeRef = customerRef.doc(companyName).collection('employees');
+final employeeRef = _firebaseFirestore.collection('corporateEmployees');
    try{
    if(csvData != null){
      var info = <Map<String,dynamic>> [];
@@ -102,7 +98,6 @@ final employeeRef = customerRef.doc(companyName).collection('employees');
            print(info);
     for(final employeeData in info){
        if(employeeData!= null){
-        final employeeRef = customerRef.doc(companyName).collection('employees');
         final employee = employeeData;
         await employeeRef.doc(employee['employeeId']).set(employee);
        }
@@ -146,7 +141,7 @@ final employee = Corpemployee(
  final transaction = await _firebaseFirestore.runTransaction((transaction)async{
  final docSnapshot = await transaction.get(customerRef);
   if(docSnapshot.exists){
-  final employeeRef = customerRef.collection('employees').doc(employeeId);
+  final employeeRef = _firebaseFirestore.collection('corporateEmployees').doc(employeeId);
   await employeeRef.set(employee.toMap());
 }
  
@@ -167,7 +162,7 @@ Future<List<Object>?> findCustomer(String company, String searchString) async {
   try {
     final docSnapshot = await customerRef.get();
     if (docSnapshot.exists) {
-      final employeeRef = customerRef.collection('employees');
+      final employeeRef = _firebaseFirestore.collection('corporateEmployees');
       final searchItem= searchString.toLowerCase();
       final query = employeeRef.where('firstName',isGreaterThanOrEqualTo:searchItem);
         return query.get().then((querySnapshot) {
@@ -191,7 +186,7 @@ Future<List<Object>?> getAllcustomers() async {
     for (final docSnapshot in querySnapshot.docs) {
       final companyData = docSnapshot.data()!;
       final companyName = companyData['companyName'] as String;
-      final employeeRef = customerRef.doc(companyName).collection('employees');
+      final employeeRef = _firebaseFirestore.collection('corporateEmployees');
       QuerySnapshot employeeSnapshot = await employeeRef.get();
        if(employeeSnapshot!= null){
         return employeeSnapshot.docs.map((doc)=>doc.data() as Map<String, dynamic>).toList();
@@ -210,13 +205,13 @@ Future<List<Object>?> getAllcustomers() async {
 
 Future<void> addCredit(String company, String id, double price) async{
 
-  final customerRef = await _firebaseFirestore.collection('Customer').doc(company);
+  final customerRef =  _firebaseFirestore.collection('Customer').doc(company);
    DocumentSnapshot customerSnapshot = await customerRef.get();
   if(customerSnapshot.exists){
     final limit =customerSnapshot.get('creditLimit');
     print(limit);
     if(limit >= price){
-      final employeeRef = await customerRef.collection('employees').doc(id);
+      final employeeRef =  _firebaseFirestore.collection('corporateEmployees').doc(id);
         DocumentSnapshot employeeSnapshot = await employeeRef.get();
            try {
     // Prepare update data
