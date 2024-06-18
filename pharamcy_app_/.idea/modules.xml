@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/pharamcy_app_.iml" filepath="$PROJECT_DIR$/pharamcy_app_.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/pharamcy_app__android.iml" filepath="$PROJECT_DIR$/android/pharamcy_app__android.iml" />
-    </modules>
-  </component>
-</project>
