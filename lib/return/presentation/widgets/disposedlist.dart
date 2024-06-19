@@ -1,0 +1,320 @@
+import 'package:flutter/material.dart';
+import 'package:clean_a/Drawer/sidemenupage.dart';
+import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:clean_a/shared/constants/disposedData.dart';
+
+class DisposedList extends StatefulWidget {
+  const DisposedList({super.key});
+
+  @override
+  State<DisposedList> createState() => _DisposedListState();
+}
+
+class _DisposedListState extends State<DisposedList> {
+  bool showSideMenu = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final data = [
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Category: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
+      ),
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Category: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
+      ),
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Category: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
+      ),
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Category: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
+      ),
+      DataDis(
+        Batch: '1013/23',
+        ProductName: 'Medicine A',
+        Category: 'painkiller',
+        Date: '2023-01-01',
+        Price: '100 etb.',
+        ExpiryDate: '12/12/23',
+      ),
+    ];
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF3F6F0),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (ResponsiveD.isDesktop(context))
+                  Expanded(
+                    child: SideMenu(
+                      onClose: () {
+                        setState(() {
+                          showSideMenu = false;
+                        });
+                      },
+                    ),
+                  ),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      HeaderPage(
+                        onMenuPressed: () {
+                          setState(() {
+                            showSideMenu = !showSideMenu;
+                          });
+                        },
+                        isSideMenuOpen: showSideMenu,
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(16.0),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              bool isTablet = constraints.maxWidth > 600;
+                              double padding = isTablet ? 46.0 : 16.0;
+
+                              return Padding(
+                                padding: EdgeInsets.all(padding),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(
+                                        'Disposed Items',
+                                        style: TextStyle(
+                                            fontSize: isTablet ? 23 : 20),
+                                      ),
+                                      SizedBox(height: isTablet ? 40 : 20),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                ),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        236, 27, 228, 4),
+                                              ),
+                                              onPressed: () {},
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.add,
+                                                      color: Colors.white,
+                                                      size: isTablet ? 17 : 15),
+                                                  SizedBox(
+                                                      width:
+                                                          isTablet ? 17 : 10),
+                                                  const Text('Add Items',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(width: isTablet ? 40 : 20),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                ),
+                                                backgroundColor:
+                                                    const Color.fromRGBO(
+                                                        33, 150, 243, 1),
+                                              ),
+                                              onPressed: () {},
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                      Icons
+                                                          .format_line_spacing_sharp,
+                                                      color: Colors.black,
+                                                      size: isTablet ? 17 : 15),
+                                                  SizedBox(
+                                                      width:
+                                                          isTablet ? 17 : 10),
+                                                  const Text('Selected By',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(width: isTablet ? 40 : 20),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                ),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 230, 79, 68),
+                                              ),
+                                              onPressed: () {},
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.delete,
+                                                      color: Colors.white,
+                                                      size: isTablet ? 17 : 15),
+                                                  SizedBox(
+                                                      width:
+                                                          isTablet ? 17 : 10),
+                                                  const Text('Delete Items',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: isTablet ? 40 : 20),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Column(
+                                          children: [
+                                            _buildHeaderRow(isTablet),
+                                            const SizedBox(height: 10),
+                                            ...data
+                                                .map((item) => Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 10),
+                                                      child: _buildDataRow(
+                                                          item, isTablet),
+                                                    ))
+                                                .toList(),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (!ResponsiveD.isDesktop(context) && showSideMenu)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: SideMenu(
+                  onClose: () {
+                    setState(() {
+                      showSideMenu = false;
+                    });
+                  },
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderRow(bool isTablet) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(2.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
+        child: Row(
+          children: [
+            _buildHeaderCell('Batch', isTablet),
+            _buildHeaderCell('Product Name', isTablet),
+            _buildHeaderCell('Date', isTablet),
+            _buildHeaderCell('Price', isTablet),
+            _buildHeaderCell('Category', isTablet),
+            _buildHeaderCell('ExpiryDate', isTablet),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDataRow(DataDis data, bool isTablet) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(2.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
+        child: Row(
+          children: [
+            _buildDataCell(data.Batch, isTablet),
+            _buildDataCell(data.ProductName, isTablet),
+            _buildDataCell(data.Date, isTablet),
+            _buildDataCell(data.Price, isTablet),
+            _buildDataCell(data.Category, isTablet),
+            _buildDataCell(data.ExpiryDate, isTablet),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderCell(String text, bool isTablet) {
+    return SizedBox(
+      width: isTablet ? 150 : 120,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDataCell(String text, bool isTablet) {
+    return SizedBox(
+      width: isTablet ? 150 : 120,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+}
