@@ -2,14 +2,14 @@
 class Invoice{
   String  invoiceNumber;
   String branchId;
-  String catagory;
+  List<String> catagory;
   String incomeHead;
   DateTime createdAt;
-  String customerName;
+  String? customerName;
   String invoiceId;
   double amount;
   double price;
-  List<String> items;
+  List<Map<String,dynamic>> items;
   Invoice({
     required this.branchId,
     required this.invoiceId,
@@ -30,8 +30,8 @@ factory Invoice.fromMap(Map<String,dynamic> data)=>
      invoiceId: data['invoiceId'] as String,
       amount: data['amount'] as double,
        price: data['price'] as double,
-   catagory:data['catagory'] as String,
- items: data['items'] as List<String>,
+   catagory:data['catagory'] as List<String>,
+ items: data['items'] as List<Map<String,dynamic>>,
   incomeHead:data['incomeHead'] as String,
  createdAt:data['createdAt'] as DateTime,
  branchId: data['branchId'] as String, 
@@ -50,6 +50,6 @@ factory Invoice.fromMap(Map<String,dynamic> data)=>
   'price':price,
   'items':items,
 
-  }; 
+  };
 
 }

@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../domain/entities/income.dart';
 
+
 class FinanceRepo{
   final FirebaseFirestore _firebaseFirestore;
   FinanceRepo(this._firebaseFirestore);
@@ -31,16 +32,14 @@ class FinanceRepo{
    branchId,
    amount,
   catagory,
-  customerName,
   expenseHead,
-  items,
-  price
+  createdAt
  })async{
   final expenseRef= _firebaseFirestore.collection('expense');
-  final createdAt= DateTime.now();
+  final date= createdAt;
   final randomizer=  createdAt.toString();
   final invoiceId = ('INV' + '$randomizer');
-  final expense =Expense(branchId: branchId, invoiceId: invoiceId, amount: amount, catagory: catagory, createdAt: createdAt, customerName: customerName, expenseHead: expenseHead, invoiceNumber: invoiceId, items: items, price: price);
+  final expense =Expense(branchId: branchId, invoiceId: invoiceId, amount: amount, catagory: catagory, createdAt: date, expenseHead: expenseHead);
   await expenseRef.doc(invoiceId).set(expense.toMap());
  }
  Future<List<Object>?> getlistIncome()async{
@@ -129,15 +128,8 @@ return snapShot.data() as Map<String,dynamic>;
 
   return totalExpense;
 }
-Future<void> buildInvoice(String invoiceId,String branchId)async{
- 
- final branch = RegisterBranch(_firebaseFirestore).getBranch(branchId);
- final snapShot = await _firebaseFirestore.collection('income').doc(invoiceId).get();
-  final invoice =Income.fromMap(snapShot.data() as Map<String,dynamic>);
-}
-Future<void> buildExpense()async{
 
-}
+
 
 
 }
