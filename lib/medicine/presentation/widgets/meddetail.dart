@@ -1,5 +1,5 @@
 
-import 'package:clean_a/shared/constants/constants.dart';
+/*import 'package:clean_a/shared/constants/constants.dart';
 
 import 'package:clean_a/shared/constants/medicine_data.data.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class MedicineDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _totalPages = 3;
+   
     final data = [
       DataMD(
         medicineName: 'amoxcillin',
@@ -114,27 +114,20 @@ class MedicineDetail extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.0),
-            Row(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                  onPressed: (){}, // No functionality needed
-                  child: Text('Prev',style: TextStyle(color: Colors.black),),
-                ),
-                SizedBox(width: 1.0),
-                for (int i = 1; i <= _totalPages; i++)
-                  ElevatedButton(
-                    style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                    onPressed: null, // No functionality needed
-                    child: Text('$i'),
-                  ),
-                ElevatedButton(
-                  style:  ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
-                  onPressed: (){}, // No functionality needed
-                  child: Text('Next',),
-                ),
-              ],
-            ),
+
+Row(children: [
+
+ElevatedButton(onPressed: (){}, child: Text('Add medicine')),
+ElevatedButton(onPressed: (){}, child: Text('Update medicine')),
+ElevatedButton(onPressed: (){}, child: Text('Delete medicine')),
+
+
+],),
+
+
+
+
+           
           ],
         ),
       ),
@@ -229,4 +222,4 @@ class MedicineDetail extends StatelessWidget {
             ),
     );
   }
-}
+}*/

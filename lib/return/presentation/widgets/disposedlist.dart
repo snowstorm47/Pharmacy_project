@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/shared/constants/disposedData.dart';
+import 'package:flutter/widgets.dart';
 
 class DisposedList extends StatefulWidget {
   const DisposedList({super.key});
@@ -126,7 +128,9 @@ class _DisposedListState extends State<DisposedList> {
                                                     const Color.fromARGB(
                                                         236, 27, 228, 4),
                                               ),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                _showAddItemDialog(context);
+                                              },
                                               child: Row(
                                                 children: [
                                                   Icon(Icons.add,
@@ -180,7 +184,9 @@ class _DisposedListState extends State<DisposedList> {
                                                     const Color.fromARGB(
                                                         255, 230, 79, 68),
                                               ),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                _showDeleteConfirmationDialog(context);
+                                              },
                                               child: Row(
                                                 children: [
                                                   Icon(Icons.delete,
@@ -249,6 +255,211 @@ class _DisposedListState extends State<DisposedList> {
     );
   }
 
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Are you Sure?',
+            style: TextStyle(fontSize: 23),
+          ),
+          content: const Text('The data will be completely erased'),
+          actions: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromARGB(255, 230, 79, 68))),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel',
+                  style: TextStyle(color: Colors.white)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(236, 27, 228, 4),
+              ),
+              onPressed: () {
+                // Add your delete logic here
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Delete',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+ void _showAddItemDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.8,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Text(
+                  'Add Disposed Items',
+                  style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'You can add disposed items by filling the form below',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                  const SizedBox(height: 20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Batch',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Type',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Quantity in Price',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Reason',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Branch No',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Product Name',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Category',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Price',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Generic Name',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Amount',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Date',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                          const SizedBox(height: 20),
+                        TextField(
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            labelText: 'Description',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 230, 79, 68),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Discard',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(236, 27, 228, 4),
+                      ),
+                      onPressed: () {
+                        // Add your add item logic here
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
   Widget _buildHeaderRow(bool isTablet) {
     return Container(
       decoration: BoxDecoration(
@@ -264,7 +475,7 @@ class _DisposedListState extends State<DisposedList> {
             _buildHeaderCell('Date', isTablet),
             _buildHeaderCell('Price', isTablet),
             _buildHeaderCell('Category', isTablet),
-            _buildHeaderCell('ExpiryDate', isTablet),
+            _buildHeaderCell('Expiry Date', isTablet),
           ],
         ),
       ),

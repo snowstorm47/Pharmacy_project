@@ -9,10 +9,14 @@ import 'package:clean_a/customer/Presentation/pages/add_autorized_company.dart';
 import 'package:clean_a/employee/presentation/page/EmployeeProfilePage.dart';
 import 'package:clean_a/employee/presentation/page/attendance_pages.dart';
 import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
+import 'package:clean_a/finance/presentation/pages/dashboard_screen.dart';
 import 'package:clean_a/finance/presentation/pages/invoice_details.dart';
+import 'package:clean_a/finance/presentation/widgets/expense.dart';
+import 'package:clean_a/finance/presentation/widgets/income.dart';
 import 'package:clean_a/medicine/presentation/pages/add_medicine_page.dart';
 import 'package:clean_a/medicine/presentation/pages/medicinedetail.dart';
 import 'package:clean_a/medicine/presentation/widgets/Deletemed.dart';
+import 'package:clean_a/medicine/presentation/widgets/meddetail.dart';
 import 'package:clean_a/report/presentation/widgets/generated_p_eports.dart';
 import 'package:clean_a/report/presentation/widgets/reportPurchase.dart';
 import 'package:clean_a/return/presentation/widgets/addDisposed.dart';
@@ -20,12 +24,16 @@ import 'package:clean_a/return/presentation/widgets/deleteDisposedItem.dart';
 import 'package:clean_a/return/presentation/widgets/disposedlist.dart';
 import 'package:clean_a/sales/presentation/widgets/sales.dart';
 import 'package:clean_a/sales/presentation/widgets/sales_page.dart';
+import 'package:clean_a/settings/presentation/widgets/passwordrequest.dart';
+import 'package:clean_a/settings/presentation/widgets/reportcomplaint.dart';
+import 'package:clean_a/settings/presentation/widgets/viewrolespage.dart';
 import 'package:clean_a/stock/presentation/widgets/expired_medicines.dart';
 import 'package:clean_a/stock/presentation/widgets/list_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/out_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/stock_detail.dart';
 import 'package:clean_a/supplier/presentation/widgets/add_supplier.dart';
 import 'package:clean_a/supplier/presentation/widgets/supplier_list.dart';
+
 
 import 'package:flutter/material.dart';
 
@@ -46,24 +54,31 @@ class MyApp extends StatelessWidget {
         //########customer#########//
         home: //AddAuthorizedCompany()
           //BranchListPage(),
-         //BranchStockPage(),
-         BranchStockWidget(data: [])
+       // BranchStockPage(),
+        
          //RefillRequestPage(),
          //AddBranch(),
-        //AddMed(),          //added sidemenu
-        //DeleteMed(),
-       // MedicineDetail(),
+  //AddMed(),          //added sidemenu
+  //DeleteMed(),
+  //MedicineDetail(),
        //BranchListWidget(data: [],),???
-      // AuthorizedUser(),      // sidemenu
-      // AddAuthorizedUser(),
+  //AuthorizedUser(),      // sidemenu
+  // AddAuthorizedUser(),
        //AttendancePage(),
        //EmployeeProfilePage(),
           //SalaryListPage()
-       //GeneratedPurchaseReports(),
-       //ReportPGenerate(),
+  //GeneratedPurchaseReports(),
+  //ReportPGenerate(),
+        //ExpensePage(),
+       //IncomePage(),
+       //Invoice_details(),
+//PasswordRequestsPage(),
+//reportcomplaintspage(),
+//ViewRolesPage(),
+
       //AddDisposed(),
       //DeleteDisposedItem(),
-      //DisposedList(),
+     // DisposedList(),
       //Sales(),
 //ExpiredMedicinesPage(),
 //ListOfStockPage(),
@@ -71,6 +86,7 @@ class MyApp extends StatelessWidget {
 //StockDetailPage(),
 //AddSupplier(),
 //SupplierLists(),
+//DashBoardScreenFinance(),
 
         );
   }
