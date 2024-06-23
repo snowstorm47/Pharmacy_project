@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
@@ -14,8 +13,8 @@ class ReportGenerate extends StatefulWidget {
 
 class _ReportGenerateState extends State<ReportGenerate> {
   bool showSideMenu = false;
-  TextEditingController _fromDateController = TextEditingController();
-  TextEditingController _toDateController = TextEditingController();
+  final TextEditingController _fromDateController = TextEditingController();
+  final TextEditingController _toDateController = TextEditingController();
 
   Future<void> _selectDate(TextEditingController controller) async {
     DateTime? pickedDate = await DatePickerUtil.selectDate(context);

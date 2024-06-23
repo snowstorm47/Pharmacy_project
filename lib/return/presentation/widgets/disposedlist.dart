@@ -185,7 +185,8 @@ class _DisposedListState extends State<DisposedList> {
                                                         255, 230, 79, 68),
                                               ),
                                               onPressed: () {
-                                                _showDeleteConfirmationDialog(context);
+                                                _showDeleteConfirmationDialog(
+                                                    context);
                                               },
                                               child: Row(
                                                 children: [
@@ -273,12 +274,12 @@ class _DisposedListState extends State<DisposedList> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel',
-                  style: TextStyle(color: Colors.white)),
+              child:
+                  const Text('Cancel', style: TextStyle(color: Colors.white)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(236, 27, 228, 4),
+                backgroundColor: const Color.fromARGB(236, 27, 228, 4),
               ),
               onPressed: () {
                 // Add your delete logic here
@@ -295,7 +296,7 @@ class _DisposedListState extends State<DisposedList> {
     );
   }
 
- void _showAddItemDialog(BuildContext context) {
+  void _showAddItemDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -310,7 +311,7 @@ class _DisposedListState extends State<DisposedList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
+                const Text(
                   'Add Disposed Items',
                   style: TextStyle(
                     fontSize: 23,
@@ -318,15 +319,15 @@ class _DisposedListState extends State<DisposedList> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Text(
+                const Text(
                   'You can add disposed items by filling the form below',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                  const SizedBox(height: 20),
-                Expanded(
+                const SizedBox(height: 20),
+                const Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
@@ -337,78 +338,77 @@ class _DisposedListState extends State<DisposedList> {
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Type',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Quantity in Price',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Reason',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Branch No',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Product Name',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Category',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Price',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Generic Name',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Amount',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Date',
                             border: OutlineInputBorder(),
                           ),
                         ),
-                          const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         TextField(
                           maxLines: 4,
                           decoration: InputDecoration(
@@ -416,7 +416,7 @@ class _DisposedListState extends State<DisposedList> {
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                       ],
                     ),
                   ),
@@ -460,6 +460,7 @@ class _DisposedListState extends State<DisposedList> {
       },
     );
   }
+
   Widget _buildHeaderRow(bool isTablet) {
     return Container(
       decoration: BoxDecoration(

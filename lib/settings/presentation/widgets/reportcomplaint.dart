@@ -3,16 +3,14 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:clean_a/shared/utility/responsive.dart';
-
-class reportcomplaintspage extends StatefulWidget {
-  const reportcomplaintspage({super.key});
+class ReportComplaintsPage extends StatefulWidget {
+  const ReportComplaintsPage({super.key});
 
   @override
-  State<reportcomplaintspage> createState() => _reportcomplaintspageState();
+  State<ReportComplaintsPage> createState() => ReportComplaintsPageState();
 }
 
-class _reportcomplaintspageState extends State<reportcomplaintspage> {
+class ReportComplaintsPageState extends State<ReportComplaintsPage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(6, (index) => false);
 
@@ -76,15 +74,17 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.filter_list,
                                           color: Colors.white, size: 20),
                                       label: const Text('Filter By',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     const SizedBox(width: 8),
                                     ElevatedButton.icon(
@@ -93,15 +93,17 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.grey,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.recycling,
                                           color: Colors.white, size: 20),
                                       label: const Text('Recycle',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                 ),
@@ -120,48 +122,56 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context).size.width),
+                                    minWidth:
+                                        MediaQuery.of(context).size.width),
                                 child: DataTable(
                                   columnSpacing: 20.0,
-                                  headingRowColor: MaterialStateColor.resolveWith(
+                                  headingRowColor:
+                                      MaterialStateColor.resolveWith(
                                           (states) => Colors.blue),
                                   dividerThickness: 0, // Remove the dividers
                                   columns: const <DataColumn>[
                                     DataColumn(
                                       label: Text('No',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Employee name',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Time stamp',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Category',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Status',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Actions',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
                                     6, // Number of rows
-                                        (index) => DataRow(
+                                    (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
-                                              (states) {
-                                            // Alternating colors
-                                            return index % 2 == 0
-                                                ? Colors.grey[200]!
-                                                : Colors.white;
-                                          }),
+                                          (states) {
+                                        // Alternating colors
+                                        return index % 2 == 0
+                                            ? Colors.grey[200]!
+                                            : Colors.white;
+                                      }),
                                       cells: <DataCell>[
                                         DataCell(
                                           Checkbox(
@@ -210,7 +220,8 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                     // Navigate to previous page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Prev',
@@ -226,7 +237,8 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                     // Navigate to page 1
                                   },
                                   style: ElevatedButton.styleFrom(
-                                   backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '1',
@@ -242,7 +254,8 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                     // Navigate to page 2
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '2',
@@ -258,7 +271,8 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                     // Navigate to page 3
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '3',
@@ -274,7 +288,8 @@ class _reportcomplaintspageState extends State<reportcomplaintspage> {
                                     // Navigate to next page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Next',

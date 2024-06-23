@@ -12,7 +12,7 @@ class InputFields extends StatelessWidget {
   final void Function(String?) onAdditionalNotesSaved;
 
   const InputFields({
-    Key? key,
+    super.key,
     required this.formKey,
     required this.onCompanyNameSaved,
     required this.onCompanyContactNameSaved,
@@ -22,13 +22,14 @@ class InputFields extends StatelessWidget {
     required this.onCreditLimitSaved,
     required this.onAuthorizedUsersSaved,
     required this.onAdditionalNotesSaved,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
+          // ignore: prefer_const_constructors
           decoration: InputDecoration(labelText: 'Company Name'),
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -40,7 +41,7 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Contact Name'),
+          decoration: const InputDecoration(labelText: 'Contact Name'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a contact name';
@@ -51,7 +52,7 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Contact Email'),
+          decoration: const InputDecoration(labelText: 'Contact Email'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a contact email';
@@ -64,7 +65,7 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Company Address'),
+          decoration: const InputDecoration(labelText: 'Company Address'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a company address';
@@ -75,23 +76,23 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Payment Terms'),
+          decoration: const InputDecoration(labelText: 'Payment Terms'),
           onSaved: onPaymentTermsSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Credit Limit'),
+          decoration: const InputDecoration(labelText: 'Credit Limit'),
           keyboardType: TextInputType.number,
           onSaved: onCreditLimitSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Authorized Users'),
+          decoration: const InputDecoration(labelText: 'Authorized Users'),
           onSaved: onAuthorizedUsersSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
-          decoration: InputDecoration(labelText: 'Additional Notes'),
+          decoration: const InputDecoration(labelText: 'Additional Notes'),
           maxLines: 3,
           onSaved: onAdditionalNotesSaved,
         ),

@@ -4,7 +4,7 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
 class AddAuthorizedCompany extends StatefulWidget {
-  const AddAuthorizedCompany({Key? key}) : super(key: key);
+  const AddAuthorizedCompany({super.key});
 
   @override
   State<AddAuthorizedCompany> createState() => _AddAuthorizedCompanyState();
@@ -258,7 +258,7 @@ class _AddAuthorizedCompanyState extends State<AddAuthorizedCompany> {
 }
 
 class InputFields extends StatelessWidget {
-  const InputFields({Key? key}) : super(key: key);
+  const InputFields({super.key});
 
   @override
   Widget build(BuildContext context) {

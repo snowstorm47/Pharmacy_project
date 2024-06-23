@@ -6,17 +6,17 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Confirm Purchase'),
-      content: Column(
+      content: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            title: const Text('Total:'),
-            trailing: const Text('\$60.00'), // Replace with dynamic total
+            title: Text('Total:'),
+            trailing: Text('\$60.00'), // Replace with dynamic total
           ),
-          const Divider(),
+          Divider(),
           ListTile(
-            title: const Text('Payment Method:'),
-            subtitle: const Text(
+            title: Text('Payment Method:'),
+            subtitle: Text(
                 'Credit/Debit Card'), // Replace with selected payment method
           ),
         ],

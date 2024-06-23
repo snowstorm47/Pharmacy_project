@@ -204,52 +204,48 @@ class MedicineDetailState extends State<MedicineDetail> {
         const SizedBox(height: 20.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-children: [
-ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-    backgroundColor: Color.fromARGB(236, 27, 228, 4)),
-  onPressed: (
- 
-
-  ){
-_Addmedicine(context);
-
-
-  }, child: Text('Add Medicine',style: TextStyle(color: Colors.white),)),
-const SizedBox(width: 20.0),
-
-ElevatedButton(
-   style: ElevatedButton.styleFrom(
-     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-    backgroundColor: Colors.blue),
-  onPressed: (
-
-  ){
-
-    updatemedicine(context);
-  }, child: Text('Update Medicine',style: TextStyle(color: Colors.white),)),
-const SizedBox(width: 20.0),
-
-
-ElevatedButton(
-   style: ElevatedButton.styleFrom(
-     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-    backgroundColor: Colors.red),
-  onPressed: (
-
-  ){
-    _deletedialog(context);
-  }, child: Text('Delete Medicine',style: TextStyle(color: Colors.white),)),
-],
-
-
-
-
-
-
+          children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0)),
+                    backgroundColor: const Color.fromARGB(236, 27, 228, 4)),
+                onPressed: () {
+                  _Addmedicine(context);
+                },
+                child: const Text(
+                  'Add Medicine',
+                  style: TextStyle(color: Colors.white),
+                )),
+            const SizedBox(width: 20.0),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0)),
+                    backgroundColor: Colors.blue),
+                onPressed: () {
+                  updatemedicine(context);
+                },
+                child: const Text(
+                  'Update Medicine',
+                  style: TextStyle(color: Colors.white),
+                )),
+            const SizedBox(width: 20.0),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0)),
+                    backgroundColor: Colors.red),
+                onPressed: () {
+                  _deletedialog(context);
+                },
+                child: const Text(
+                  'Delete Medicine',
+                  style: TextStyle(color: Colors.white),
+                )),
+          ],
         ),
-          const SizedBox(height: 20.0),
+        const SizedBox(height: 20.0),
         Row(
           children: [
             ElevatedButton(
@@ -285,371 +281,388 @@ ElevatedButton(
       ],
     );
   }
-void _Addmedicine(BuildContext context){
 
-showDialog(
-  context: context, 
-  builder: (BuildContext context){
-
-return Dialog(
-child: Container(
- width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.8,
-            padding: const EdgeInsets.all(20),
-child: Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-children: [
-Text('Add new medicine',style: TextStyle(fontSize: 23),),
-SizedBox(height: 10,),
-Text('You can  add new medicine here',style: TextStyle(fontSize: 13),),
-SizedBox(height: 20,),
-Expanded(
-  child: SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: Column(
-    children: [
-    TextField(
-      decoration: InputDecoration(
-    labelText: 'Medicine name',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Medicine ID',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Catagory',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Weight',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Generic name',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Supplier price',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Selling price',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Expiry date',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Stock',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Taxable',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Prescription based',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      maxLines: 4,
-      decoration: InputDecoration(
-    labelText: 'Details',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-children: [
-ElevatedButton(
-  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(236, 27, 228, 4)),
-  onPressed: (){}, child: Text('Submit',style: TextStyle(color: Colors.white),)),
-SizedBox(width: 20,),
-ElevatedButton(
-  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-  onPressed: (){}, child: Text('Reset',style: TextStyle(color: Colors.white),)),
-
-
-
-],
-
-
-
-    ),
-    
-    
-    ],
-    
-    
-    
-    
-    
-    ),
-  ),
-),
-
-],
-
-
-),
-
-
-
-),
-
-
-
-);
-
-
+  void _Addmedicine(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.8,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Add new medicine',
+                    style: TextStyle(fontSize: 23),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    'You can  add new medicine here',
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Medicine name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Medicine ID',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Catagory',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Weight',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Generic name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Supplier price',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Selling price',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Expiry date',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Stock',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Taxable',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Prescription based',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              labelText: 'Details',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                          236, 27, 228, 4)),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Submit',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Reset',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
-  
-  
-  );
 
-
-
-
-}
-
-void updatemedicine(BuildContext context){
-showDialog(
-  context: context, 
-  builder: (BuildContext context){
-
-return Dialog(
-child: Container(
- width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.8,
-            padding: const EdgeInsets.all(20),
-child: Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-children: [
-Text('Update medicine',style: TextStyle(fontSize: 23),),
-SizedBox(height: 10,),
-Text('You can update the medicines here',style: TextStyle(fontSize: 13),),
-SizedBox(height: 20,),
-Expanded(
-  child: SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: Column(
-    children: [
-    TextField(
-      decoration: InputDecoration(
-    labelText: 'Medicine name',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Medicine ID',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Catagory',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Weight',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Generic name',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Supplier price',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Selling price',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Expiry date',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Stock',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Taxable',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      decoration: InputDecoration(
-    labelText: 'Prescription based',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-     TextField(
-      maxLines: 4,
-      decoration: InputDecoration(
-    labelText: 'Details',
-    border: OutlineInputBorder(),
-    ),
-    ),
-    SizedBox(height: 10,),
-    Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-children: [
-ElevatedButton(
-  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(236, 27, 228, 4)),
-  onPressed: (){}, child: Text('Submit',style: TextStyle(color: Colors.white),)),
-SizedBox(width: 20,),
-ElevatedButton(
-  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-  onPressed: (){}, child: Text('Reset',style: TextStyle(color: Colors.white),)),
-
-
-
-],
-
-
-
-    ),
-    
-    
-    ],
-    
-    
-    
-    
-    
-    ),
-  ),
-),
-
-],
-
-
-),
-
-
-
-),
-
-
-
-);
-
-
+  void updatemedicine(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.8,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Update medicine',
+                    style: TextStyle(fontSize: 23),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    'You can update the medicines here',
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Medicine name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Medicine ID',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Catagory',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Weight',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Generic name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Supplier price',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Selling price',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Expiry date',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Stock',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Taxable',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Prescription based',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              labelText: 'Details',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                          236, 27, 228, 4)),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Submit',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red),
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Reset',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
-  
-  
-  );
 
-
-
-
-
-
-
-
-
-}
-
-
-
-  void _deletedialog(BuildContext context){
-showDialog(
-  context: context,
- builder:(BuildContext context) {
-return AlertDialog(
-title: Text('Are you sure?'),
-
-content: Text('these data will be completly erased'),
-actions: [
-TextButton(
-  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-  onPressed: (){}, child: Text('Discard',style: TextStyle(color: Colors.white),),),
-ElevatedButton(
-  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(236, 27, 228, 4)),
-  onPressed: (){}, child: Text('Delete',style: TextStyle(color: Colors.white),))
-
-],
-
-
-
-);
-
-
- },
- 
- );
-
-
-  
- 
-
-
-
-
-    
+  void _deletedialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          content: const Text('these data will be completly erased'),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red)),
+              onPressed: () {},
+              child: const Text(
+                'Discard',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(236, 27, 228, 4)),
+                onPressed: () {},
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.white),
+                ))
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildHeaderRow() {

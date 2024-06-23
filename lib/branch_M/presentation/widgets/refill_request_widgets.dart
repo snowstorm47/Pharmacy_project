@@ -3,6 +3,8 @@ import 'package:clean_a/branch_M/data/models/refill_request_data.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
 class RefillRequestContent extends StatelessWidget {
+  const RefillRequestContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     final data = [
@@ -13,28 +15,28 @@ class RefillRequestContent extends StatelessWidget {
         date: '20/13/23',
         requestedBy: 'AbelaTechB@gmail.com',
       ),
-       RefillRequestData(
+      RefillRequestData(
         branchId: '01',
         name: 'johannes Dereje',
         request: 'abel',
         date: '20/13/23',
         requestedBy: 'AbelaTechB@gmail.com',
       ),
-       RefillRequestData(
+      RefillRequestData(
         branchId: '01',
         name: 'johannes Dereje',
         request: 'abel',
         date: '20/13/23',
         requestedBy: 'AbelaTechB@gmail.com',
       ),
-       RefillRequestData(
+      RefillRequestData(
         branchId: '01',
         name: 'johannes Dereje',
         request: 'abel',
         date: '20/13/23',
         requestedBy: 'AbelaTechB@gmail.com',
       ),
-       RefillRequestData(
+      RefillRequestData(
         branchId: '01',
         name: 'johannes Dereje',
         request: 'abel',
@@ -124,7 +126,7 @@ class RefillRequestContent extends StatelessWidget {
   }
 
   Widget _buildHeaderCell(String text, bool isTablet) {
-    return Container(
+    return SizedBox(
       width: isTablet ? 150 : 120,
       child: Text(
         text,
@@ -138,7 +140,7 @@ class RefillRequestContent extends StatelessWidget {
   }
 
   Widget _buildDataCell(String text, bool isTablet, {bool isAction = false}) {
-    return Container(
+    return SizedBox(
       width: isTablet ? 150 : 120,
       child: isAction
           ? Row(

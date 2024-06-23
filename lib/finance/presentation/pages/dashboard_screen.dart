@@ -8,10 +8,10 @@ class DashBoardScreenFinance extends StatefulWidget {
   const DashBoardScreenFinance({super.key});
 
   @override
-  _DashBoardScreenFinanceState createState() => _DashBoardScreenFinanceState();
+  DashBoardScreenFinanceState createState() => DashBoardScreenFinanceState();
 }
 
-class _DashBoardScreenFinanceState extends State<DashBoardScreenFinance> {
+class DashBoardScreenFinanceState extends State<DashBoardScreenFinance> {
   bool showSideMenu = false;
 
   @override
@@ -55,7 +55,7 @@ class _DashBoardScreenFinanceState extends State<DashBoardScreenFinance> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Invoice_details(),
+                          child: InvoiceDetails(),
                         ),
                       ),
                     ],

@@ -4,7 +4,7 @@ class ProductDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 8.0,
         crossAxisSpacing: 8.0,
@@ -44,12 +44,14 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(productName,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          Text(description, style: TextStyle(fontSize: 14)),
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(description, style: const TextStyle(fontSize: 14)),
           Text(price,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           Text(isTaxable ? 'Taxable' : 'Non-taxable',
-              style: TextStyle(fontSize: 14, color: Colors.grey)),
+              style: const TextStyle(fontSize: 14, color: Colors.grey)),
           ElevatedButton(
             onPressed: () {
               // Implement add to cart functionality

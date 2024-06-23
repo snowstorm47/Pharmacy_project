@@ -9,10 +9,10 @@ class EmployeeProfilePage extends StatefulWidget {
   const EmployeeProfilePage({super.key});
 
   @override
-  _EmployeeProfilePageState createState() => _EmployeeProfilePageState();
+  EmployeeProfilePageState createState() => EmployeeProfilePageState();
 }
 
-class _EmployeeProfilePageState extends State<EmployeeProfilePage> {
+class EmployeeProfilePageState extends State<EmployeeProfilePage> {
   bool showSideMenu = false;
 
   final List<Map<String, String>> employees = [

@@ -3,10 +3,8 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:clean_a/shared/utility/responsive.dart';
-
 class IncomePage extends StatefulWidget {
-  const IncomePage({Key? key}) : super(key: key);
+  const IncomePage({super.key});
 
   @override
   State<IncomePage> createState() => _IncomePageState();
@@ -38,16 +36,17 @@ class _IncomePageState extends State<IncomePage> {
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0), // Adjust the border radius as needed
+            borderRadius: BorderRadius.circular(
+                16.0), // Adjust the border radius as needed
           ),
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             width: 500, // Set width to make it a square
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Add Income',
                   style: TextStyle(
                     fontFamily: 'Poppins',
@@ -55,23 +54,23 @@ class _IncomePageState extends State<IncomePage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: categoryController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Category',
                           border: OutlineInputBorder(), // Add border
                         ),
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: TextField(
                         controller: invoiceIdController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Invoice ID',
                           border: OutlineInputBorder(), // Add border
                         ),
@@ -79,23 +78,23 @@ class _IncomePageState extends State<IncomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: dateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Date',
                           border: OutlineInputBorder(), // Add border
                         ),
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: TextField(
                         controller: expenseHeadController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Income Head',
                           border: OutlineInputBorder(), // Add border
                         ),
@@ -103,15 +102,15 @@ class _IncomePageState extends State<IncomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TextField(
                   controller: amountController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Amount',
                     border: OutlineInputBorder(), // Add border
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -121,19 +120,23 @@ class _IncomePageState extends State<IncomePage> {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF2CBF29), // Set background color here
+                        backgroundColor: const Color(
+                            0xFF2CBF29), // Set background color here
                       ),
-                      child: Text('Add Income', style: TextStyle(fontFamily: 'Poppins')),
+                      child: const Text('Add Income',
+                          style: TextStyle(fontFamily: 'Poppins')),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey, // Set background color here
+                        backgroundColor:
+                            Colors.grey, // Set background color here
                       ),
-                      child: Text('Cancel', style: TextStyle(fontFamily: 'Poppins')),
+                      child: const Text('Cancel',
+                          style: TextStyle(fontFamily: 'Poppins')),
                     ),
                   ],
                 ),
@@ -205,15 +208,17 @@ class _IncomePageState extends State<IncomePage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.filter_list,
                                           color: Colors.white, size: 20),
                                       label: const Text('Filter By',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     const SizedBox(width: 8),
                                     ElevatedButton.icon(
@@ -222,15 +227,17 @@ class _IncomePageState extends State<IncomePage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.green,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.add,
                                           color: Colors.white, size: 20),
                                       label: const Text('Add Income',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                 ),
@@ -249,48 +256,56 @@ class _IncomePageState extends State<IncomePage> {
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context).size.width),
+                                    minWidth:
+                                        MediaQuery.of(context).size.width),
                                 child: DataTable(
                                   columnSpacing: 20.0,
-                                  headingRowColor: MaterialStateColor.resolveWith(
+                                  headingRowColor:
+                                      MaterialStateColor.resolveWith(
                                           (states) => Colors.blue),
                                   dividerThickness: 0, // Remove the dividers
                                   columns: const <DataColumn>[
                                     DataColumn(
                                       label: Text('Invoice Id',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Category',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Income Head',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Permitted Action',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Amount',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Date',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
                                     6, // Number of rows
-                                        (index) => DataRow(
+                                    (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
-                                              (states) {
-                                            // Alternating colors
-                                            return index % 2 == 0
-                                                ? Colors.grey[200]!
-                                                : Colors.white;
-                                          }),
+                                          (states) {
+                                        // Alternating colors
+                                        return index % 2 == 0
+                                            ? Colors.grey[200]!
+                                            : Colors.white;
+                                      }),
                                       cells: <DataCell>[
                                         DataCell(
                                           Checkbox(
@@ -304,7 +319,8 @@ class _IncomePageState extends State<IncomePage> {
                                         ),
                                         DataCell(Text('Category $index')),
                                         DataCell(Text('Income Head $index')),
-                                        DataCell(Text('Permitted Action $index')),
+                                        DataCell(
+                                            Text('Permitted Action $index')),
                                         DataCell(Text('Amount $index')),
                                         DataCell(Text('Date $index')),
                                       ],
@@ -323,7 +339,8 @@ class _IncomePageState extends State<IncomePage> {
                                     // Navigate to previous page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Prev',
@@ -339,7 +356,8 @@ class _IncomePageState extends State<IncomePage> {
                                     // Navigate to page 1
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '1',
@@ -355,7 +373,8 @@ class _IncomePageState extends State<IncomePage> {
                                     // Navigate to page 2
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '2',
@@ -371,7 +390,8 @@ class _IncomePageState extends State<IncomePage> {
                                     // Navigate to page 3
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '3',
@@ -387,7 +407,8 @@ class _IncomePageState extends State<IncomePage> {
                                     // Navigate to next page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor:  const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Next',

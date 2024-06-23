@@ -1,22 +1,10 @@
 import 'package:clean_a/shared/constants/data_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:clean_a/shared/utility/responsiveDrawer.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
-import 'package:clean_a/Drawer/sidemenupage.dart';
-
-import 'package:clean_a/shared/constants/medicine_data.data.dart';
-import 'package:flutter/widgets.dart';
-
 class AuthorizedUser extends StatelessWidget {
   const AuthorizedUser({super.key});
 
   @override
-
-
-
   Widget build(BuildContext context) {
     int totalPages = 3;
     final data = [
@@ -65,9 +53,6 @@ class AuthorizedUser extends StatelessWidget {
     ];
 
     return Scaffold(
-
-
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CategoryTabs extends StatelessWidget {
+  const CategoryTabs({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [

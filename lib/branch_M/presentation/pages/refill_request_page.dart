@@ -60,9 +60,9 @@ class RefillRequestPageState extends State<RefillRequestPage> {
                         },
                         isSideMenuOpen: showSideMenu,
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: RefillRequestContent(),

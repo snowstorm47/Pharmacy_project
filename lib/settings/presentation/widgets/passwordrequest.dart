@@ -3,8 +3,6 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:clean_a/shared/utility/responsive.dart';
-
 class PasswordRequestsPage extends StatefulWidget {
   const PasswordRequestsPage({super.key});
 
@@ -76,15 +74,17 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.filter_list,
                                           color: Colors.white, size: 20),
                                       label: const Text('Filter By',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     const SizedBox(width: 8),
                                     ElevatedButton.icon(
@@ -93,15 +93,17 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.grey,
-                                        minimumSize: Size(100, 36),
+                                        minimumSize: const Size(100, 36),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
                                       ),
                                       icon: const Icon(Icons.recycling,
                                           color: Colors.white, size: 20),
                                       label: const Text('Recycle',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                 ),
@@ -120,52 +122,61 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
-                                    minWidth: MediaQuery.of(context).size.width),
+                                    minWidth:
+                                        MediaQuery.of(context).size.width),
                                 child: DataTable(
                                   columnSpacing: 20.0,
-                                  headingRowColor: MaterialStateColor.resolveWith(
+                                  headingRowColor:
+                                      MaterialStateColor.resolveWith(
                                           (states) => Colors.blue),
                                   dividerThickness: 0, // Remove the dividers
                                   columns: const <DataColumn>[
                                     DataColumn(
                                       label: Text('No',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Employee email',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Role',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Time Stamp',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Ip Address',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Attempt',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
                                       label: Text('Actions',
-                                          style: TextStyle(color: Colors.white)),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
                                     7, // Number of rows
-                                        (index) => DataRow(
+                                    (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
-                                              (states) {
-                                            // Alternating colors
-                                            return index % 2 == 0
-                                                ? Colors.grey[200]!
-                                                : Colors.white;
-                                          }),
+                                          (states) {
+                                        // Alternating colors
+                                        return index % 2 == 0
+                                            ? Colors.grey[200]!
+                                            : Colors.white;
+                                      }),
                                       cells: <DataCell>[
                                         DataCell(
                                           Checkbox(
@@ -215,7 +226,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     // Navigate to previous page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Prev',
@@ -231,7 +243,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     // Navigate to page 1
                                   },
                                   style: ElevatedButton.styleFrom(
-                                   backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '1',
@@ -247,7 +260,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     // Navigate to page 2
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '2',
@@ -263,7 +277,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     // Navigate to page 3
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     '3',
@@ -279,7 +294,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     // Navigate to next page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(
+                                        0xFFF1EFEF), // Set background color here
                                   ),
                                   child: const Text(
                                     'Next',

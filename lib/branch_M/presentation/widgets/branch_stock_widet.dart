@@ -141,7 +141,7 @@ class BranchStockWidget extends StatelessWidget {
   }
 
   Widget _buildDataCell(String text, bool isTablet) {
-    return Container(
+    return SizedBox(
       width: isTablet ? 150 : 120,
       child: Text(
         text,

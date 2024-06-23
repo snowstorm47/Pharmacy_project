@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:clean_a/dashboard/presentation/widgets/barchart_widget.dart';
 import 'package:clean_a/dashboard/presentation/widgets/custom_card_widget.dart';
 import 'package:clean_a/dashboard/presentation/widgets/piechart_widget.dart';
@@ -7,13 +9,13 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  DashboardPageState createState() => DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class DashboardPageState extends State<DashboardPage> {
   bool showSideMenu = false;
 
   @override

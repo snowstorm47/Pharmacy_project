@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
@@ -70,8 +69,7 @@ class SideMenu extends StatelessWidget {
 
   final VoidCallback onClose;
 
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -131,10 +129,19 @@ class SideMenu extends StatelessWidget {
                       title: 'Customer',
                       falIcon: FontAwesomeIcons.user,
                       press: () {},
-                      dropdownItems: [
-                        {'title': 'Authorized User', 'route': '/customer/authorized_user'},
-                        {'title': 'Add User', 'route': '/customer/add_authorized_user'},
-                         {'title': 'Add authorized company', 'route': '/customer/add_authorized_company'},
+                      dropdownItems: const [
+                        {
+                          'title': 'Authorized User',
+                          'route': '/customer/authorized_user'
+                        },
+                        {
+                          'title': 'Add User',
+                          'route': '/customer/add_authorized_user'
+                        },
+                        {
+                          'title': 'Add authorized company',
+                          'route': '/customer/add_authorized_company'
+                        },
                       ],
                       tileColor: Colors.white,
                     ),
@@ -142,9 +149,12 @@ class SideMenu extends StatelessWidget {
                       title: 'Medicine',
                       falIcon: FontAwesomeIcons.pills,
                       press: () {},
-                      dropdownItems: [
-                        {'title': 'Medicine List', 'route': '/medicine/details'},
-                       // {'title': 'Add Medicine', 'route': '/medicine/add'},
+                      dropdownItems: const [
+                        {
+                          'title': 'Medicine List',
+                          'route': '/medicine/details'
+                        },
+                        // {'title': 'Add Medicine', 'route': '/medicine/add'},
                       ],
                       tileColor: Colors.white,
                     ),
@@ -152,7 +162,7 @@ class SideMenu extends StatelessWidget {
                       title: 'Sales',
                       falIcon: FontAwesomeIcons.chartLine,
                       press: () {},
-                      dropdownItems: [
+                      dropdownItems: const [
                         {'title': 'Sales Report', 'route': '/sales'},
                         {'title': 'New Sale', 'route': '/sales/page'},
                       ],
@@ -162,12 +172,14 @@ class SideMenu extends StatelessWidget {
                       title: 'Stock',
                       falIcon: FontAwesomeIcons.fileMedical,
                       press: () {},
-                      dropdownItems: [
+                      dropdownItems: const [
                         {'title': 'Stock List', 'route': '/stock/list'},
                         {'title': 'out Stock', 'route': '/stock/out_of_stock'},
-                         {'title': 'expired medicine', 'route': '/stock/expired'},
+                        {
+                          'title': 'expired medicine',
+                          'route': '/stock/expired'
+                        },
                         {'title': 'Add Stock', 'route': '/stock/add'},
-
                       ],
                       tileColor: Colors.white,
                     ),
@@ -175,14 +187,20 @@ class SideMenu extends StatelessWidget {
                       title: 'Reports',
                       falIcon: FontAwesomeIcons.noteSticky,
                       press: () {},
-                      dropdownItems: [
-
-
-{'title': ' generated Report purchase', 'route': '/reports/generated_purchase'},
-                        {'title': ' Report purchase', 'route': '/reports/purchase'},
-{'title': ' generated Report sales', 'route': '/reports/generated_sales'},
+                      dropdownItems: const [
+                        {
+                          'title': ' generated Report purchase',
+                          'route': '/reports/generated_purchase'
+                        },
+                        {
+                          'title': ' Report purchase',
+                          'route': '/reports/purchase'
+                        },
+                        {
+                          'title': ' generated Report sales',
+                          'route': '/reports/generated_sales'
+                        },
                         {'title': ' Report sales', 'route': '/reports/sales'},
-
                       ],
                       tileColor: Colors.white,
                     ),
@@ -190,7 +208,7 @@ class SideMenu extends StatelessWidget {
                       title: 'Supplier',
                       falIcon: FontAwesomeIcons.car,
                       press: () {},
-                      dropdownItems: [
+                      dropdownItems: const [
                         {'title': 'Supplier List', 'route': '/supplier/list'},
                         {'title': 'Add Supplier', 'route': '/supplier/add'},
                       ],
@@ -200,11 +218,14 @@ class SideMenu extends StatelessWidget {
                       title: 'Branches',
                       falIcon: FontAwesomeIcons.codeBranch,
                       press: () {},
-                      dropdownItems: [
+                      dropdownItems: const [
                         {'title': 'Branch List', 'route': '/branch/list'},
                         {'title': 'Add Branch', 'route': '/branch/add'},
-                          {'title': 'Branch stock', 'route': '/branch/stock'},
-                        {'title': 'Branch refill', 'route': '/branch/refill_request'},
+                        {'title': 'Branch stock', 'route': '/branch/stock'},
+                        {
+                          'title': 'Branch refill',
+                          'route': '/branch/refill_request'
+                        },
                       ],
                       tileColor: Colors.white,
                     ),
@@ -212,7 +233,7 @@ class SideMenu extends StatelessWidget {
                       title: 'Return',
                       falIcon: FontAwesomeIcons.rotateLeft,
                       press: () {},
-                      dropdownItems: [
+                      dropdownItems: const [
                         {'title': 'Return List', 'route': '/return/list'},
                         {'title': 'New Return', 'route': '/return/new'},
                       ],
@@ -222,9 +243,15 @@ class SideMenu extends StatelessWidget {
                       title: 'Employee',
                       falIcon: FontAwesomeIcons.person,
                       press: () {},
-                      dropdownItems: [
-                        {'title': 'Employee profile', 'route': '/employee/profile'},
-                        {'title': 'Attendance Employee', 'route': '/employee/attendance'},
+                      dropdownItems: const [
+                        {
+                          'title': 'Employee profile',
+                          'route': '/employee/profile'
+                        },
+                        {
+                          'title': 'Attendance Employee',
+                          'route': '/employee/attendance'
+                        },
                       ],
                       tileColor: Colors.white,
                     ),
@@ -232,26 +259,41 @@ class SideMenu extends StatelessWidget {
                       title: 'Finance',
                       falIcon: FontAwesomeIcons.dollarSign,
                       press: () {},
-                      dropdownItems: [
-                        {'title': 'Finance expense', 'route': '/finance/expense'},
+                      dropdownItems: const [
+                        {
+                          'title': 'Finance expense',
+                          'route': '/finance/expense'
+                        },
                         {'title': 'finance income', 'route': '/finance/income'},
-                          {'title': 'Invoice Detail', 'route': '/finance/invoice_details'},
-                          {'title': 'Invoice Detail2', 'route': '/finance/dashboard'},
+                        {
+                          'title': 'Invoice Detail',
+                          'route': '/finance/invoice_details'
+                        },
+                        {
+                          'title': 'Invoice Detail2',
+                          'route': '/finance/dashboard'
+                        },
                       ],
                       tileColor: Colors.white,
                     ),
                     DrawerListTile(
                       title: 'Setting',
                       falIcon: FontAwesomeIcons.gears,
-                      press: () {
-                       
-                      },
-                       dropdownItems: [
-                        {'title': 'password requests', 'route': '/settings/password_requests'},
-                        {'title': 'report complaints', 'route': '/settings/report_complaints'},
-                        {'title': 'view_roles', 'route': '/settings/view_roles'},
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'password requests',
+                          'route': '/settings/password_requests'
+                        },
+                        {
+                          'title': 'report complaints',
+                          'route': '/settings/report_complaints'
+                        },
+                        {
+                          'title': 'view_roles',
+                          'route': '/settings/view_roles'
+                        },
                       ],
-
                       tileColor: Colors.white,
                     ),
                   ],
@@ -297,8 +339,7 @@ class DrawerListTile extends StatefulWidget {
 class DrawerListTileState extends State<DrawerListTile> {
   bool isExpanded = false;
 
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

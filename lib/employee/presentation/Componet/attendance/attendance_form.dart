@@ -11,6 +11,7 @@ class AttendanceForm extends StatelessWidget {
   final Function onTapSignOut;
 
   const AttendanceForm({
+    super.key,
     required this.dateController,
     required this.signInController,
     required this.signOutController,
