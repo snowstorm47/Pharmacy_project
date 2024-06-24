@@ -60,7 +60,7 @@ class CustomerRepo{
      policyNumber: policyNumber
             );
             await customerRef.doc(companyName).set(customer.toMap());
-final employeeRef = _firebaseFirestore.collection('corporateEmployees');
+final employeeRef = _firebaseFirestore.collection('employees');
    try{
    if(csvData != null){
      var info = <Map<String,dynamic>> [];
@@ -141,7 +141,7 @@ final employee = Corpemployee(
  final transaction = await _firebaseFirestore.runTransaction((transaction)async{
  final docSnapshot = await transaction.get(customerRef);
   if(docSnapshot.exists){
-  final employeeRef = _firebaseFirestore.collection('corporateEmployees').doc(employeeId);
+  final employeeRef = _firebaseFirestore.collection('employees').doc(employeeId);
   await employeeRef.set(employee.toMap());
 }
  
@@ -162,7 +162,7 @@ Future<List<Object>?> findCustomer(String company, String searchString) async {
   try {
     final docSnapshot = await customerRef.get();
     if (docSnapshot.exists) {
-      final employeeRef = _firebaseFirestore.collection('corporateEmployees');
+      final employeeRef = _firebaseFirestore.collection('employees');
       final searchItem= searchString.toLowerCase();
       final query = employeeRef.where('firstName',isGreaterThanOrEqualTo:searchItem);
         return query.get().then((querySnapshot) {
@@ -186,7 +186,7 @@ Future<List<Object>?> getAllcustomers() async {
     for (final docSnapshot in querySnapshot.docs) {
       final companyData = docSnapshot.data()!;
       final companyName = companyData['companyName'] as String;
-      final employeeRef = _firebaseFirestore.collection('corporateEmployees');
+      final employeeRef = _firebaseFirestore.collection('employees');
       QuerySnapshot employeeSnapshot = await employeeRef.get();
        if(employeeSnapshot!= null){
         return employeeSnapshot.docs.map((doc)=>doc.data() as Map<String, dynamic>).toList();
@@ -211,7 +211,7 @@ Future<void> addCredit(String company, String id, double price) async{
     final limit =customerSnapshot.get('creditLimit');
     print(limit);
     if(limit >= price){
-      final employeeRef =  _firebaseFirestore.collection('corporateEmployees').doc(id);
+      final employeeRef =  _firebaseFirestore.collection('employees').doc(id);
         DocumentSnapshot employeeSnapshot = await employeeRef.get();
            try {
     // Prepare update data

@@ -1,6 +1,5 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../domain/entites/role.dart';
 
 class SettingRepo{
@@ -14,7 +13,12 @@ class SettingRepo{
   required String employeeName,
   required String description
  }) async{
-  final role= Role(
+  final employeeRef = _firebaseFirestore.collection('Employees');
+  final query = employeeRef.where('FirstName',isEqualTo: employeeName).limit(1);
+ //Get documents
+ final querySnapshot = await query.get();
+ if(querySnapshot.docs.length > 1){
+ final role= Role(
     employeeName: employeeName,
     name:name,
     actions: actions,
@@ -24,6 +28,13 @@ class SettingRepo{
   if(role!= null){
   final roleRef =  _firebaseFirestore.collection('role').doc(employeeName).set(role.toMap());
  }
+ }
+ else{
+ print('there is not employee with employeeName ${employeeName}');
+ return null;
+ }
+
+ 
  }
  Future<void> editRole(String employeeName, {required Map<String, dynamic> updatedData}) async {
   final roleRef = _firebaseFirestore.collection('role').doc(employeeName);

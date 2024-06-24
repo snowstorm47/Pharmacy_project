@@ -5,7 +5,7 @@ class PUser{
    String? branch;
    String uid;
    String? photoUrl;
-   String role;
+   String? role;
    List<String> permission;
    List<String> access;
  PUser({
@@ -37,7 +37,7 @@ class PUser{
    'email':email,
    'FirstName':FirstName,
    'LastName':LastName,
-   'role':role,
+   'role':role ?? 'Default',
    if(branch !=null)  'branch':branch,
    if(photoUrl!=null) 'photoUrl':photoUrl,
    'permission':permission,

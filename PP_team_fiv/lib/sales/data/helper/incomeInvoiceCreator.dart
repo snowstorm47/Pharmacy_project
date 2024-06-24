@@ -1,7 +1,39 @@
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+class Item { 
+     String name;
+     int quantity;
+     double price;
+     double total;
+    Item(
+    {
+      required this.name,
+     required  this.quantity,
+      required this.price,
+      required this.total
+      }
+    
+   );
+
+  String getIndex(int index) {
+    switch (index) {
+      case 0:
+        return name;
+      case 1:
+        return price.toString();
+      case 2:
+        return quantity.toString();
+      case 3:
+        return total.toString();
+      
+    }
+    return '';
+  }
+   
+  }
 class Invoicecreator{
+
   Future<Uint8List?> generatePdf(Map<String,dynamic> invoiceData)async{
 final doc = pw.Document();
      doc.addPage(
@@ -33,9 +65,10 @@ final doc = pw.Document();
                                   padding: pw.EdgeInsets.only(left: 50.0),
                                   child: pw.Text(
                                     "INVOICE TO",
-                                    style: pw.TextStyle(
+                                    style: const pw.TextStyle(
                                       fontSize: 12.0,
-                                      fontWeight: pw.FontWeight.bold,
+                                     
+                                      
                                     ),
                                   ),
                                 ),
@@ -45,7 +78,7 @@ final doc = pw.Document();
                                     "${invoiceData['customerName']}",
                                     style: pw.TextStyle(
                                       fontSize: 20.0,
-                                      fontWeight: pw.FontWeight.bold,
+                                      
                                     ),
                                   ),
                                 ),
@@ -68,7 +101,7 @@ final doc = pw.Document();
                                 pw.Text(
                                   "Subtotal:",
                                   style: pw.TextStyle(
-                                    fontWeight: pw.FontWeight.bold,
+                                  
                                     fontSize: 15.0,
                                   ),
                                 ),
@@ -98,9 +131,9 @@ final doc = pw.Document();
                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: [
                                   pw.Text(
-                                    "${invoiceData['subTotal']}",
+                                    "${invoiceData['subTotal'].toString()}",
                                     style: pw.TextStyle(
-                                      fontWeight: pw.FontWeight.bold,
+                                      
                                       fontSize: 15.0,
                                     ),
                                   ),
@@ -119,9 +152,9 @@ final doc = pw.Document();
                                   pw.Padding(
                                     padding: pw.EdgeInsets.only(top: 8.0),
                                     child: pw.Text(
-                                      "${invoiceData['subTotal']}",
+                                      "${invoiceData['subTotal'].toString()}",
                                       style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
+                                        
                                         fontSize: 15.0,
                                       ),
                                     ),
@@ -180,8 +213,8 @@ pw.Widget _contentHeader(pw.Context context, Map<String, dynamic> invoiceData) {
               "INVOICE",
               style: pw.TextStyle(
                 fontSize: 20.0,
-                color: PdfColors.green,
-                fontWeight: pw.FontWeight.bold,
+                color: PdfColor(0, 1, 0, 1),
+             
               ),
             ),
             pw.Text(
@@ -189,7 +222,7 @@ pw.Widget _contentHeader(pw.Context context, Map<String, dynamic> invoiceData) {
               style: pw.TextStyle(fontSize: 10.0),
             ),
             pw.Text(
-              "DATE: ${invoiceData["createdAt"] ?? "26 Jan,2020"}",
+              "DATE: ${invoiceData["createdAt"].toString() ?? "26 Jan,2020"}",
               style: pw.TextStyle(fontSize: 10.0),
             ),
           ],
@@ -197,40 +230,44 @@ pw.Widget _contentHeader(pw.Context context, Map<String, dynamic> invoiceData) {
       ),
     ],
   );
-}
- pw.Widget _contentTable(pw.Context context, Map<String, dynamic> invoiceData) {
+}pw.Widget _contentTable(pw.Context context, Map<String, dynamic> invoiceData) {
   const tableHeaders = [
     'InvoiceID',
-    'Category', // Changed 'Catagory' to 'Category' for better spelling
+    'Category',
     'Price',
     'Quantity',
     'Amount'
   ];
-  List<Map<String, dynamic>> items = invoiceData['items'];
+  
+  List<dynamic> items = invoiceData['items'] ;
 
-  String getIndex(int index, Map<String, dynamic> item) {
-    switch (index) {
-      case 0:
-        return invoiceData['invoiceId'];
-      case 1:
-        return item['name'];
-      case 2:
-        return item['price'].toString();
-      case 3:
-        return item['quantity'].toString();
-      case 4:
-        return item['total'];
-      default:
-        return ""; // Or throw an exception if an unexpected index is used
+ List<Item> getItems(items){
+     final List<Item> Products=[];
+    for(final item in items){
+       final name=item['name']! as String;
+         final price=item['price'] as double;
+         final quantity=item['quantity'] as int;
+         final total=item['total'] as double;
+       final newItem  =  Item(
+         name:name,
+         price:price,
+         quantity:quantity,
+         total:total
+       );
+       Products.add(
+        newItem
+       );
     }
+    return Products;
   }
+    final products = getItems(items);
 
   return pw.TableHelper.fromTextArray(
     border: null,
     cellAlignment: pw.Alignment.centerLeft,
     headerDecoration: pw.BoxDecoration(
       borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-      color: PdfColor.fromHex('0xFFECEDF7'),
+      color: PdfColors.amber,
     ),
     headerHeight: 25,
     cellHeight: 40,
@@ -242,36 +279,30 @@ pw.Widget _contentHeader(pw.Context context, Map<String, dynamic> invoiceData) {
       4: pw.Alignment.centerRight,
     },
     headerStyle: pw.TextStyle(
-      color: PdfColor(255, 14, 196, 20),
+      color: PdfColor(1, 0.14, 0.196, 0.2),
       fontSize: 10,
-      fontWeight: pw.FontWeight.bold,
+     
     ),
-    cellStyle: const pw.TextStyle(
-      color: PdfColors.black,
+    cellStyle:  pw.TextStyle(
+      color: PdfColor(0, 0, 0, 1),
       fontSize: 10,
     ),
     rowDecoration: pw.BoxDecoration(
       border: pw.Border(
         bottom: pw.BorderSide(
-          color: PdfColors.black,
-          width: .5,
+          color: PdfColor(0, 0, 0, 1),
+          width:.5,
         ),
       ),
     ),
-    headers: List<String>.generate(
-      tableHeaders.length,
-      (col) => tableHeaders[col],
-    ),
+    headers: tableHeaders,
     data: List<List<String>>.generate(
-      invoiceData['items'].length, // Use items.length instead of catagory.length
-      (row) => List<String>.generate(
-        tableHeaders.length,
-        (col) => getIndex(col, items[row]),
+        
+        products.length,
+        (row) => List<String>.generate(
+          tableHeaders.length,
+          (col) => products[row].getIndex(col),
+        ),
       ),
-    ),
-  );
+    );
 }
-
-  
-
-  

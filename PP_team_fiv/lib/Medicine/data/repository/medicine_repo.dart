@@ -1,11 +1,13 @@
 
 
+import 'dart:ui';
+
 import 'package:app/Medicine/domain/entities/batch.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
 
 class MedicineRepo{
 
@@ -39,7 +41,10 @@ Future<void> addMedicine({
       batchNumber: batchNumber,
       stock: stock,
       dateAdded: dateAdded,
-      branchId: branchId);
+      branchId: branchId,
+      sellingPrice:sellingPrice,
+      suppliersPrice:suppliersPrice,
+      taxable:taxable);
 
   try {
     // Attempt to set data in both collections
@@ -259,14 +264,15 @@ Future<double?> sellItem(String medicineName, int quantityToSell) async {
       final int stock = batchData['stock'] as int;
       final double price = batchData['sellingPrice'] as double;
       final tax = batchData['taxable'] as bool;
-    const  taxVariable =0.15;
+      final taxVariable =0.15;
 
       if (quantityToSell > 0 && stock >= quantityToSell) {
         final newStock = stock - quantityToSell;
         if(tax){
+            final  total=  price*taxVariable*quantityToSell;
           await batchRef.update({'stock': newStock});
-          var total=  price*0.15;
           return total;
+      
         }
         else{
           await batchRef.update({'stock': newStock});
@@ -277,83 +283,79 @@ Future<double?> sellItem(String medicineName, int quantityToSell) async {
         
       } else {
         print('Insufficient stock for $medicineName. Only $stock units available.');
+        return null;
       }
     } else {
       print('Batch document for branch $medicineName not found.');
+      return null;
     }
   } on FirebaseException catch (e) {
     // Handle Firebase errors gracefully, e.g., log the error or display a user-friendly message
     print('Error selling item: $e');
+    return null;
   } catch (e) {
     // Handle other unexpected errors
     print('An unexpected error occurred: $e');
+    return null;
   }
 }
 
-Future<double?> sellCredit(String medicineName,String company,String customerName,int quantityToSell )async{
+Future<double?> sellCredit(String medicineName, String company, String customerName, int quantityToSell) async {
+  final companyRef = _firebaseFirestore.collection('Customer').doc(company);
+  final batchRef = _firebaseFirestore.collection('batches').doc(medicineName);
 
-final companyRef = _firebaseFirestore.collection('Customer').doc(company);
-final batchRef = _firebaseFirestore.collection('batches').doc(medicineName);
-final med = await batchRef.get();
-const taxVariable = 0.15;
-if(med != null){
-  final medData = med.data() as Map<String,dynamic>;
-  if(medData['quantity'] >= quantityToSell ){
-await _firebaseFirestore.runTransaction((transaction)async{
- final snapshot = await transaction.get(companyRef);
- if(snapshot.exists){
-  final employeeRef = companyRef.collection('corporateEmployees').doc(customerName);
-  final employeeSnapshot = await employeeRef.get();
-  if(employeeSnapshot!=null){
-    final companyData = snapshot.data() as Map<String,dynamic>;
-    final employeeData = employeeSnapshot.data() as Map<String,dynamic>;
-    final creditLimit = companyData['creditLimit'] as double;
-    if(creditLimit >= medData['sellingPrice']){
-      if(med['taxable']){
-          final newCreditLimit = creditLimit - medData['sellingPrice']* taxVariable*quantityToSell;
-          final newCredit=employeeData['credit']+med['sellingPrice']*taxVariable*quantityToSell; 
-          final newStock = medData['stock']-quantityToSell;
-          try{ await batchRef.update({'stock': newStock});
-           await employeeRef.update({'credit':newCredit});
-           await companyRef.update({'creditLimit':newCreditLimit});
-          return medData['sellingPrice']*taxVariable*quantityToSell;}
-          catch(e){
-            print(e.toString());
-            return null;
-          }
-      }
-      else{
-          final newCreditLimit = creditLimit - medData['sellingPrice']*quantityToSell;
-          final newCredit = employeeData['credit'] + med['sellingPrice']*quantityToSell;
-          final newStock = medData['stock']-quantityToSell;
-          try{
-           await batchRef.update({'stock': newStock});
-           await employeeRef.update({'credit':newCredit});
-           await companyRef.update({'creditLimit':newCreditLimit});
-           return med['sellingPrice']*quantityToSell;
-           }
-           catch(e){
-            print(e.toString);
-            return null;
-           }
-          
-      }
-    
-    }
+  final med = await batchRef.get();
+
+  if (med == null) {
+    throw Exception("The medicine doesn't exist");
   }
- }
 
-});}
-    else{
-       throw Exception("there isn't enough quantity");
-    }}
-    else{
-      throw Exception("the medicine doesn't exist");
-      
-    }
-return null;
+  final taxVariable = 0.15;
+  final medData = med.data() as Map<String, dynamic>;
+  final quantity = medData['stock'] as int;
 
-} 
+  if (quantity < quantityToSell) {
+    throw Exception("There isn't enough quantity");
+  }
+
+  try {
+    return await _firebaseFirestore.runTransaction((transaction) async {
+      final snapshot = await transaction.get(companyRef);
+      if (!snapshot.exists) {
+        throw Exception("Company not found"); // Handle missing company
+      }
+
+      final employeeRef = companyRef.collection('employees').doc(customerName);
+      final employeeSnapshot = await transaction.get(employeeRef);
+      if (!employeeSnapshot.exists) {
+        throw Exception("Employee not found"); // Handle missing employee
+      }
+
+      final companyData = snapshot.data() as Map<String, dynamic>;
+      final employeeData = employeeSnapshot.data() as Map<String, dynamic>;
+      final creditLimit = companyData['creditLimit'] as double;
+      final sellingPrice = medData['sellingPrice'] as double;
+
+      if (creditLimit < sellingPrice * quantityToSell) {
+        throw Exception("Insufficient credit limit");  // Handle insufficient credit
+      }
+
+      final newCreditLimit = creditLimit - sellingPrice * quantityToSell * (med['taxable'] ? taxVariable : 1);
+      final newCredit = employeeData['credit'] + sellingPrice * quantityToSell * (med['taxable'] ? taxVariable : 1);
+      final newStock = medData['stock'] - quantityToSell;
+
+       transaction.update(batchRef, {'stock': newStock});
+       transaction.update(employeeRef, {'credit': newCredit});
+       transaction.update(companyRef, {'creditLimit': newCreditLimit});
+
+      return sellingPrice * quantityToSell * (med['taxable'] ? taxVariable : 1);
+    });
+  } catch (e) {
+    print(e.toString()); // Log the error for debugging
+    return null; // Indicate failure
+  }
+}
+
 Future<void> getInfo(List<String> medicineName)async{
 List<String > itemName =medicineName;
 for(final item in itemName){
@@ -389,4 +391,3 @@ for(final item in itemName){
 }
 
 }
-
