@@ -2,6 +2,8 @@ import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 
 class AttendanceTable extends StatelessWidget {
+  const AttendanceTable({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(

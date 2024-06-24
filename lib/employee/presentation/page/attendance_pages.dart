@@ -174,7 +174,7 @@ class AttendancePageState extends State<AttendancePage> {
                               ),
                               const SizedBox(height: 20),
                               // Centered Table
-                              AttendanceTable(),
+                              const AttendanceTable(),
                             ],
                           ),
                         ),

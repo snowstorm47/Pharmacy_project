@@ -1,7 +1,9 @@
-import 'package:clean_a/sales/presentation/widgets/screen/sucess_screen.dart';
+import 'package:clean_a/sales/presentation/widgets/screen/success_screen.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
+  const ConfirmationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

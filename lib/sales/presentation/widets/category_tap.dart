@@ -22,7 +22,7 @@ class CategoryTab extends StatelessWidget {
   final String category;
   final bool isActive;
 
-  const CategoryTab(this.category, this.isActive);
+  const CategoryTab(this.category, this.isActive, {super.key});
 
   @override
   Widget build(BuildContext context) {

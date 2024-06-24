@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Invoice_details extends StatelessWidget {
+class InvoiceDetails extends StatelessWidget {
   final TextEditingController _descriptionController = TextEditingController();
 
-  Invoice_details({Key? key}) : super(key: key);
+  InvoiceDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -132,67 +132,65 @@ class Invoice_details extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 40.0),
-                          child: Container(
-                            child: const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 50.0),
-                                  child: Text(
-                                    "INVOICE TO",
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          padding: EdgeInsets.only(left: 40.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 50.0),
+                                child: Text(
+                                  "INVOICE TO",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 50.0),
-                                  child: Text(
-                                    "Gregory Ander son",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 50.0),
+                                child: Text(
+                                  "Gregory Andre son",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: Color.fromARGB(255, 14, 196, 20),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 28.0, top: 10.0),
-                                      child: Text(
-                                          "House #65, 4328 Marion StreetNewbury, VT 05051"),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.phone,
-                                      color: Color.fromARGB(255, 14, 196, 20),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 28.0, top: 10.0),
-                                      child: Text("+012 8764 556"),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Color.fromARGB(255, 14, 196, 20),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 28.0, top: 10.0),
+                                    child: Text(
+                                        "House #65, 4328 Marion StreetNewburg, VT 05051"),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.phone,
+                                    color: Color.fromARGB(255, 14, 196, 20),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 28.0, top: 10.0),
+                                    child: Text("+012 8764 556"),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(right: 180.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,7 +314,7 @@ class Invoice_details extends StatelessWidget {
                                 padding: EdgeInsets.only(
                                     top: 12.0, left: 1.0, bottom: 12.0),
                                 child: Text(
-                                  '#Zimax - Group of Azithromycin',
+                                  '#Zama - Group of Azithromycin',
                                   style: TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold),
@@ -376,7 +374,7 @@ class Invoice_details extends StatelessWidget {
                                 padding:
                                     EdgeInsets.only(left: 1.0, bottom: 12.0),
                                 child: Text(
-                                  'Cosmotics',
+                                  'Cosmetics',
                                   style: TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold),
@@ -417,30 +415,65 @@ class Invoice_details extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 18.0),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 18.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            child: const Column(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Subtotal:",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              Text(
+                                "Processing Fee:",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              Text(
+                                "TAX",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Text(
+                                  "Grand Total:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.0, right: 100.0),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Subtotal:",
+                                  "435,000",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.0,
                                   ),
                                 ),
                                 Text(
-                                  "Processing Fee:",
+                                  "10.0",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                   ),
                                 ),
                                 Text(
-                                  "TAX",
+                                  "43.50",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                   ),
@@ -448,7 +481,7 @@ class Invoice_details extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(top: 8.0),
                                   child: Text(
-                                    "Grand Total:",
+                                    "478,500",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15.0,
@@ -456,46 +489,6 @@ class Invoice_details extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 20.0, right: 100.0),
-                            child: Container(
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "435,000",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "10.0",
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "43.50",
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      "478,500",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ),
                         ],

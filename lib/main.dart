@@ -4,33 +4,31 @@ import 'package:clean_a/branch_M/presentation/pages/branch_stock_page.dart';
 import 'package:clean_a/branch_M/presentation/pages/refill_request_page.dart';
 import 'package:clean_a/branch_M/presentation/widgets/add_branch.dart';
 
-//import 'package:clean_a/branch_M/presentation/widgets/branch_stock_widet.dart';
-import 'package:clean_a/customer/Presentation/add_autho_user.dart';
-import 'package:clean_a/customer/Presentation/auto_user_list.dart';
-import 'package:clean_a/customer/Presentation/pages/add_autorized_company.dart';
-import 'package:clean_a/employee/presentation/page/EmployeeProfilePage.dart';
+import 'package:clean_a/customer/Presentation/add_authorized_user.dart';
+import 'package:clean_a/customer/Presentation/authorized_user_list.dart';
+import 'package:clean_a/customer/Presentation/pages/add_authorized_company.dart';
+import 'package:clean_a/employee/presentation/page/employee_profile.dart';
 import 'package:clean_a/employee/presentation/page/attendance_pages.dart';
 import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
-//import 'package:clean_a/finance/presentation/pages/dashboard_screen.dart';
+
 import 'package:clean_a/finance/presentation/pages/invoice_details.dart';
 import 'package:clean_a/finance/presentation/widgets/expense.dart';
 import 'package:clean_a/finance/presentation/widgets/income.dart';
 
-import 'package:clean_a/medicine/presentation/pages/medicinedetail.dart';
+import 'package:clean_a/medicine/presentation/pages/medicine_detail.dart';
 
-//import 'package:clean_a/medicine/presentation/widgets/meddetail.dart';
-import 'package:clean_a/report/presentation/widgets/generated_p_eports.dart';
+import 'package:clean_a/report/presentation/widgets/generated_purchase_reports.dart';
 import 'package:clean_a/report/presentation/widgets/generated_sales_reports.dart';
-import 'package:clean_a/report/presentation/widgets/reportPurchase.dart';
-import 'package:clean_a/report/presentation/widgets/reportgenerate.dart';
-import 'package:clean_a/return/presentation/widgets/addDisposed.dart';
-import 'package:clean_a/return/presentation/widgets/deleteDisposedItem.dart';
-import 'package:clean_a/return/presentation/widgets/disposedlist.dart';
+import 'package:clean_a/report/presentation/widgets/report_purchase.dart';
+import 'package:clean_a/report/presentation/widgets/report_generate.dart';
+import 'package:clean_a/return/presentation/widgets/add_disposed.dart';
+import 'package:clean_a/return/presentation/widgets/delete_disposedItem.dart';
+import 'package:clean_a/return/presentation/widgets/disposed_list.dart';
 import 'package:clean_a/sales/presentation/widgets/sales.dart';
 //import 'package:clean_a/sales/presentation/widgets/sales_page.dart';
-import 'package:clean_a/settings/presentation/widgets/passwordrequest.dart';
-import 'package:clean_a/settings/presentation/widgets/reportcomplaint.dart';
-import 'package:clean_a/settings/presentation/widgets/viewrolespage.dart';
+import 'package:clean_a/settings/presentation/widgets/password_request.dart';
+import 'package:clean_a/settings/presentation/widgets/report_complaint.dart';
+import 'package:clean_a/settings/presentation/widgets/view_roles_page.dart';
 import 'package:clean_a/stock/presentation/widgets/expired_medicines.dart';
 import 'package:clean_a/stock/presentation/widgets/list_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/out_of_stock.dart';
