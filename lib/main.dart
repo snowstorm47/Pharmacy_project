@@ -35,12 +35,31 @@ import 'package:clean_a/stock/presentation/widgets/out_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/stock_detail.dart';
 import 'package:clean_a/supplier/presentation/widgets/add_supplier.dart';
 import 'package:clean_a/supplier/presentation/widgets/supplier_list.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Make sure this import path is correct
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(   
+    apiKey: "AIzaSyCvx38ISXmxYet79jWcDr3vobNqLzpF7tk",
+    authDomain: "pharmacyproj-b7ad8.firebaseapp.com",
+    projectId: "pharmacyproj-b7ad8",
+    storageBucket: "pharmacyproj-b7ad8.appspot.com",
+    messagingSenderId: "142915038111",
+    appId: "1:142915038111:web:93d5506d1097e77dc96baa",
+    measurementId: "G-1GVVPRC6MV")
+  );
+  runApp(
+    MaterialApp(
+      home:ProviderScope(
+        child:const MyApp()
+      )
+      )
+    );
 }
 
 class MyApp extends StatelessWidget {

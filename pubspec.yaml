@@ -51,6 +51,7 @@ dependencies:
   csv: ^6.0.0  
   pdf: ^3.10.8
   riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
