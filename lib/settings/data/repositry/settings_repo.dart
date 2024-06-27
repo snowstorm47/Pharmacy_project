@@ -68,7 +68,7 @@ class SettingRepo{
     final snapshot = await roleCollection.get();
    return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
-Future<void> deleteBranches(List<String> employeeName) async {
+Future<void> deleteRole(List<String> employeeName) async {
   final roleRef = _firebaseFirestore.collection('role');
    final batch = _firebaseFirestore.batch();
   for (final id in employeeName) {
