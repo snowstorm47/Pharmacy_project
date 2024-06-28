@@ -11,7 +11,7 @@ import 'package:clean_a/employee/presentation/page/employee_profile.dart';
 import 'package:clean_a/employee/presentation/page/attendance_pages.dart';
 import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
 
-import 'package:clean_a/finance/presentation/pages/invoice_page.dart';
+//import 'package:clean_a/finance/presentation/pages/invoice_page.dart';
 import 'package:clean_a/finance/presentation/widgets/expense.dart';
 import 'package:clean_a/finance/presentation/widgets/income.dart';
 
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
 
         // ##### Finance Routes #####
         // '/finance/dashboard': (context) => DashBoardScreenFinance(),
-        '/finance/invoice_details': (context) => const DashBoardScreenFinance(),
+       // '/finance/invoice_details': (context) => const DashBoardScreenFinance(),
         '/finance/expense': (context) => const ExpensePage(),
         '/finance/income': (context) => const IncomePage(),
 
