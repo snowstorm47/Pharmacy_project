@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class UserDataTable extends StatelessWidget {
   final List<DataModel> data;
 
+<<<<<<< HEAD
   const UserDataTable({required this.data});
+=======
+  const UserDataTable({super.key, required this.data});
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 
   @override
   Widget build(BuildContext context) {

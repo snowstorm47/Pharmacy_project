@@ -12,7 +12,11 @@ class InputFields extends StatelessWidget {
   final void Function(String?) onAdditionalNotesSaved;
 
   const InputFields({
+<<<<<<< HEAD
     Key? key,
+=======
+    super.key,
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
     required this.formKey,
     required this.onCompanyNameSaved,
     required this.onCompanyContactNameSaved,
@@ -22,13 +26,21 @@ class InputFields extends StatelessWidget {
     required this.onCreditLimitSaved,
     required this.onAuthorizedUsersSaved,
     required this.onAdditionalNotesSaved,
+<<<<<<< HEAD
   }) : super(key: key);
+=======
+  });
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
+<<<<<<< HEAD
+=======
+          // ignore: prefer_const_constructors
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           decoration: InputDecoration(labelText: 'Company Name'),
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -40,7 +52,11 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Contact Name'),
+=======
+          decoration: const InputDecoration(labelText: 'Contact Name'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a contact name';
@@ -51,7 +67,11 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Contact Email'),
+=======
+          decoration: const InputDecoration(labelText: 'Contact Email'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a contact email';
@@ -64,7 +84,11 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Company Address'),
+=======
+          decoration: const InputDecoration(labelText: 'Company Address'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter a company address';
@@ -75,23 +99,39 @@ class InputFields extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Payment Terms'),
+=======
+          decoration: const InputDecoration(labelText: 'Payment Terms'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           onSaved: onPaymentTermsSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Credit Limit'),
+=======
+          decoration: const InputDecoration(labelText: 'Credit Limit'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           keyboardType: TextInputType.number,
           onSaved: onCreditLimitSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Authorized Users'),
+=======
+          decoration: const InputDecoration(labelText: 'Authorized Users'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           onSaved: onAuthorizedUsersSaved,
         ),
         const SizedBox(height: 12),
         TextFormField(
+<<<<<<< HEAD
           decoration: InputDecoration(labelText: 'Additional Notes'),
+=======
+          decoration: const InputDecoration(labelText: 'Additional Notes'),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           maxLines: 3,
           onSaved: onAdditionalNotesSaved,
         ),

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:clean_a/sales/presentation/widgets/screen/sucess_screen.dart';
+=======
+import 'package:clean_a/sales/presentation/widgets/screen/success_screen.dart';
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 import 'package:flutter/material.dart';
 
 class CartSummary extends StatelessWidget {
@@ -22,9 +26,15 @@ class CartSummary extends StatelessWidget {
             ),
           ),
           const Divider(),
+<<<<<<< HEAD
           ListTile(
             title: const Text('Total:'),
             trailing: const Text('\$60.00'), // Replace with actual total amount
+=======
+          const ListTile(
+            title: Text('Total:'),
+            trailing: Text('\$60.00'), // Replace with actual total amount
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           ),
           ElevatedButton(
             onPressed: () {
@@ -66,7 +76,11 @@ class CartSummary extends StatelessWidget {
   void _showSuccessScreen(BuildContext context) {
     Navigator.of(context).pop(); // Close confirmation dialog
     Navigator.of(context).push(MaterialPageRoute(
+<<<<<<< HEAD
       builder: (context) => SuccessScreen(),
+=======
+      builder: (context) => const SuccessScreen(),
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
     ));
   }
 }

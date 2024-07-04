@@ -1,27 +1,17 @@
-<<<<<<< HEAD
-import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
-=======
-/*import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
-import 'package:clean_a/Drawer/sidemenupage.dart';
-import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:clean_a/Drawer/sidemenupage.dart';
+import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
-class AddMed extends StatefulWidget {
-  const AddMed({super.key});
+class AddAuthorizedUser extends StatefulWidget {
+  const AddAuthorizedUser({super.key});
 
   @override
-  State<AddMed> createState() => _AddAutoState();
+  State<AddAuthorizedUser> createState() => _AddAuthorizedUserState();
 }
 
-class _AddAutoState extends State<AddMed> {
-  bool isSideMenuOpen = false;
-
-  void toggleSideMenu() {
-    setState(() {
-      isSideMenuOpen = !isSideMenuOpen;
-    });
-  }
+class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
+  bool showSideMenu = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,29 +23,32 @@ class _AddAutoState extends State<AddMed> {
       body: SafeArea(
         child: Stack(
           children: [
-            // Main content area
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Sidebar (only for desktop)
                 if (ResponsiveD.isDesktop(context))
                   Expanded(
                     child: SideMenu(
-                      onClose: toggleSideMenu,
+                      onClose: () {
+                        setState(() {
+                          showSideMenu = false;
+                        });
+                      },
                     ),
                   ),
-                // Main content
                 Expanded(
                   flex: 4,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Header
                       HeaderPage(
-                        onMenuPressed: toggleSideMenu,
-                        isSideMenuOpen: isSideMenuOpen,
+                        onMenuPressed: () {
+                          setState(() {
+                            showSideMenu = !showSideMenu;
+                          });
+                        },
+                        isSideMenuOpen: showSideMenu,
                       ),
-                      // Content
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -71,14 +64,17 @@ class _AddAutoState extends State<AddMed> {
                 ),
               ],
             ),
-            // Sidebar (for mobile and tablet)
-            if (!ResponsiveD.isDesktop(context) && isSideMenuOpen)
+            if (!ResponsiveD.isDesktop(context) && showSideMenu)
               Positioned(
                 left: 0,
                 top: 0,
                 bottom: 0,
                 child: SideMenu(
-                  onClose: toggleSideMenu,
+                  onClose: () {
+                    setState(() {
+                      showSideMenu = false;
+                    });
+                  },
                 ),
               ),
           ],
@@ -92,7 +88,7 @@ class _AddAutoState extends State<AddMed> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Add Medicine',
+          'Add authorized User',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -101,7 +97,7 @@ class _AddAutoState extends State<AddMed> {
         ),
         const SizedBox(height: 7),
         const Text(
-          'You can add your new medicine here',
+          'You can add your new authorized user information here',
           style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
         const SizedBox(height: 20),
@@ -117,7 +113,7 @@ class _AddAutoState extends State<AddMed> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Add Medicine',
+          'Add authorized User',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -126,7 +122,7 @@ class _AddAutoState extends State<AddMed> {
         ),
         const SizedBox(height: 7),
         const Text(
-          'You can add your new medicine here',
+          'You can add your new authorized user information here',
           style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
         const SizedBox(height: 20),
@@ -143,21 +139,21 @@ class _AddAutoState extends State<AddMed> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Medicine Name',
+                        labelText: 'Employee Name',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Generic Name',
+                        labelText: 'Address',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Stock',
+                        labelText: 'Role/position',
                       ),
                     ),
                   ],
@@ -176,21 +172,21 @@ class _AddAutoState extends State<AddMed> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Medicine Id',
+                        labelText: 'Phone number',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Supplier price',
+                        labelText: 'City',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Taxable',
+                        labelText: 'Employee Id',
                       ),
                     ),
                   ],
@@ -209,47 +205,21 @@ class _AddAutoState extends State<AddMed> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Catagory',
+                        labelText: 'Email',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Selling Price',
+                        labelText: 'Sub City',
                       ),
                     ),
                     SizedBox(height: 30),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Prescription Based',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(width: 20),
-
-            // Fourth Column
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Weight',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Expiry Date',
+                        labelText: 'Company Name',
                       ),
                     ),
                   ],
@@ -270,77 +240,63 @@ class _AddAutoState extends State<AddMed> {
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Medicine Name',
+            labelText: 'Employee Name',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Generic Name',
+            labelText: 'Address',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Stock',
+            labelText: 'Role/position',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Medicine Id',
+            labelText: 'Phone number',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Supplier Price',
+            labelText: 'City',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Taxable',
+            labelText: 'Employee Id',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Catagory',
+            labelText: 'Email',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Selling Price',
+            labelText: 'Sub City',
           ),
         ),
         SizedBox(height: 20),
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Prescription Based',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Weight',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Expiry Date',
+            labelText: 'Company Name',
           ),
         ),
       ],
@@ -355,54 +311,30 @@ class _AddAutoState extends State<AddMed> {
           maxLines: 5,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Details...',
+            labelText: 'Enter additional description here...',
           ),
         ),
-        const SizedBox(height: 40),
+        const SizedBox(height: 20),
         Align(
           alignment: Alignment.centerRight,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0)),
-                  backgroundColor: const Color.fromARGB(236, 27, 228, 4),
-                  minimumSize: const Size(130, 40),
-                ),
-                onPressed: () {
-                  // Add button action
-                },
-                child: const Text(
-                  'Add Medicine',
-                  style: TextStyle(color: Colors.white),
-                ),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
               ),
-              const SizedBox(width: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0)),
-                  backgroundColor: const Color.fromARGB(255, 237, 75, 64),
-                  minimumSize: const Size(130, 40),
-                ),
-                onPressed: () {
-                  // Reset button action
-                },
-                child: const Text(
-                  'Reset',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
+              backgroundColor: const Color.fromARGB(236, 27, 228, 4),
+              minimumSize: const Size(130, 40),
+            ),
+            onPressed: () {
+              // Add button action
+            },
+            child: const Text(
+              'Add User',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ],
     );
   }
-<<<<<<< HEAD
 }
-=======
-}*/
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61

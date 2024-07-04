@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
-=======
-/*import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
-import 'package:clean_a/Drawer/sidemenupage.dart';
-import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 
 class AddMed extends StatefulWidget {
@@ -15,73 +8,16 @@ class AddMed extends StatefulWidget {
 }
 
 class _AddAutoState extends State<AddMed> {
-  bool isSideMenuOpen = false;
-
-  void toggleSideMenu() {
-    setState(() {
-      isSideMenuOpen = !isSideMenuOpen;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F6F0),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            // Main content area
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Sidebar (only for desktop)
-                if (ResponsiveD.isDesktop(context))
-                  Expanded(
-                    child: SideMenu(
-                      onClose: toggleSideMenu,
-                    ),
-                  ),
-                // Main content
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Header
-                      HeaderPage(
-                        onMenuPressed: toggleSideMenu,
-                        isSideMenuOpen: isSideMenuOpen,
-                      ),
-                      // Content
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SingleChildScrollView(
-                            child: isMobile
-                                ? buildMobileLayout()
-                                : buildDesktopLayout(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            // Sidebar (for mobile and tablet)
-            if (!ResponsiveD.isDesktop(context) && isSideMenuOpen)
-              Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
-                child: SideMenu(
-                  onClose: toggleSideMenu,
-                ),
-              ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: isMobile ? buildMobileLayout() : buildDesktopLayout(),
         ),
       ),
     );
@@ -209,7 +145,7 @@ class _AddAutoState extends State<AddMed> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Catagory',
+                        labelText: 'Category',
                       ),
                     ),
                     SizedBox(height: 30),
@@ -231,8 +167,6 @@ class _AddAutoState extends State<AddMed> {
               ),
             ),
             SizedBox(width: 20),
-
-            // Fourth Column
             Flexible(
               child: Padding(
                 padding: EdgeInsets.all(10.0),
@@ -242,7 +176,7 @@ class _AddAutoState extends State<AddMed> {
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Weight',
+                        labelText: 'weight',
                       ),
                     ),
                     SizedBox(height: 30),
@@ -312,7 +246,7 @@ class _AddAutoState extends State<AddMed> {
         TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Catagory',
+            labelText: 'Category',
           ),
         ),
         SizedBox(height: 20),
@@ -362,7 +296,6 @@ class _AddAutoState extends State<AddMed> {
         Align(
           alignment: Alignment.centerRight,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -375,11 +308,13 @@ class _AddAutoState extends State<AddMed> {
                   // Add button action
                 },
                 child: const Text(
-                  'Add Medicine',
+                  'Add medicine',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(
+                width: 20,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -388,7 +323,7 @@ class _AddAutoState extends State<AddMed> {
                   minimumSize: const Size(130, 40),
                 ),
                 onPressed: () {
-                  // Reset button action
+                  // Add button action
                 },
                 child: const Text(
                   'Reset',
@@ -401,8 +336,4 @@ class _AddAutoState extends State<AddMed> {
       ],
     );
   }
-<<<<<<< HEAD
 }
-=======
-}*/
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61

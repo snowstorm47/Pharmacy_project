@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
-=======
-/*import 'package:flutter/material.dart';
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 
-class DeleteMedicine extends StatelessWidget {
-  const DeleteMedicine({super.key});
+class DeleteMed extends StatelessWidget {
+  const DeleteMed({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +9,7 @@ class DeleteMedicine extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           bool isTablet = constraints.maxWidth > 600;
+          bool isMobile = constraints.maxWidth <= 600;
           double containerWidth = isTablet ? 800 : constraints.maxWidth * 0.9;
           double containerHeight = isTablet ? 490 : constraints.maxHeight * 0.8;
           double padding = isTablet ? 36.0 : 16.0;
@@ -266,8 +263,4 @@ class DeleteMedicine extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
 }
-=======
-}*/
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61

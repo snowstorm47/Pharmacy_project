@@ -1,34 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SuccessScreen extends StatelessWidget {
-<<<<<<< HEAD
-=======
   const SuccessScreen({super.key});
 
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        title: Text('Success'),
-=======
         title: const Text('Success'),
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-<<<<<<< HEAD
-            Icon(Icons.check_circle, size: 100, color: Colors.green),
-            SizedBox(height: 16),
-            Text(
-              'Transaction Successful!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
-=======
             const Icon(Icons.check_circle, size: 100, color: Colors.green),
             const SizedBox(height: 16),
             const Text(
@@ -36,16 +20,23 @@ class SuccessScreen extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
+            ElevatedButton(
+              onPressed: () {
+                // Implement share transaction summary via email
+              },
+              child: const Text('Share via Email'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement print transaction summary
+              },
+              child: const Text('Print'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
-<<<<<<< HEAD
-              child: Text('Back to Sales Screen'),
-=======
               child: const Text('Back to Sales Screen'),
->>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
             ),
           ],
         ),

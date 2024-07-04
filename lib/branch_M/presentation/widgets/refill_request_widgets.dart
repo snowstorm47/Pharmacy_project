@@ -3,6 +3,11 @@ import 'package:clean_a/branch_M/data/models/refill_request_data.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 
 class RefillRequestContent extends StatelessWidget {
+<<<<<<< HEAD
+=======
+  const RefillRequestContent({super.key});
+
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
   @override
   Widget build(BuildContext context) {
     final data = [
@@ -10,7 +15,39 @@ class RefillRequestContent extends StatelessWidget {
         branchId: '01',
         name: 'johannes Dereje',
         request: 'abel',
+<<<<<<< HEAD
         date: 'Gulele',
+=======
+        date: '20/13/23',
+        requestedBy: 'AbelaTechB@gmail.com',
+      ),
+      RefillRequestData(
+        branchId: '01',
+        name: 'johannes Dereje',
+        request: 'abel',
+        date: '20/13/23',
+        requestedBy: 'AbelaTechB@gmail.com',
+      ),
+      RefillRequestData(
+        branchId: '01',
+        name: 'johannes Dereje',
+        request: 'abel',
+        date: '20/13/23',
+        requestedBy: 'AbelaTechB@gmail.com',
+      ),
+      RefillRequestData(
+        branchId: '01',
+        name: 'johannes Dereje',
+        request: 'abel',
+        date: '20/13/23',
+        requestedBy: 'AbelaTechB@gmail.com',
+      ),
+      RefillRequestData(
+        branchId: '01',
+        name: 'johannes Dereje',
+        request: 'abel',
+        date: '20/13/23',
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
         requestedBy: 'AbelaTechB@gmail.com',
       ),
       // Add more DataB objects as needed
@@ -96,7 +133,11 @@ class RefillRequestContent extends StatelessWidget {
   }
 
   Widget _buildHeaderCell(String text, bool isTablet) {
+<<<<<<< HEAD
     return Container(
+=======
+    return SizedBox(
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
       width: isTablet ? 150 : 120,
       child: Text(
         text,
@@ -110,7 +151,11 @@ class RefillRequestContent extends StatelessWidget {
   }
 
   Widget _buildDataCell(String text, bool isTablet, {bool isAction = false}) {
+<<<<<<< HEAD
     return Container(
+=======
+    return SizedBox(
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
       width: isTablet ? 150 : 120,
       child: isAction
           ? Row(

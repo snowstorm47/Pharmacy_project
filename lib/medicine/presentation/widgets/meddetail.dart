@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 import 'package:clean_a/shared/constants/constants.dart';
+=======
+/*import 'package:clean_a/shared/constants/constants.dart';
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 
 import 'package:clean_a/shared/constants/medicine_data.data.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +13,11 @@ class MedicineDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     int _totalPages = 3;
+=======
+   
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
     final data = [
       DataMD(
         medicineName: 'amoxcillin',
@@ -114,6 +122,7 @@ class MedicineDetail extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.0),
+<<<<<<< HEAD
             Row(
               children: [
                 ElevatedButton(
@@ -135,6 +144,22 @@ class MedicineDetail extends StatelessWidget {
                 ),
               ],
             ),
+=======
+
+Row(children: [
+
+ElevatedButton(onPressed: (){}, child: Text('Add medicine')),
+ElevatedButton(onPressed: (){}, child: Text('Update medicine')),
+ElevatedButton(onPressed: (){}, child: Text('Delete medicine')),
+
+
+],),
+
+
+
+
+           
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           ],
         ),
       ),
@@ -229,4 +254,8 @@ class MedicineDetail extends StatelessWidget {
             ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}*/
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61

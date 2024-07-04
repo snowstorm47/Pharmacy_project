@@ -5,7 +5,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+<<<<<<< HEAD
   const MyApp({Key? key}) : super(key: key);
+=======
+  const MyApp({super.key});
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +135,11 @@ class PharmacySalesScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
+<<<<<<< HEAD
         return Container(
+=======
+        return SizedBox(
+>>>>>>> 3f0d682fb2dc559f6a6fa385bca116121b48dc61
           height: 300,
           child: Column(
             children: [
