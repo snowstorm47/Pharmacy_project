@@ -7,6 +7,7 @@ import 'package:clean_a/branch_M/presentation/widgets/add_branch.dart';
 import 'package:clean_a/customer/Presentation/add_authorized_user.dart';
 import 'package:clean_a/customer/Presentation/authorized_user_list.dart';
 import 'package:clean_a/customer/Presentation/pages/add_authorized_company.dart';
+import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/employee/presentation/page/employee_profile.dart';
 import 'package:clean_a/employee/presentation/page/attendance_pages.dart';
 import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
@@ -29,17 +30,24 @@ import 'package:clean_a/sales/presentation/widgets/sales.dart';
 import 'package:clean_a/settings/presentation/widgets/password_request.dart';
 import 'package:clean_a/settings/presentation/widgets/report_complaint.dart';
 import 'package:clean_a/settings/presentation/widgets/view_roles_page.dart';
+import 'package:clean_a/shared/services/providers/authProvider.dart';
+import 'package:clean_a/shared/services/providers/registrationProvider.dart';
+import 'package:clean_a/sign_in/reset_password_otp.dart';
+import 'package:clean_a/sign_in/sign_in_page.dart';
 import 'package:clean_a/stock/presentation/widgets/expired_medicines.dart';
 import 'package:clean_a/stock/presentation/widgets/list_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/out_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/stock_detail.dart';
 import 'package:clean_a/supplier/presentation/widgets/add_supplier.dart';
 import 'package:clean_a/supplier/presentation/widgets/supplier_list.dart';
+import 'package:clean_a/wrapper.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 // Make sure this import path is correct
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,10 +62,15 @@ void main() async{
     measurementId: "G-1GVVPRC6MV")
   );
   runApp(
-    MaterialApp(
-      home:ProviderScope(
-        child:const MyApp()
-      )
+  MultiProvider(
+        providers: [
+        ChangeNotifierProvider<Authprovider>(create: (_) => Authprovider()),
+        ChangeNotifierProvider<imageProvider>(create: (_)=>imageProvider()),
+        ChangeNotifierProvider<registrationProvider>(create: (_)=>registrationProvider()),
+        ],
+        child: MaterialApp(
+          home: MyApp()
+          )
       )
     );
 }
@@ -72,8 +85,10 @@ class MyApp extends StatelessWidget {
       title: 'Pharmacy Demo',
       initialRoute: '/',
       routes: {
-        '/': (context) =>
-            const SideMenuPageSuper(), // Set this as the home screen
+        // '/': (context) => const MySignInPage(),
+        '/':(context) =>RegisterView(),
+         '/reset_password':(context) => const ResetPasswordOtp(),
+        '/home':(context)=> const Wrapper(),// Set this as the home screen
         // ##### Branch Routes #####
         '/branch/stock': (context) => const BranchStockPage(),
         '/branch/refill_request': (context) => const RefillRequestPage(),

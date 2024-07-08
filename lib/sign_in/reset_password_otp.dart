@@ -1,6 +1,8 @@
+import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/utility/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ResetPasswordOtp extends StatefulWidget {
   const ResetPasswordOtp({super.key});
@@ -238,13 +240,15 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                                   borderRadius: BorderRadius.circular(9),
                                 ),
                                 child: TextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (_resetOtpKey.currentState!.validate()) {
                                       debugPrint(
                                           "Email: ${_emailController.text}");
                                       debugPrint(
                                           "Password: ${_otpController.text}");
                                     }
+                                       final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                       await authProvider.sign_in(_emailController.text, _otpController.text);
                                   },
                                   child: const Text(
                                     "verify code",

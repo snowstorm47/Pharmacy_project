@@ -2,7 +2,7 @@
 class Role{
   String name;
   String employeeName;
-  String description;
+  String? description;
   List<String> access;
   List<String> actions;
   Role({

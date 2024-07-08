@@ -1,6 +1,7 @@
 
 //function picking user picture with web image picker(only picks on web browser)
 import 'dart:typed_data';
+import 'package:clean_a/settings/data/repositry/settings_repo.dart';
 import 'package:clean_a/shared/models/puser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,14 +19,14 @@ Future<Uint8List?> pickImage() async {
 //Class responsible for user registration
 class RegisterService{
  //firebase instances
-  final FirebaseAuth _firebaseAuth;
-  final FirebaseStorage _firebaseStorage;
-  final FirebaseFirestore _firebaseFirestore;
- RegisterService(this._firebaseAuth,this._firebaseStorage, this._firebaseFirestore);
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseStorage _firebaseStorage= FirebaseStorage.instance;
+  final FirebaseFirestore _firebaseFirestore=FirebaseFirestore.instance;
+//  RegisterService(this._firebaseAuth,this._firebaseStorage, this._firebaseFirestore);
 
 //function returning the user object
  Future<PUser?>  registerUser(
-   {required String branch, required String role, required String email, required String password, required String FirstName, required String LastName,required List<String> permission, required List<String> access, Uint8List? bytes}) async
+   { required String branch,required String role, required String email, required String password, required String FirstName, required String LastName,required List<String> permission, required List<String> access, Uint8List? bytes}) async
  {
   try{
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
@@ -58,9 +59,11 @@ class RegisterService{
       );
      //saving the data to the firebase firestore document
        await _firebaseFirestore.collection('users').doc(user.uid).set(userData.toMap());
+       SettingRepo settingRepo = SettingRepo(_firebaseFirestore);
+       final employeeName= FirstName + "" + LastName;
+       await settingRepo.addRole(name: role, actions: permission, access: access, employeeName: employeeName);
        //returning the userdata as user object
        return userData;
-      
         }
      
  

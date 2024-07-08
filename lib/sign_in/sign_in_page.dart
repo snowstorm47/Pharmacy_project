@@ -1,5 +1,7 @@
+import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/utility/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MySignInPage extends StatefulWidget {
   const MySignInPage({super.key});
@@ -202,9 +204,13 @@ class _MySignInPageState extends State<MySignInPage> {
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 0, 15, 15),
                                   child: TextButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       // Navigator.of(context).push(MaterialPageRoute(
                                       //     builder: (context) => const RestPasswordPage()));
+                                         final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                       await authProvider.sendPassword(_emailController.text);
+                                      Navigator.of(context).popAndPushNamed('/reset_password');
+                                      
                                     },
                                     child: const Text(
                                       "Reset Password",
@@ -225,13 +231,22 @@ class _MySignInPageState extends State<MySignInPage> {
                                   borderRadius: BorderRadius.circular(9),
                                 ),
                                 child: TextButton(
-                                  onPressed: () {
+                                  onPressed: () async{
                                     if (_signInKey.currentState!.validate()) {
-                                      debugPrint(
-                                          "Email: ${_emailController.text}");
-                                      debugPrint(
-                                          "Password: ${_passwordController.text}");
+                                      // debugPrint(
+                                      //     "Email: ${_emailController.text}");
+                                      // debugPrint(
+                                      //     "Password: ${_passwordController.text}");
+                                       final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                       await authProvider.sign_in(_emailController.text, _passwordController.text);
+                                       if(authProvider.isLoggedIn){
+                                        Navigator.popAndPushNamed(context, '/home');
+                                       }else{
+                                        print(authProvider.error);
+                                       }
+
                                     }
+                                    
                                   },
                                   child: const Text(
                                     "Sign in",

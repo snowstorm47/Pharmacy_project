@@ -12,7 +12,7 @@ class SettingRepo{
   required List<String> actions,
   required List<String> access,
   required String employeeName,
-  required String description
+  String? description
  }) async{
   final employeeRef = _firebaseFirestore.collection('Employees');
   final query = employeeRef.where('FirstName',isEqualTo: employeeName).limit(1);
