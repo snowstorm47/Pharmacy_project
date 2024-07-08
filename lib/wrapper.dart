@@ -1,7 +1,7 @@
 
 import 'package:clean_a/Cashier/pages/cashierPage.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
-import 'package:clean_a/Manager/Presentation/pages/managerPage.dart';
+
 import 'package:clean_a/Pharmacist/presentation/pages/pharmacist_page.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,7 @@ class Wrapper extends StatelessWidget {
            return const PharmacistView();
         case 'cashier':
            return const CashierView();
-        case 'manager':
-           return const ManagerView();
+     
          default:
           return const MySignInPage();
        }
