@@ -52,7 +52,7 @@ import 'package:provider/provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(   
+    options: const FirebaseOptions(   
     apiKey: "AIzaSyCvx38ISXmxYet79jWcDr3vobNqLzpF7tk",
     authDomain: "pharmacyproj-b7ad8.firebaseapp.com",
     projectId: "pharmacyproj-b7ad8",
@@ -68,7 +68,7 @@ void main() async{
         ChangeNotifierProvider<imageProvider>(create: (_)=>imageProvider()),
         ChangeNotifierProvider<registrationProvider>(create: (_)=>registrationProvider()),
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
           home: MyApp()
           )
       )
@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => const MySignInPage(),
-        '/':(context) =>RegisterView(),
+        '/':(context) => const RegisterView(),
          '/reset_password':(context) => const ResetPasswordOtp(),
         '/home':(context)=> const Wrapper(),// Set this as the home screen
         // ##### Branch Routes #####
