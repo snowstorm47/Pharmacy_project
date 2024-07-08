@@ -1,4 +1,3 @@
-import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/branch_M/presentation/pages/branch_list_page.dart';
 import 'package:clean_a/branch_M/presentation/pages/branch_stock_page.dart';
 import 'package:clean_a/branch_M/presentation/pages/refill_request_page.dart';
@@ -35,6 +34,8 @@ import 'package:clean_a/supplier/presentation/widgets/supplier_list.dart';
 
 import 'package:flutter/material.dart';
 
+import 'Pharmacist/Drawer/sidemenupage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) =>
-            const SideMenuPageSuper(), // Set this as the home screen
+            const SideMenuPagePharmacict(), // Set this as the home screen
         // ##### Branch Routes #####
         '/branch/stock': (context) => const BranchStockPage(),
         '/branch/refill_request': (context) => const RefillRequestPage(),
