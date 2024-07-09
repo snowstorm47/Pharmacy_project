@@ -18,7 +18,7 @@ class Wrapper extends StatelessWidget {
      if(user!=null){
        switch(user.role!.toLowerCase()){
         case 'admin':
-          return const SideMenuPageSuper();
+          
         case 'pharmacist':
            return const SideMenuPagePharmacist();
         case 'cashier':

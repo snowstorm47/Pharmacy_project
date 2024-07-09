@@ -1,4 +1,5 @@
 class DataMD {
+   
   final String medicineName;
   final String id;
   final String genericName;
@@ -10,6 +11,7 @@ class DataMD {
 
   DataMD({
     required this.medicineName,
+     
     required this.id,
     required this.genericName,
     required this.expiryDate,

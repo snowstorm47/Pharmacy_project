@@ -1,4 +1,5 @@
-import 'package:clean_a/shared/constants/data_model.dart';
+import 'package:clean_a/customer/data/user_data.dart';
+//import 'package:clean_a/shared/constants/data_model.dart';
 import 'package:flutter/material.dart';
 
 class UserDataTable extends StatelessWidget {
