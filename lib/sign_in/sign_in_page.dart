@@ -208,8 +208,8 @@ class _MySignInPageState extends State<MySignInPage> {
                                       // Navigator.of(context).push(MaterialPageRoute(
                                       //     builder: (context) => const RestPasswordPage()));
                                          final authProvider = Provider.of<Authprovider>(context, listen: false);
-                                       await authProvider.sendPassword(_emailController.text);
-                                      Navigator.of(context).popAndPushNamed('/reset_password');
+                                       await authProvider.sign_in(_emailController.text,_passwordController.text);
+                                      Navigator.of(context).popAndPushNamed('home');
                                       
                                     },
                                     child: const Text(
@@ -231,22 +231,17 @@ class _MySignInPageState extends State<MySignInPage> {
                                   borderRadius: BorderRadius.circular(9),
                                 ),
                                 child: TextButton(
-                                  onPressed: () async{
+                                  onPressed: ()  async{
                                     if (_signInKey.currentState!.validate()) {
-                                      // debugPrint(
-                                      //     "Email: ${_emailController.text}");
-                                      // debugPrint(
-                                      //     "Password: ${_passwordController.text}");
-                                       final authProvider = Provider.of<Authprovider>(context, listen: false);
-                                       await authProvider.sign_in(_emailController.text, _passwordController.text);
-                                       if(authProvider.isLoggedIn){
-                                        Navigator.popAndPushNamed(context, '/home');
-                                       }else{
-                                        print(authProvider.error);
-                                       }
-
+                                      debugPrint(
+                                          "Email: ${_emailController.text}");
+                                      debugPrint(
+                                          "Password: ${_passwordController.text}");
+                                        final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                        await authProvider.sign_in(_emailController.text,_passwordController.text);
+                                      Navigator.of(context).popAndPushNamed('home');
                                     }
-                                    
+
                                   },
                                   child: const Text(
                                     "Sign in",

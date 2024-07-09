@@ -1,4 +1,27 @@
-import 'package:clean_a/Drawer/sidemenupage.dart';
+
+
+import 'package:clean_a/Pharmacist/sales/presentation/widgets/sales.dart';
+import 'package:clean_a/Pharmacist/stock/presentation/widgets/expired_medicines.dart';
+import 'package:clean_a/Pharmacist/stock/presentation/widgets/list_of_stock.dart';
+import 'package:clean_a/Pharmacist/stock/presentation/widgets/out_of_stock.dart';
+import 'package:clean_a/Pharmacist/stock/presentation/widgets/stock_detail.dart';
+import 'package:clean_a/sign_in/sign_in_page.dart';
+
+import 'Cashier/sales/presentation/widgets/sales.dart';
+import 'Cashier/report/presentation/widgets/generated_purchase_reports.dart';
+import 'Cashier/report/presentation/widgets/generated_sales_reports.dart';
+import 'Cashier/report/presentation/widgets/report_generate.dart';
+import 'Cashier/report/presentation/widgets/report_purchase.dart';
+
+
+import 'Pharmacist/branch_M/presentation/pages/branch_stock_page.dart';
+import 'Pharmacist/branch_M/presentation/pages/refill_request_page.dart';
+import 'Pharmacist/return/presentation/widgets/add_disposed.dart';
+import 'Pharmacist/return/presentation/widgets/delete_disposedItem.dart';
+import 'Pharmacist/return/presentation/widgets/disposed_list.dart';
+import 'Pharmacist/medicine/presentation/pages/medicine_detail.dart';
+import 'Pharmacist/customer/Presentation/authorized_user_list.dart';
+
 import 'package:clean_a/branch_M/presentation/pages/branch_list_page.dart';
 import 'package:clean_a/branch_M/presentation/pages/branch_stock_page.dart';
 import 'package:clean_a/branch_M/presentation/pages/refill_request_page.dart';
@@ -33,7 +56,7 @@ import 'package:clean_a/settings/presentation/widgets/view_roles_page.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/services/providers/registrationProvider.dart';
 import 'package:clean_a/sign_in/reset_password_otp.dart';
-import 'package:clean_a/sign_in/sign_in_page.dart';
+
 import 'package:clean_a/stock/presentation/widgets/expired_medicines.dart';
 import 'package:clean_a/stock/presentation/widgets/list_of_stock.dart';
 import 'package:clean_a/stock/presentation/widgets/out_of_stock.dart';
@@ -85,10 +108,52 @@ class MyApp extends StatelessWidget {
       title: 'Pharmacy Demo',
       initialRoute: '/',
       routes: {
-        // '/': (context) => const MySignInPage(),
-        '/':(context) => const RegisterView(),
+        '/': (context) => const MySignInPage(),
+        // '/':(context) => const RegisterView(),
          '/reset_password':(context) => const ResetPasswordOtp(),
-        '/home':(context)=> const Wrapper(),// Set this as the home screen
+        'home':(context)=> const Wrapper(),// Set this as the home screen
+        //## Cashier Routes ##
+        
+        // Sales
+        '/salesCashier':(context) => const SalesCashier(),
+        '/salesCashier/page': (context) => const SalesCashier(),
+
+        // Report
+        
+          '/reportsCashier/generated_purchase': (context) =>
+            const GeneratedPurchaseReportsCashier(),
+        '/reportsCashier/purchase': (context) => const ReportPGenerateCashier(),
+        '/reportsCashier/generated_sales': (context) => const GeneratedSReportsCashier(),
+        '/reportsCashier/sales': (context) => const ReportGenerateCashier(),
+
+       // ###   Pharmacist Routes ##
+
+       //Branch Routes
+        '/branchP/stock': (context) => const BranchStockPageP(),
+        '/branchP/refill_request': (context) => const RefillRequestPageP(),
+        
+             
+        //Stock Routes   
+          '/stockP/expired': (context) => const ExpiredMedicinesPageP(),
+        '/stockP/list': (context) => const ListOfStockPageP(),
+        '/stockP/out_of_stock': (context) => const OutOfStockItemsPageP(),
+        '/stockP/details': (context) => const StockDetailPageP(),
+
+        //Return routes
+        '/returnP/add_disposed': (context) => const AddDisposedP(),
+      
+        '/returnP/disposed_list': (context) => const DisposedListP(),
+         
+         //Medicine routes
+        '/medicineP/details': (context) => const MedicineDetailP(),
+
+        //Customer routes
+        '/customerP/authorized_user': (context) => const AuthorizedUserP(),
+
+        //Sales routes
+        '/salesP': (context) => const SalesP(),
+        '/salesP/page': (context) => const SalesP(),
+        
         // ##### Branch Routes #####
         '/branch/stock': (context) => const BranchStockPage(),
         '/branch/refill_request': (context) => const RefillRequestPage(),
