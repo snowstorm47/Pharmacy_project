@@ -209,7 +209,7 @@ class _MySignInPageState extends State<MySignInPage> {
                                       //     builder: (context) => const RestPasswordPage()));
                                          final authProvider = Provider.of<Authprovider>(context, listen: false);
                                        await authProvider.sign_in(_emailController.text,_passwordController.text);
-                                      Navigator.of(context).popAndPushNamed('home');
+                                      Navigator.of(context).popAndPushNamed('/home');
                                       
                                     },
                                     child: const Text(
@@ -239,7 +239,7 @@ class _MySignInPageState extends State<MySignInPage> {
                                           "Password: ${_passwordController.text}");
                                         final authProvider = Provider.of<Authprovider>(context, listen: false);
                                         await authProvider.sign_in(_emailController.text,_passwordController.text);
-                                      Navigator.of(context).popAndPushNamed('home');
+                                      Navigator.of(context).popAndPushNamed('/home');
                                     }
 
                                   },

@@ -1,64 +1,9 @@
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-class SideMenuPagePharmacist extends StatefulWidget {
-  const SideMenuPagePharmacist({super.key});
-
-  @override
-  State<SideMenuPagePharmacist> createState() => _SideMenuPageState();
-}
-
-class _SideMenuPageState extends State<SideMenuPagePharmacist> {
-  bool showSideMenu = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text("Pharmacy Hub"),
-        centerTitle: true,
-        leading: !ResponsiveD.isDesktop(context)
-            ? IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  setState(() {
-                    showSideMenu = !showSideMenu;
-                  });
-                },
-              )
-            : null,
-      ),
-      body: SafeArea(
-        child: ResponsiveD.isDesktop(context)
-            ? Drawer(
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-                width: 250,
-                child: SideMenuPharmacist(onClose: () {}),
-              )
-            : showSideMenu
-                ? Drawer(
-                    backgroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                    width: 200,
-                    child: SideMenuPharmacist(onClose: () {
-                      setState(() {
-                        showSideMenu = false;
-                      });
-                    }),
-                  )
-                : Container(),
-      ),
-    );
-  }
-}
+import '../navigation_provider.dart';
 
 class SideMenuPharmacist extends StatelessWidget {
   const SideMenuPharmacist({
@@ -108,7 +53,7 @@ class SideMenuPharmacist extends StatelessWidget {
                                   "assets/download.jpg",
                                   height: 36,
                                 ),
-                                const Text("Pharmacy Hub")
+                                const Text("Pharmacy HuB")
                               ],
                             ),
                           ],
@@ -119,24 +64,22 @@ class SideMenuPharmacist extends StatelessWidget {
                       title: 'Dashboard',
                       falIcon: FontAwesomeIcons.dashcube,
                       press: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
-                        onClose();
+                        Provider.of<PharmacistProvider>(context, listen: false).navigateTo('/dashboard');
                       },
                       tileColor: Colors.white,
                     ),
                     DrawerListTile(
                       title: 'Customer',
-                      falIcon: FontAwesomeIcons.user,
-                      press: () {},
-                      dropdownItems: const [
-                        {
-                          'title': 'Authorized User',
-                          'route': '/customerP/authorized_user'
-                        },
+                           falIcon: FontAwesomeIcons.user,
+                      dropdownItems:const[
+                        {'title': 'Add Authorized User', 'route': '/customerP/add_authorized_user'},
+                        {'title': 'Authorizeduserslist', 'route': '/customerP/authorized_user_list'},
+                        {'title': 'AuthorizedCompany', 'route': '/customerP/add_authorized_company'},
                       ],
+                      press: () {},
                       tileColor: Colors.white,
                     ),
-                    DrawerListTile(
+                      DrawerListTile(
                       title: 'Medicine',
                       falIcon: FontAwesomeIcons.pills,
                       press: () {},
@@ -170,21 +113,24 @@ class SideMenuPharmacist extends StatelessWidget {
                           'title': 'expired medicine',
                           'route': '/stockP/expired'
                         },
-                        {'title': 'Stock details', 'route': '/stockP/details'},
+                        {'title': 'Add Stock', 'route': '/stockP/add'},
                       ],
                       tileColor: Colors.white,
                     ),
+                  
+                  
                     DrawerListTile(
                       title: 'Branches',
                       falIcon: FontAwesomeIcons.codeBranch,
                       press: () {},
                       dropdownItems: const [
+                        {'title': 'Branch List', 'route': '/branchP/list'},
+                        {'title': 'Add Branch', 'route': '/branchP/add'},
                         {'title': 'Branch stock', 'route': '/branchP/stock'},
                         {
                           'title': 'Branch refill',
                           'route': '/branchP/refill_request'
                         },
-                      
                       ],
                       tileColor: Colors.white,
                     ),
@@ -193,12 +139,15 @@ class SideMenuPharmacist extends StatelessWidget {
                       falIcon: FontAwesomeIcons.rotateLeft,
                       press: () {},
                       dropdownItems: const [
-                        {'title': 'Return List', 'route': '/returnP/disposed_list'},
-                        {'title': 'Add disposed', 'route': '/returnP/add_disposed'},
-                        
+                        {'title': 'Return List', 'route': '/returnP/list'},
+                        {'title': 'New Return', 'route': '/returnP/new'},
                       ],
                       tileColor: Colors.white,
                     ),
+                 
+
+
+                    // Add more DrawerListTile here for other pages
                   ],
                 ),
               ],
@@ -218,7 +167,6 @@ class SideMenuPharmacist extends StatelessWidget {
     );
   }
 }
-
 class DrawerListTile extends StatefulWidget {
   const DrawerListTile({
     super.key,
@@ -291,8 +239,10 @@ class DrawerListTileState extends State<DrawerListTile> {
                   child: ListTile(
                     title: Text(item['title']!),
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, item['route']!);
-                      widget.press(); // Close the dropdown
+                      Provider.of<PharmacistProvider>(context, listen: false).navigateTo(item['route']!);
+                      setState(() {
+                        isExpanded = false; // Close the dropdown after navigation
+                      });
                     },
                   ),
                 ),

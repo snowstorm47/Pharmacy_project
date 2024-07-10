@@ -69,39 +69,177 @@ class SideMenu extends StatelessWidget {
                       },
                       tileColor: Colors.white,
                     ),
-                    DrawerListTile(
+                      DrawerListTile(
                       title: 'Customer',
-                           falIcon: FontAwesomeIcons.user,
-                      dropdownItems: [
-                        {'title': 'Add Authorized User', 'route': '/customer/add_authorized_user'},
-                        {'title': 'Authorizeduserslist', 'route': '/customer/authorized_user_list'},
-                        {'title': 'AuthorizedCompany', 'route': '/customer/add_authorized_company'},
-                      ],
+                      falIcon: FontAwesomeIcons.user,
                       press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'Authorized User',
+                          'route': '/customer/authorized_user'
+                        },
+                        {
+                          'title': 'Add User',
+                          'route': '/customer/add_authorized_user'
+                        },
+                        {
+                          'title': 'Add authorized company',
+                          'route': '/customer/add_authorized_company'
+                        },
+                      ],
                       tileColor: Colors.white,
                     ),
-                     DrawerListTile(
+                    DrawerListTile(
                       title: 'Medicine',
-                           falIcon: FontAwesomeIcons.pills,
-                      dropdownItems: [
-                        {'title': 'medicine_list', 'route': '/medicine/medicine_list'},
-                      
-                      ],
+                      falIcon: FontAwesomeIcons.pills,
                       press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'Medicine List',
+                          'route': '/medicine/details'
+                        },
+                        // {'title': 'Add Medicine', 'route': '/medicine/add'},
+                      ],
                       tileColor: Colors.white,
                     ),
- DrawerListTile(
+                    DrawerListTile(
                       title: 'Sales',
-                           falIcon: FontAwesomeIcons.chartLine,
-                      dropdownItems: [
-                        {'title': 'Sales Report', 'route': '/sales/sales report'},
-                      
-                      ],
+                      falIcon: FontAwesomeIcons.chartLine,
                       press: () {},
+                      dropdownItems: const [
+                        {'title': 'Sales Report', 'route': '/sales'},
+                        {'title': 'New Sale', 'route': '/sales/page'},
+                      ],
                       tileColor: Colors.white,
                     ),
-
-
+                    DrawerListTile(
+                      title: 'Stock',
+                      falIcon: FontAwesomeIcons.fileMedical,
+                      press: () {},
+                      dropdownItems: const [
+                        {'title': 'Stock List', 'route': '/stock/list'},
+                        {'title': 'out Stock', 'route': '/stock/out_of_stock'},
+                        {
+                          'title': 'expired medicine',
+                          'route': '/stock/expired'
+                        },
+                        {'title': 'Add Stock', 'route': '/stock/add'},
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Reports',
+                      falIcon: FontAwesomeIcons.noteSticky,
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': ' generated Report purchase',
+                          'route': '/reports/generated_purchase'
+                        },
+                        {
+                          'title': ' Report purchase',
+                          'route': '/reports/purchase'
+                        },
+                        {
+                          'title': ' generated Report sales',
+                          'route': '/reports/generated_sales'
+                        },
+                        {'title': ' Report sales', 'route': '/reports/sales'},
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Supplier',
+                      falIcon: FontAwesomeIcons.car,
+                      press: () {},
+                      dropdownItems: const [
+                        {'title': 'Supplier List', 'route': '/supplier/list'},
+                        {'title': 'Add Supplier', 'route': '/supplier/add'},
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Branches',
+                      falIcon: FontAwesomeIcons.codeBranch,
+                      press: () {},
+                      dropdownItems: const [
+                        {'title': 'Branch List', 'route': '/branch/list'},
+                        {'title': 'Add Branch', 'route': '/branch/add'},
+                        {'title': 'Branch stock', 'route': '/branch/stock'},
+                        {
+                          'title': 'Branch refill',
+                          'route': '/branch/refill_request'
+                        },
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Return',
+                      falIcon: FontAwesomeIcons.rotateLeft,
+                      press: () {},
+                      dropdownItems: const [
+                        {'title': 'Return List', 'route': '/return/list'},
+                        {'title': 'New Return', 'route': '/return/new'},
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Employee',
+                      falIcon: FontAwesomeIcons.person,
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'Employee profile',
+                          'route': '/employee/profile'
+                        },
+                        {
+                          'title': 'Attendance Employee',
+                          'route': '/employee/attendance'
+                        },
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Finance',
+                      falIcon: FontAwesomeIcons.dollarSign,
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'Finance expense',
+                          'route': '/finance/expense'
+                        },
+                        {'title': 'finance income', 'route': '/finance/income'},
+                        {
+                          'title': 'Invoice Detail',
+                          'route': '/finance/invoice_details'
+                        },
+                        {
+                          'title': 'Invoice Detail2',
+                          'route': '/finance/dashboard'
+                        },
+                      ],
+                      tileColor: Colors.white,
+                    ),
+                    DrawerListTile(
+                      title: 'Setting',
+                      falIcon: FontAwesomeIcons.gears,
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'password requests',
+                          'route': '/settings/password_requests'
+                        },
+                        {
+                          'title': 'report complaints',
+                          'route': '/settings/report_complaints'
+                        },
+                        {
+                          'title': 'view_roles',
+                          'route': '/settings/view_roles'
+                        },
+                      ],
+                      tileColor: Colors.white,
+                    ),
                     // Add more DrawerListTile here for other pages
                   ],
                 ),

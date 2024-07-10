@@ -1,65 +1,9 @@
+import 'package:clean_a/Cashier/navigation_provider.dart';
+import 'package:clean_a/navigationprov.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-class SideMenuPageCashier extends StatefulWidget {
-  const SideMenuPageCashier({super.key});
-
-  @override
-  State<SideMenuPageCashier> createState() => _SideMenuPageState();
-}
-
-class _SideMenuPageState extends State<SideMenuPageCashier> {
-  bool showSideMenu = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text("Pharmacy Hub"),
-        centerTitle: true,
-        leading: !ResponsiveD.isDesktop(context)
-            ? IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  setState(() {
-                    showSideMenu = !showSideMenu;
-                  });
-                },
-              )
-            : null,
-      ),
-      body: SafeArea(
-        child: ResponsiveD.isDesktop(context)
-            ? Drawer(
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-                width: 250,
-                child: SideMenuCashier(onClose: () {}),
-              )
-            : showSideMenu
-                ? Drawer(
-                    backgroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                    width: 200,
-                    child: SideMenuCashier(onClose: () {
-                      setState(() {
-                        showSideMenu = false;
-                      });
-                    }),
-                  )
-                : Container(),
-      ),
-    );
-  }
-}
-
+import 'package:provider/provider.dart';
 class SideMenuCashier extends StatelessWidget {
   const SideMenuCashier({
     super.key,
@@ -119,9 +63,23 @@ class SideMenuCashier extends StatelessWidget {
                       title: 'Dashboard',
                       falIcon: FontAwesomeIcons.dashcube,
                       press: () {
-                        Navigator.pushReplacementNamed(context, '/dashboard');
+                       Provider.of<CashierProvider>(context, listen: false).navigateTo('/dashboard');
                         onClose();
                       },
+                      tileColor: Colors.white,
+                    ),
+           
+                    DrawerListTile(
+                      title: 'Medicine',
+                      falIcon: FontAwesomeIcons.pills,
+                      press: () {},
+                      dropdownItems: const [
+                        {
+                          'title': 'Medicine List',
+                          'route': '/medicine/details'
+                        },
+                        // {'title': 'Add Medicine', 'route': '/medicine/add'},
+                      ],
                       tileColor: Colors.white,
                     ),
                     DrawerListTile(
@@ -129,11 +87,12 @@ class SideMenuCashier extends StatelessWidget {
                       falIcon: FontAwesomeIcons.chartLine,
                       press: () {},
                       dropdownItems: const [
-                        {'title': 'Sales Report', 'route': '/salesCashier'},
-                        {'title': 'New Sale', 'route': '/salesCashier/page'},
+                        {'title': 'Sales Report', 'route': '/sales'},
+                        {'title': 'New Sale', 'route': '/sales/page'},
                       ],
                       tileColor: Colors.white,
                     ),
+                  
                     DrawerListTile(
                       title: 'Reports',
                       falIcon: FontAwesomeIcons.noteSticky,
@@ -141,37 +100,43 @@ class SideMenuCashier extends StatelessWidget {
                       dropdownItems: const [
                         {
                           'title': ' generated Report purchase',
-                          'route': '/reportsCashier/generated_purchase'
+                          'route': '/reports/generated_purchase'
                         },
                         {
                           'title': ' Report purchase',
-                          'route': '/reportsCashier/purchase'
+                          'route': '/reports/purchase'
                         },
                         {
                           'title': ' generated Report sales',
-                          'route': '/reportsCashier/generated_sales'
+                          'route': '/reports/generated_sales'
                         },
-                        {'title': ' Report sales', 'route': '/reportsCashier/sales'},
+                        {'title': ' Report sales', 'route': '/reports/sales'},
                       ],
                       tileColor: Colors.white,
                     ),
+                 
                     DrawerListTile(
                       title: 'Finance',
                       falIcon: FontAwesomeIcons.dollarSign,
                       press: () {},
                       dropdownItems: const [
-                        {'title': 'finance income', 'route': '/financeCashier/income'},
+                        {
+                          'title': 'Finance expense',
+                          'route': '/finance/expense'
+                        },
+                        {'title': 'finance income', 'route': '/finance/income'},
                         {
                           'title': 'Invoice Detail',
-                          'route': '/financeCashier/invoice_details'
+                          'route': '/finance/invoice_details'
                         },
                         {
                           'title': 'Invoice Detail2',
-                          'route': '/financeCashier/dashboard'
+                          'route': '/finance/dashboard'
                         },
                       ],
                       tileColor: Colors.white,
                     ),
+                 
                   ],
                 ),
               ],
@@ -189,9 +154,9 @@ class SideMenuCashier extends StatelessWidget {
         ],
       ),
     );
+    
   }
 }
-
 class DrawerListTile extends StatefulWidget {
   const DrawerListTile({
     super.key,
@@ -264,8 +229,10 @@ class DrawerListTileState extends State<DrawerListTile> {
                   child: ListTile(
                     title: Text(item['title']!),
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, item['route']!);
-                      widget.press(); // Close the dropdown
+                      Provider.of<CashierProvider>(context, listen: false).navigateTo(item['route']!);
+                      setState(() {
+                        isExpanded = false; // Close the dropdown after navigation
+                      });
                     },
                   ),
                 ),

@@ -1,8 +1,6 @@
 
-import 'package:clean_a/Cashier/Drawer/sidemenupage.dart';
-import 'package:clean_a/Drawer/sidemenupage.dart';
 
-import 'package:clean_a/Pharmacist/Drawer/sidemenupage.dart';
+import 'package:clean_a/main.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +16,11 @@ class Wrapper extends StatelessWidget {
      if(user!=null){
        switch(user.role!.toLowerCase()){
         case 'admin':
-          
+             return const HomeScreen();
         case 'pharmacist':
-           return const SideMenuPagePharmacist();
+           return const PharmacistScreen();
         case 'cashier':
-           return const SideMenuPageCashier();
+           return const CashierScreen();
          default:
           return const MySignInPage();
        }
