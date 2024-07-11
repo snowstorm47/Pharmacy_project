@@ -68,6 +68,6 @@ class RegisterBranch{
       return Branch.fromMap(snapShot.data() as Map<String,dynamic>);
     }
   }
-
+ 
 
 }
