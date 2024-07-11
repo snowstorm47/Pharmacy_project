@@ -1,12 +1,6 @@
 
-
-import 'dart:ui';
-
-
 import 'package:clean_a/medicine/domain/entities/batch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class MedicineRepo{
@@ -356,13 +350,12 @@ Future<double?> sellCredit(String medicineName, String company, String customerN
   }
 }
 
-Future<void> getInfo(List<String> medicineName)async{
-List<String > itemName =medicineName;
-for(final item in itemName){
-  final ref= _firebaseFirestore.collection('batches').doc(item);
+// Future<void> getInfo(List<String> medicineName)async{
+// List<String > itemName =medicineName;
+// for(final item in itemName){
+//   final ref= _firebaseFirestore.collection('batches').doc(item);
 
-}
-}
+// }
 
  Future<void> addBatch(String medicineName,
   {required Map<String, dynamic> updatedData}) async {
@@ -390,4 +383,28 @@ for(final item in itemName){
   });
 }
 
+Future<List<Map<String, dynamic>>> getExpiredMed() async {
+ 
+  final snapshot = await _firebaseFirestore.collection('batches').get();
+  final meds= snapshot.docs.map((doc) => doc.data()).toList();
+  final today = DateTime.now();
+
+  return meds.where((med) {
+    final givenTime = (med['expiryDate'] as Timestamp).toDate();
+    return givenTime.isBefore(today) || givenTime.isAtSameMomentAs(today);
+  }).toList();
 }
+Future<List<Map<String,dynamic>>> getOutofStock()async{
+  final snapshot = await _firebaseFirestore.collection('batches').get();
+  final meds = snapshot.docs.map((doc)=>doc.data()).toList();
+  return meds.where((med){
+    final quantity =(med['quantity'] as int);
+    return quantity==0;
+  }).toList();}
+
+
+
+
+}
+
+ 
