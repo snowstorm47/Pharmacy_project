@@ -1,6 +1,7 @@
 //class responsible for the branch service
 
 
+import 'package:clean_a/branch_M/domain/entities/refill.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../domain/entities/branch.dart';
@@ -69,5 +70,20 @@ class RegisterBranch{
     }
   }
  
-
+ Future<void> addRefill({  required branchName, required refillRequest,required requestDate, required requestedBy,}) async{
+  final refillRef = _firebaseFirestore.collection('refill');
+  final refill = Refill(
+    branchName:branchName,
+    refillRequest:refillRequest,
+    requestedBy:requestedBy,
+    requestDate:requestDate
+  );
+  await refillRef.doc().set(refill.toMap());
+ }
+  
+   Future <List<Object>?>getRefill()async{
+     final CollectionReference refillCollection= _firebaseFirestore.collection('refill');
+    final snapshot = await refillCollection.get();
+   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+  }
 }
