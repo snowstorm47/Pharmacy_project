@@ -5,6 +5,7 @@ class ReportRepo{
 FirebaseFirestore _firebaseFirestore;
 ReportRepo(this._firebaseFirestore);
 
+
 Future<void> generateSalesReport(DateTime startingDate,DateTime endTime) async{
  
  final invoiceRef = _firebaseFirestore.collection('income');

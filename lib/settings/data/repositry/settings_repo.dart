@@ -1,4 +1,5 @@
 
+import 'package:clean_a/settings/domain/entities/complaint.dart';
 import 'package:clean_a/settings/domain/entities/role.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -77,6 +78,50 @@ Future<void> deleteRole(List<String> employeeName) async {
   await batch.commit();
 }
 
+Future<void> reportComplaint({required String employeeName , required DateTime complaintTime,required String Catagory,required String description})async {
 
+final complaintRef = _firebaseFirestore.collection('complaint');
+final complaint =Complaint(
+                   employeeName: employeeName,
+                   complaintTime: complaintTime,
+                   catagory: Catagory,
+                   description: description,
+                   status: Status.New
+                  );
+ await complaintRef.doc(complaintTime.toIso8601String()).set(complaint.toMap());
+}
+
+  Future <List<Object>?>getComplaint()async{
+     final CollectionReference complaintCollection= _firebaseFirestore.collection('complaint');
+    final snapshot = await complaintCollection.get();
+   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+  }
+
+  Future <void> complaintActions({required String id, required Map<String,dynamic> updatedData}) async{
+  
+  final complaintRef = _firebaseFirestore.collection('complaint').doc(id);
+
+   await _firebaseFirestore.runTransaction((transaction) async {
+    try {
+      final documentSnapshot = await transaction.get(complaintRef);
+
+      if (!documentSnapshot.exists) {
+        throw Exception(' Complaint  not found'); // Handle non-existent employee
+      }
+
+      // Update only specified fields (prevents overwriting entire document)
+      final existingData = documentSnapshot.data()!;
+      existingData.updateAll((key, value) => updatedData.containsKey(key) ? updatedData[key] : value);
+
+      transaction.set(complaintRef, existingData);
+    } catch (error) {
+      // Handle the error here, log it, or re-throw for caller handling
+      print('Error Resolving Complaint: $error');
+      // rethrow; // Optional: Re-throw for caller handling
+    }
+  });
+  
+  
+  }
   
 }
