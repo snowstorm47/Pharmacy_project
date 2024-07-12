@@ -59,7 +59,7 @@ class BranchListPageState extends State<BranchListPageP> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: BranchListWidget(
-                              data: BranchListData.dummyData(),
+                             
                             ),
                           ),
                         ),

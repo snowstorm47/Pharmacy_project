@@ -3,14 +3,16 @@ import 'package:clean_a/medicine/domain/entities/batch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/medicine.dart';
+
 class MedicineRepo{
 
-  final FirebaseFirestore _firebaseFirestore;
-  MedicineRepo(this._firebaseFirestore);
+  final FirebaseFirestore _firebaseFirestore= FirebaseFirestore.instance;
+  
  
-Future<void> addMedicine({
+Future<Medicine?> addMedicine({
   required medicineName,
-  required branchId,
+  required branchName,
   required location,
   required catagory,
   required weight,
@@ -29,13 +31,25 @@ Future<void> addMedicine({
   final docName = medicineName;
   final batchNumber = dateAdded.toString();
   final batchRef = _firebaseFirestore.collection('batches').doc(docName);
+  final Med = Medicine(
+      catagory: catagory,
+      medicineName: medicineName,
+      weight: weight,
+      details: details,
+      genericName: genericName,
+      prescriptionBased: prescriptionBased,
+      sellingPrice: sellingPrice,
+      suppliersPrice: suppliersPrice,
+      taxable: taxable,
+      branchName: branchName,
+  );
   final batch = Batch(
       location: location,
       expiryDate: expiryDate,
       batchNumber: batchNumber,
       stock: stock,
       dateAdded: dateAdded,
-      branchId: branchId,
+      branchName:branchName,
       sellingPrice:sellingPrice,
       suppliersPrice:suppliersPrice,
       taxable:taxable);
@@ -43,19 +57,10 @@ Future<void> addMedicine({
   try {
     // Attempt to set data in both collections
     await batchRef.set(batch.toMap());
-    await medRef.doc(docName).set({
-      'catagory': catagory,
-      'medicineName': medicineName,
-      'weight': weight,
-      'details': details,
-      'genericName': genericName,
-      'prescriptionBased': prescriptionBased,
-      'sellingPrice': sellingPrice,
-      'suppliersPrice': suppliersPrice,
-      'taxable': taxable,
-      'branchId': branchId,
-    });
+    await medRef.doc(docName).set(Med.toMap());
     print('Medicine added successfully!');
+    return Med;
+    
   } on FirebaseException catch (e) {
     // Handle Firebase errors gracefully, e.g., log the error or display a user-friendly message
     print('Error adding medicine: $e');
@@ -67,19 +72,16 @@ Future<void> addMedicine({
 
   Future<void> deleteMedicince({
     required medicineName,
-    required branchId,
-    required catagory,
-    required reason,
-    required stock,
-    required details,
+    required branchName
+  
   }) async{
  CollectionReference medRef =  _firebaseFirestore.collection('medicine');
  final batchRef = _firebaseFirestore.collection('batches');
 // Create a query to find the product document with matching name (doc ID) and store ID
 final query = medRef
   .where('medicineName', isEqualTo: medicineName)
-  .where('branchId', isEqualTo: branchId); 
-  final batchQuery = batchRef.where('medicineName',isEqualTo:medicineName).where('brancId',isEqualTo:branchId); // Name matches doc ID
+  .where('branchName', isEqualTo: branchName); 
+  final batchQuery = batchRef.where('medicineName',isEqualTo:medicineName).where('branchName',isEqualTo:branchName); // Name matches doc ID
 
  final future = query.get().then((querySnapshot) {
   if (querySnapshot.docs.isNotEmpty) {
@@ -111,6 +113,8 @@ batchfuture.then((_)=>print('batch deleted successfully')).catchError((error) =>
   
 future.then((_) => print('Product deleted successfully')).catchError((error) => print('Error deleting product: $error'));
   }
+
+
 Future<void> removeBatch({required medicineName,required batchid,required branchId}) async {
 
   final CollectionReference batchRef = _firebaseFirestore.collection('batches');
@@ -402,9 +406,34 @@ Future<List<Map<String,dynamic>>> getOutofStock()async{
     return quantity==0;
   }).toList();}
 
+  Future<List<Medicine>?> getMedicine()async{
+   final CollectionReference medCollection = _firebaseFirestore.collection('medicine');
+  final snapshot = await medCollection.get();
+  return snapshot.docs.map((doc) {
+    return Medicine.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
+  }
+
+  Future<List<Medicine?>> getMedicineByBranch(String branchName)async{
+  final CollectionReference medCollection = _firebaseFirestore.collection('medicine');
+  final query = await medCollection.where('branchName',isEqualTo:branchName).get();
+    return query.docs.map((doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Medicine.fromMap(data);
+  }).toList();
+  }
+  Future<List<Batch>?> getBatchByBranch(String branchName) async{
+    final CollectionReference medCollection = _firebaseFirestore.collection('batch');
+  final query = await medCollection.where('branchName',isEqualTo:branchName).get();
+    return query.docs.map((doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Batch.fromMap(data);
+  }).toList();
+  }
+ 
 
 
 
 }
 
- 
+  

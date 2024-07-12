@@ -9,10 +9,10 @@ class Medicine {
   final bool taxable;
   final bool prescriptionBased;
   final String details;
-  final String branchId;
+  final String branchName;
  Medicine({
   required this.medicineName,
- required this.branchId,
+ required this.branchName,
   required this.catagory,
   required this.weight,
   required this.details,
@@ -26,7 +26,7 @@ class Medicine {
   factory Medicine.fromMap(Map<String, dynamic> map) {
     return Medicine(
       medicineName: map['medicineName'] as String,
-      branchId: map['branchId'] as String,
+      branchName: map['branchId'] as String,
       catagory: map['Catagory'] as String,
       weight: map['weight'] as String,
       genericName: map['GenericName'] as String,
@@ -50,6 +50,7 @@ class Medicine {
       'taxable': taxable,
       'prescriptionBased': prescriptionBased,
       'details': details,
+      'branchName':branchName
     };
   }
 }

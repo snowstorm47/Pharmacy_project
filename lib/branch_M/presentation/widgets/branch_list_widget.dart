@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BranchListWidget extends StatelessWidget {
-  const BranchListWidget({super.key});
+const   BranchListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,8 @@ class BranchListWidget extends StatelessWidget {
             icon: Icons.delete,
             label: 'Delete Items',
             color: const Color.fromARGB(255, 230, 79, 68),
-            onPressed: () {},
+            onPressed: () {
+            },
             isTablet: isTablet,
           ),
         ],

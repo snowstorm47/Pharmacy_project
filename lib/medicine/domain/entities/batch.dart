@@ -2,7 +2,7 @@ class Batch{
  String location;
  double sellingPrice;
  double suppliersPrice;
- String branchId;
+ String branchName;
  DateTime expiryDate;
  int stock;
  String batchNumber;
@@ -17,7 +17,7 @@ class Batch{
   required this.batchNumber,
   required this.stock,
   required this.dateAdded,
-  required this.branchId,
+  required this.branchName,
   required this.taxable
   });
     factory Batch.fromMap(Map<String,dynamic> data)=> 
@@ -30,7 +30,7 @@ class Batch{
   stock:data['Stock'] as int,
   batchNumber:data['BatchNumber'] as String,
  dateAdded:data['dateAdded'] as DateTime,
- branchId: data['branchId'] as String,
+ branchName: data['branchId'] as String,
   );
   Map<String,dynamic> toMap()=>{
   'location':location,
@@ -41,7 +41,7 @@ class Batch{
   'sellingPrice':sellingPrice,
   'suppliersPrice':suppliersPrice,
   'taxable':taxable,
- 'branchId':branchId
+ 'branchId':branchName
   };
    
   }

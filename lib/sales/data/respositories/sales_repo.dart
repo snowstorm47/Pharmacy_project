@@ -12,8 +12,8 @@ import '../helper/incomeInvoiceCreator.dart';
 
 
 class SalesRepo{
-  final FirebaseFirestore _firebaseFirestore;
-  SalesRepo(this._firebaseFirestore);
+  final FirebaseFirestore _firebaseFirestore= FirebaseFirestore.instance;
+  MedicineRepo medicineRepo = MedicineRepo();
 
   Future<void> sellProduct(Cart cart,String branchId)async{
     final items = cart.items;
@@ -24,7 +24,7 @@ class SalesRepo{
     for(final item in items){
       int quantity = item.quantity;
       String medicineName = item.medicineName;
-      final price=await MedicineRepo(_firebaseFirestore).sellItem(medicineName,quantity);
+      final price=await medicineRepo.sellItem(medicineName,quantity);
        if(price!=null){
         subTotal += price;
         soldItems.add({'name':medicineName,
@@ -50,7 +50,7 @@ class SalesRepo{
   for(final item in items){
     int quantity = item.quantity;
     String medicineName = item.medicineName;
-      final price=await MedicineRepo(_firebaseFirestore).sellCredit(medicineName,companyName,customerName,quantity);
+      final price=await medicineRepo.sellCredit(medicineName,companyName,customerName,quantity);
        if(price!=null){
         subTotal += price;
         soldItems.add({
