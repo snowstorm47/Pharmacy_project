@@ -58,6 +58,15 @@ class Authprovider with ChangeNotifier{
     }
   }
 
+  Future<void> resetPassword(String email) async{
+      try{
+      await signinService.sendPasswordResetEmail(email: email);
+      notifyListeners();}
+      catch(e){
+        print(e.toString());
+      }
+  }
+
 
   
   
