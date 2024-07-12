@@ -3,10 +3,12 @@ import 'package:clean_a/settings/domain/entities/complaint.dart';
 import 'package:clean_a/settings/domain/entities/role.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../domain/entities/passwordRequest.dart';
+
 
 class SettingRepo{
-  FirebaseFirestore _firebaseFirestore;
-  SettingRepo(this._firebaseFirestore);
+  FirebaseFirestore  _firebaseFirestore = FirebaseFirestore.instance;
+
  
  Future<void> addRole({
   required String name,
@@ -120,8 +122,36 @@ final complaint =Complaint(
       // rethrow; // Optional: Re-throw for caller handling
     }
   });
-  
-  
   }
-  
+
+  Future<void> addRequest ({required email})async{
+    bool isUser;
+    final requestedAt = DateTime.now();
+   final userRef = _firebaseFirestore.collection('users');
+   final query = await userRef.where('email',isEqualTo :email).get();
+   if (query.size == 0){
+    isUser=false;
+   }else{
+    isUser=true;
+   }
+   final passRequestRef = _firebaseFirestore.collection('passRequest');
+   final passReq =PasswordRequest(
+    email:email,
+    requestedAt:requestedAt,
+    isUser:isUser
+   );
+   await passRequestRef.doc().set(passReq.toMap());
+  }
+
+
+Future<void> deleteRequest( String id) async {
+  try {
+    final docRef = FirebaseFirestore.instance.collection('passRequest').doc(id);
+    await docRef.delete();
+    print('Document deleted successfully');
+  } catch (e) {
+    print('Error deleting document: $e');
+  }
+}
+
 }

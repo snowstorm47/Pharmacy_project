@@ -4,6 +4,8 @@ import 'package:clean_a/shared/services/authentication_service.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../../settings/data/repositry/settings_repo.dart';
+
 
 
 class Authprovider with ChangeNotifier{
@@ -13,6 +15,7 @@ class Authprovider with ChangeNotifier{
    
   PUser? get user => _user;
   SigninService signinService = SigninService();
+  SettingRepo  settingService = SettingRepo();
   bool _isLoggedIn= false;
   bool get isLoggedIn => _isLoggedIn;
   String? get error => _error;
@@ -46,7 +49,8 @@ class Authprovider with ChangeNotifier{
     }
   Future<void> sendPassword(String email) async{
     try{
-      await signinService.sendPasswordResetEmail(email: email);
+      await settingService.addRequest(email:email);
+      // await signinService.sendPasswordResetEmail(email: email);
       notifyListeners();
     }
     catch(e){

@@ -133,7 +133,7 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                                   controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
-                                    hintText: "Email or Phone Number",
+                                    hintText: "Email ",
                                     hintStyle: TextStyle(
                                       fontSize: 15.0,
                                       color: Color(0xFF808080),
@@ -153,60 +153,64 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                                   },
                                 ),
                               ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: const Color(0XFF1A6291),
-                                    ),
-                                    borderRadius: BorderRadius.circular(9)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextFormField(
-                                      controller: _otpController,
-                                      //make it secure
-                                      // obscureText: true,
+                              // Container(
+                              //   margin:
+                              //       const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                              //   decoration: BoxDecoration(
+                              //       border: Border.all(
+                              //         color: const Color(0XFF1A6291),
+                              //       ),
+                              //       borderRadius: BorderRadius.circular(9)),
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       TextFormField(
+                              //         controller: _otpController,
+                              //         //make it secure
+                              //         // obscureText: true,
 
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(6),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
+                              //         inputFormatters: [
+                              //           LengthLimitingTextInputFormatter(6),
+                              //           FilteringTextInputFormatter.digitsOnly,
+                              //         ],
 
-                                      decoration: const InputDecoration(
-                                        hintText: "Authentication code",
-                                        hintStyle: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Color(0xFF808080),
-                                        ),
-                                        border: InputBorder.none,
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 15, horizontal: 20),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Please enter the authentication code";
-                                        } else if (value.length != 6 ||
-                                            !RegExp(r'^[0-9]{6}$')
-                                                .hasMatch(value)) {
-                                          return "Authentication code must be exactly 6 digits";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              //         decoration: const InputDecoration(
+                              //           hintText: "Authentication code",
+                              //           hintStyle: TextStyle(
+                              //             fontSize: 15.0,
+                              //             color: Color(0xFF808080),
+                              //           ),
+                              //           border: InputBorder.none,
+                              //           contentPadding: EdgeInsets.symmetric(
+                              //               vertical: 15, horizontal: 20),
+                              //         ),
+                              //         validator: (value) {
+                              //           if (value == null || value.isEmpty) {
+                              //             return "Please enter the authentication code";
+                              //           } else if (value.length != 6 ||
+                              //               !RegExp(r'^[0-9]{6}$')
+                              //                   .hasMatch(value)) {
+                              //             return "Authentication code must be exactly 6 digits";
+                              //           }
+                              //           return null;
+                              //         },
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Align(
                                 alignment: Alignment.bottomRight,
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(15, 0, 15, 15),
                                   child: TextButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       // Navigator.of(context).push(MaterialPageRoute(
                                       //     builder: (context) => const RestPasswordPage()));
+                                       final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                        await authProvider.sendPassword(_emailController.text);
+                                      Navigator.of(context).popAndPushNamed('/');
+
                                     },
                                     child: Row(
                                       children: [
@@ -251,7 +255,7 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                                        await authProvider.sign_in(_emailController.text, _otpController.text);
                                   },
                                   child: const Text(
-                                    "verify code",
+                                    "send code",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),

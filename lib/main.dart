@@ -5,6 +5,7 @@ import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/services/providers/registrationProvider.dart';
+import 'package:clean_a/sign_in/reset_password_otp.dart';
 import 'package:clean_a/sign_in/sign_in_page.dart';
 import 'package:clean_a/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,6 +56,8 @@ class MyApp extends StatelessWidget {
       initialRoute:'/',
       routes:{   
         // '/register':(context)=> const RegisterView(),
+        '/signin':(context) => const MySignInPage(),
+        '/resetPassword':(context) => const ResetPasswordOtp(),
          '/home':(context)=> const Wrapper(),
       },
       debugShowCheckedModeBanner: false,

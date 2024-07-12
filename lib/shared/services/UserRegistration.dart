@@ -59,7 +59,7 @@ class RegisterService{
       );
      //saving the data to the firebase firestore document
        await _firebaseFirestore.collection('users').doc(user.uid).set(userData.toMap());
-       SettingRepo settingRepo = SettingRepo(_firebaseFirestore);
+       SettingRepo settingRepo = SettingRepo();
        final employeeName= FirstName + "" + LastName;
        await settingRepo.addRole(name: role, actions: permission, access: access, employeeName: employeeName);
        //returning the userdata as user object

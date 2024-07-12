@@ -142,7 +142,7 @@ class _MySignInPageState extends State<MySignInPage> {
                                   controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
-                                    hintText: "Phone number or email",
+                                    hintText: "Email",
                                     hintStyle: TextStyle(
                                       fontSize: 15.0,
                                       color: Color(0xFF808080),
@@ -207,9 +207,9 @@ class _MySignInPageState extends State<MySignInPage> {
                                     onPressed: () async {
                                       // Navigator.of(context).push(MaterialPageRoute(
                                       //     builder: (context) => const RestPasswordPage()));
-                                         final authProvider = Provider.of<Authprovider>(context, listen: false);
-                                       await authProvider.sign_in(_emailController.text,_passwordController.text);
-                                      Navigator.of(context).popAndPushNamed('/home');
+                                      //    final authProvider = Provider.of<Authprovider>(context, listen: false);
+                                      //  await authProvider.sign_in(_emailController.text,_passwordController.text);
+                                      Navigator.of(context).popAndPushNamed('/resetPassword');
                                       
                                     },
                                     child: const Text(
