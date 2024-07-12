@@ -10,7 +10,7 @@ class SettingRepo{
   FirebaseFirestore  _firebaseFirestore = FirebaseFirestore.instance;
 
  
- Future<void> addRole({
+ Future<Role?> addRole({
   required String name,
   required List<String> actions,
   required List<String> access,
@@ -31,6 +31,7 @@ class SettingRepo{
   );
   if(role!= null){
   final roleRef =  _firebaseFirestore.collection('role').doc(employeeName).set(role.toMap());
+  return role;
  }
  }
  else{

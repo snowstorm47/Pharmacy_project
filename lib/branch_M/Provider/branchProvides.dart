@@ -39,7 +39,7 @@ class  BranchProvider extends ChangeNotifier{
    final index = _branches?.indexWhere((branch) => branch.Branch_id == id);
    if(index!=null){
     if (index != -1) {
-      _branches?[index] = Branch.fromMap({..._branches![index].toMap(), ...NewData});
+      _branches![index] = Branch.fromMap({..._branches![index].toMap(), ...NewData});
       notifyListeners();
     }
    }

@@ -5,10 +5,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class supplierRepo{
-  FirebaseFirestore _firebaseFirestore;
-  supplierRepo(this._firebaseFirestore);
+  FirebaseFirestore _firebaseFirestore=FirebaseFirestore.instance;
 
-  Future<void> addSupplier({
+
+  Future<Supplier?> addSupplier({
      required name,
      required description,
      required email,
@@ -25,6 +25,7 @@ class supplierRepo{
   final supplierId = supplierRef.doc().id;
   final supplier = Supplier(name: name, city: city, address: address, description: description, email: email, paymentTerm: paymentTerm, phoneNumber: phoneNumber, status: status, subCity: subCity, supplies: supplies, supplierId: supplierId);
   await supplierRef.doc(supplierId).set(supplier.toMap());
+  return supplier;
   }
 
    Future<List<Object>?>  removeSuppliers(String id)async{
@@ -32,10 +33,12 @@ class supplierRepo{
     await supplierCollection.doc(id).delete();
     return await getSuppliers(); 
  }
-   Future <List<Object>?>getSuppliers()async{
+   Future <List<Supplier>?>getSuppliers()async{
      final CollectionReference supplierCollection= _firebaseFirestore.collection('suppliers');
     final snapshot = await supplierCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+ return snapshot.docs.map((doc) {
+    return Supplier.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
   }
 
 Future<void> updateSupplier( String id, {required Map<String,dynamic> updatedData}) async{

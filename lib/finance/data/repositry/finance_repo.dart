@@ -4,8 +4,8 @@ import 'package:clean_a/finance/domain/entities/invoice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FinanceRepo{
-  final FirebaseFirestore _firebaseFirestore;
-  FinanceRepo(this._firebaseFirestore);
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
 
  Future<void> addInvoice({
    branchId,
@@ -124,8 +124,5 @@ return snapShot.data() as Map<String,dynamic>;
 
   return totalExpense;
 }
-
-
-
 
 }

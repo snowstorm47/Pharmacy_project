@@ -41,16 +41,18 @@ Future<Uint8List?> pickFile() async {
 //class responsible for changes in Employee entity
 class EmployeeRepo{
 
-  final FirebaseStorage _firebaseStorage;
-  final FirebaseFirestore _firebaseFirestore;
-  final FirebaseAuth _firebaseAuth;
-  EmployeeRepo(this._firebaseStorage,this._firebaseFirestore,this._firebaseAuth);
+  final FirebaseStorage _firebaseStorage= FirebaseStorage.instance;
+  final FirebaseFirestore _firebaseFirestore= FirebaseFirestore.instance;
+  final FirebaseAuth _firebaseAuth= FirebaseAuth.instance;
+
  
 
-  Future<List<Map<dynamic,dynamic>>> listEmployees()async{
+  Future<List<Employee>?> listEmployees()async{
     final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
     final snapshot = await employeeCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<dynamic, dynamic>).toList();
+ return snapshot.docs.map((doc) {
+    return Employee.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
   }
   Future<Employee> getEmployee(String uid) async {
     final docRef = _firebaseFirestore.collection('Employees').doc(uid);
@@ -104,10 +106,10 @@ class EmployeeRepo{
       }
   // Convert Employee object to Map
   }
-  Future<List<Map<dynamic,dynamic>>> RemoveEmployee(String uid) async{
+  Future<void> RemoveEmployee(String uid) async{
       final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
     await employeeCollection.doc(uid).delete();
-    return await listEmployees(); 
+   
  
   }
 
