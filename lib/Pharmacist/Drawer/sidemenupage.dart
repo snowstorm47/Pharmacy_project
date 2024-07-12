@@ -72,9 +72,9 @@ class SideMenuPharmacist extends StatelessWidget {
                       title: 'Customer',
                            falIcon: FontAwesomeIcons.user,
                       dropdownItems:const[
-                        {'title': 'Add Authorized User', 'route': '/customerP/add_authorized_user'},
+                     
                         {'title': 'Authorizeduserslist', 'route': '/customerP/authorized_user_list'},
-                        {'title': 'AuthorizedCompany', 'route': '/customerP/add_authorized_company'},
+                 
                       ],
                       press: () {},
                       tileColor: Colors.white,
@@ -125,7 +125,7 @@ class SideMenuPharmacist extends StatelessWidget {
                       press: () {},
                       dropdownItems: const [
                         {'title': 'Branch List', 'route': '/branchP/list'},
-                        {'title': 'Add Branch', 'route': '/branchP/add'},
+                    
                         {'title': 'Branch stock', 'route': '/branchP/stock'},
                         {
                           'title': 'Branch refill',

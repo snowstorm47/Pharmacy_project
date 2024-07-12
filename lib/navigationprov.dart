@@ -49,14 +49,14 @@ class NavigationProvider extends ChangeNotifier {
       case '/customer/add_authorized_user':
         _currentScreen = const AddAuthorizedUser();
         break;
-         case '/customer/authorized_user_list':
+         case '/customer/authorized_user':
         _currentScreen = const AuthorizedUser();
         break;
       case '/customer/add_authorized_company':
         _currentScreen = const AddAuthorizedCompany();
         break;
         //medicine
-case '/medicine/medicine_list':
+case '/medicine/details':
         _currentScreen =const  MedicineDetail();
         break;
         //sales
@@ -88,6 +88,8 @@ case   '/branch/refill_request':
   case '/employee/salary': 
   _currentScreen=const SalaryListPage();
   break;
+  // case '/finance/invoice_details':
+  // _currentScreen =const 
   case  '/finance/expense': 
   _currentScreen= const ExpensePage();
   break;
@@ -106,13 +108,13 @@ case   '/branch/refill_request':
   case '/reports/sales': 
   _currentScreen=const ReportGenerate();
   break;
-  case  '/return/add_disposed': 
+  case  '/return/new': 
   _currentScreen=const AddDisposed();
   break;
-  case '/return/delete_disposed_item': 
-  _currentScreen= const DeleteDisposedItem();
-  break;
-  case '/return/disposed_list': 
+  // case '/return/delete_disposed_item': 
+  // _currentScreen= const DeleteDisposedItem();
+  // break;
+  case '/return/list': 
   _currentScreen =const DisposedList();
   break;
   case '/settings/password_requests': 

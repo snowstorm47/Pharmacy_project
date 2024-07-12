@@ -123,7 +123,6 @@ class SideMenu extends StatelessWidget {
                           'title': 'expired medicine',
                           'route': '/stock/expired'
                         },
-                        {'title': 'Add Stock', 'route': '/stock/add'},
                       ],
                       tileColor: Colors.white,
                     ),
@@ -209,14 +208,14 @@ class SideMenu extends StatelessWidget {
                           'route': '/finance/expense'
                         },
                         {'title': 'finance income', 'route': '/finance/income'},
-                        {
-                          'title': 'Invoice Detail',
-                          'route': '/finance/invoice_details'
-                        },
-                        {
-                          'title': 'Invoice Detail2',
-                          'route': '/finance/dashboard'
-                        },
+                        // {
+                        //   'title': 'Invoice Detail',
+                        //   'route': '/finance/invoice_details'
+                        // },
+                        // {
+                        //   'title': 'Invoice Detail2',
+                        //   'route': '/finance/dashboard'
+                        // },
                       ],
                       tileColor: Colors.white,
                     ),

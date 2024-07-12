@@ -69,26 +69,14 @@ class SideMenuCashier extends StatelessWidget {
                       tileColor: Colors.white,
                     ),
            
-                    DrawerListTile(
-                      title: 'Medicine',
-                      falIcon: FontAwesomeIcons.pills,
-                      press: () {},
-                      dropdownItems: const [
-                        {
-                          'title': 'Medicine List',
-                          'route': '/medicine/details'
-                        },
-                        // {'title': 'Add Medicine', 'route': '/medicine/add'},
-                      ],
-                      tileColor: Colors.white,
-                    ),
+                   
                     DrawerListTile(
                       title: 'Sales',
                       falIcon: FontAwesomeIcons.chartLine,
                       press: () {},
                       dropdownItems: const [
-                        {'title': 'Sales Report', 'route': '/sales'},
-                        {'title': 'New Sale', 'route': '/sales/page'},
+                        {'title': 'Sales Report', 'route': '/salesCashier'},
+                        {'title': 'New Sale', 'route': '/salesCashier/page'},
                       ],
                       tileColor: Colors.white,
                     ),
@@ -100,17 +88,17 @@ class SideMenuCashier extends StatelessWidget {
                       dropdownItems: const [
                         {
                           'title': ' generated Report purchase',
-                          'route': '/reports/generated_purchase'
+                          'route': '/reportsCashier/generated_purchase'
                         },
                         {
                           'title': ' Report purchase',
-                          'route': '/reports/purchase'
+                          'route': '/reportsCashier/purchase'
                         },
                         {
                           'title': ' generated Report sales',
-                          'route': '/reports/generated_sales'
+                          'route': '/reportsCashier/generated_sales'
                         },
-                        {'title': ' Report sales', 'route': '/reports/sales'},
+                        {'title': ' Report sales', 'route': '/reportsCashier/sales'},
                       ],
                       tileColor: Colors.white,
                     ),
@@ -122,16 +110,16 @@ class SideMenuCashier extends StatelessWidget {
                       dropdownItems: const [
                         {
                           'title': 'Finance expense',
-                          'route': '/finance/expense'
+                          'route': '/financeCashier/expense'
                         },
-                        {'title': 'finance income', 'route': '/finance/income'},
+                        {'title': 'finance income', 'route': '/financeCashier/income'},
                         {
                           'title': 'Invoice Detail',
-                          'route': '/finance/invoice_details'
+                          'route': '/financeCashier/invoice_details'
                         },
                         {
                           'title': 'Invoice Detail2',
-                          'route': '/finance/dashboard'
+                          'route': '/financeCashier/dashboard'
                         },
                       ],
                       tileColor: Colors.white,

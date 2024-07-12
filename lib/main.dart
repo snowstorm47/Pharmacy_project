@@ -1,8 +1,10 @@
 import 'package:clean_a/Cashier/navigation_provider.dart';
 import 'package:clean_a/Pharmacist/navigation_provider.dart';
 import 'package:clean_a/customer/model/providerC.dart';
+import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
+import 'package:clean_a/shared/services/providers/registrationProvider.dart';
 import 'package:clean_a/sign_in/sign_in_page.dart';
 import 'package:clean_a/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +37,9 @@ void main() async {
           ChangeNotifierProvider<PharmacistProvider>(create:(_)=>PharmacistProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<MedicineProvider>(create: (_) => MedicineProvider()),
-        ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), // Added MedicineProvider
+        ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), 
+        ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),
+        ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider())// Added MedicineProvider
       ],
       child: MyApp(),
     ),
@@ -50,6 +54,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute:'/',
       routes:{   
+        // '/register':(context)=> const RegisterView(),
          '/home':(context)=> const Wrapper(),
       },
       debugShowCheckedModeBanner: false,
@@ -58,7 +63,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MySignInPage(),
+     home:  const MySignInPage(),
+    //  const RegisterView()     
     );
   }
 }

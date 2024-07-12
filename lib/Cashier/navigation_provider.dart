@@ -30,6 +30,7 @@ class CashierProvider extends ChangeNotifier {
         _currentScreen = const GeneratedPurchaseReportsCashier();
         break;
         //medicine
+  
 case '/reportsCashier/purchase':
         _currentScreen =const ReportPGenerateCashier();
         break;
