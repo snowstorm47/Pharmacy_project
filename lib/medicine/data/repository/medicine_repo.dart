@@ -124,7 +124,7 @@ Future<void> removeBatch({required medicineName,required batchid,required branch
     
     final query = batchRef
   .where('medicineName', isEqualTo: medicineName)
-  .where('branchId', isEqualTo: branchId);  // Name matches doc ID
+  .where('branchName', isEqualTo: branchId);  // Name matches doc ID
 
  await query.get().then((querySnapshot) {
   if (querySnapshot.docs.isNotEmpty) {
@@ -164,13 +164,13 @@ await _firebaseFirestore.runTransaction((transaction) async {
 });
 }
 
-Future<List<Object>?> searchMedicine( String medicineName) async {
+Future<List<Medicine>?> searchMedicine( String medicineName) async {
   final searchTerm = medicineName.toLowerCase(); // Lowercase search term
   final medRef = _firebaseFirestore.collection('medicine');
   final query = medRef.where('medicineName', isEqualTo: searchTerm); // Match exact name
  return query.get().then((querySnapshot) {
     print(querySnapshot.docs); // Print retrieved documents
-     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+     return querySnapshot.docs.map((doc) => doc.data() as Medicine).toList();
   });
 }
 
@@ -205,7 +205,7 @@ Future<bool> checkExpiry(String medicineName)async{
 
 }
 
-Future<Color?> colorCoding(String batchNum,String medicineName) async{
+Future<Color?> colorCoding(String medicineName) async{
    final med = medicineName;
 
    final batchRef = _firebaseFirestore.collection('batches').doc(med);
@@ -387,22 +387,22 @@ Future<double?> sellCredit(String medicineName, String company, String customerN
   });
 }
 
-Future<List<Map<String, dynamic>>> getExpiredMed() async {
+Future<List<Batch>?> getExpiredMed() async {
  
   final snapshot = await _firebaseFirestore.collection('batches').get();
-  final meds= snapshot.docs.map((doc) => doc.data()).toList();
+  final meds= snapshot.docs.map((doc) => doc.data() as Batch).toList();
   final today = DateTime.now();
 
   return meds.where((med) {
-    final givenTime = (med['expiryDate'] as Timestamp).toDate();
+    final givenTime = (med.expiryDate as Timestamp).toDate();
     return givenTime.isBefore(today) || givenTime.isAtSameMomentAs(today);
   }).toList();
 }
-Future<List<Map<String,dynamic>>> getOutofStock()async{
+Future<List<Batch>?> getOutofStock()async{
   final snapshot = await _firebaseFirestore.collection('batches').get();
-  final meds = snapshot.docs.map((doc)=>doc.data()).toList();
+  final meds = snapshot.docs.map((doc)=>doc.data() as Batch).toList();
   return meds.where((med){
-    final quantity =(med['quantity'] as int);
+    final quantity =med.stock ;
     return quantity==0;
   }).toList();}
 
