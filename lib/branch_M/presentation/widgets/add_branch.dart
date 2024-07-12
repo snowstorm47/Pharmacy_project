@@ -1,7 +1,10 @@
+import 'package:clean_a/branch_M/Provider/branchProvides.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
+
 
 class AddBranch extends StatefulWidget {
   const AddBranch({super.key});
@@ -12,6 +15,32 @@ class AddBranch extends StatefulWidget {
 
 class _AddBranchState extends State<AddBranch> {
   bool showSideMenu = false;
+
+  final TextEditingController branchNameController = TextEditingController();
+  final TextEditingController branchManagerController = TextEditingController();
+  final TextEditingController storeCapacityController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController openHoursController = TextEditingController();
+  final TextEditingController totalEmployeesController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    branchNameController.dispose();
+    branchManagerController.dispose();
+    storeCapacityController.dispose();
+    addressController.dispose();
+    openHoursController.dispose();
+    totalEmployeesController.dispose();
+    emailController.dispose();
+    phoneNumberController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +67,31 @@ class _AddBranchState extends State<AddBranch> {
                   ),
                 Expanded(
                   flex: 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      HeaderPage(
-                        onMenuPressed: () {
-                          setState(() {
-                            showSideMenu = !showSideMenu;
-                          });
-                        },
-                        isSideMenuOpen: showSideMenu,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SingleChildScrollView(
-                            child: isMobile
-                                ? buildMobileLayout()
-                                : buildDesktopLayout(),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        HeaderPage(
+                          onMenuPressed: () {
+                            setState(() {
+                              showSideMenu = !showSideMenu;
+                            });
+                          },
+                          isSideMenuOpen: showSideMenu,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: SingleChildScrollView(
+                              child: isMobile
+                                  ? buildMobileLayout()
+                                  : buildDesktopLayout(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -108,7 +140,14 @@ class _AddBranchState extends State<AddBranch> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(236, 27, 228, 4),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  // Save data
+                  final branchProvider = Provider.of<BranchProvider>(context,listen: false);
+                  await branchProvider.addBranch(BranchEmail: emailController.text, Address: addressController.text, phoneNo:phoneNumberController.text, totalEmployees: int.parse(totalEmployeesController.text), storeCapacity: int.parse(storeCapacityController.text), BranchManager:branchManagerController.text , Description: descriptionController.text, openHours: openHoursController.text, BranchName: branchNameController.text);
+                }
+
+              },
               child: const Text(
                 'Save',
                 style: TextStyle(color: Colors.white),
@@ -184,7 +223,7 @@ class _AddBranchState extends State<AddBranch> {
               ),
               onPressed: () {},
               child: const Row(
-                children: [
+                children:  [
                   Text(
                     'import file',
                     style: TextStyle(color: Colors.black),
@@ -201,7 +240,13 @@ class _AddBranchState extends State<AddBranch> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(236, 27, 228, 4),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  // Save data
+                  final branchProvider = Provider.of<BranchProvider>(context,listen: false);
+                  await branchProvider.addBranch(BranchEmail: emailController.text, Address: addressController.text, phoneNo:phoneNumberController.text, totalEmployees: int.parse(totalEmployeesController.text), storeCapacity: int.parse(storeCapacityController.text), BranchManager:branchManagerController.text , Description: descriptionController.text, openHours: openHoursController.text, BranchName: branchNameController.text);
+                }
+              },
               child: const Text(
                 'Save',
                 style: TextStyle(color: Colors.white),
@@ -221,32 +266,35 @@ class _AddBranchState extends State<AddBranch> {
           ],
         ),
         const SizedBox(height: 17),
-        const Row(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // First Column
             Flexible(
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      controller: branchNameController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Branch Name',
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: branchManagerController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Branch Manager',
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: storeCapacityController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Store Capacity',
                       ),
@@ -255,57 +303,74 @@ class _AddBranchState extends State<AddBranch> {
                 ),
               ),
             ),
-            SizedBox(width: 20), // Space between columns
+            const SizedBox(width: 20), // Space between columns
 
             // Second Column
             Flexible(
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      controller: addressController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Branch Address',
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: openHoursController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Open hours',
                       ),
                     ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      controller: totalEmployeesController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Total employees',
                       ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the total employees';
+                        }
+                        if (int.tryParse(value) == null) {
+                          return 'Please enter a valid number';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 20), // Space between columns
+            const SizedBox(width: 20
+
+), // Space between columns
 
             // Third Column
             Flexible(
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      controller: emailController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
                       ),
                     ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      controller: phoneNumberController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Phone number',
                       ),
@@ -322,86 +387,113 @@ class _AddBranchState extends State<AddBranch> {
     );
   }
 
-  Widget buildTextFieldsColumn() {
-    return const Column(
+  Widget buildDescriptionAndButton() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Branch Name',
-          ),
+        const Text(
+          'Description',
+          style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 7),
         TextField(
-          decoration: InputDecoration(
+          controller: descriptionController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Branch Manager',
           ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Stock Capacity',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Address',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Open hours',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Total employee',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Phone number',
-          ),
+          maxLines: 6,
         ),
       ],
     );
   }
 
-  Widget buildDescriptionAndButton() {
-    return const SizedBox(
-      width: 880,
-      child: Padding(
-        padding: EdgeInsets.all(.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              maxLines: 5,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter additional description here...',
-              ),
-            ),
-          ],
+  Widget buildTextFieldsColumn() {
+    return Column(
+      children: [
+        TextField(
+          controller: branchNameController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Branch Name',
+          ),
         ),
-      ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: branchManagerController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Branch Manager',
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextFormField(
+          controller: storeCapacityController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Store Capacity',
+          ),
+         keyboardType: TextInputType.number,
+        validator: (value) {
+           if (value == null || value.isEmpty) {
+              return 'Please enter the Storage Capacity';
+                        }
+             if (int.tryParse(value) == null) {
+          return 'Please enter a valid number';
+                  }
+             return null;
+                },
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: addressController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Branch Address',
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: openHoursController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Open hours',
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextFormField(
+          controller: totalEmployeesController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Total employees',
+          ),
+          keyboardType: TextInputType.number,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter the total employees';
+            }
+            if (int.tryParse(value) == null) {
+              return 'Please enter a valid number';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: emailController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Email',
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: phoneNumberController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Phone number',
+          ),
+        ),
+      ],
     );
   }
 }

@@ -8,14 +8,14 @@ import '../../domain/entities/branch.dart';
 
 class RegisterBranch{
   //loading the firebase instances
-  final FirebaseFirestore _firebaseFirestore;
-  RegisterBranch(this._firebaseFirestore);
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+ 
     
     
     
 
 //function responsible for returning list of branches 
-   Future<List<Object>?> AddBranch({required BranchEmail,required Address,required phoneNo,required totalEmployees,required storeCapacity,required BranchManager,required Description,required openHours,required BranchName})async{
+   Future<Branch?> AddBranch({required BranchEmail,required Address,required phoneNo,required totalEmployees,required storeCapacity,required BranchManager,required Description,required openHours,required BranchName})async{
       final CollectionReference branchCollection= _firebaseFirestore.collection('Branch');
     final docRef= branchCollection.doc();
     final Branch_id=docRef.id;
@@ -23,13 +23,14 @@ class RegisterBranch{
     final branchData= Branch(Address: Address, BranchEmail: BranchEmail, BranchManager: BranchManager, BranchName: BranchName, Branch_id: Branch_id, Description: Description, openHours: openHours, phoneNo: phoneNo, storeCapacity: storeCapacity, totalEmployees: totalEmployees);
  
    await branchCollection.doc(Branch_id).set(branchData.toMap());
-      return await getBranches();
+   return branchData;
+    
     
     }
-  Future<List<Object>?>  RemoveBranch(Branch_id)async{
+  Future<void>  RemoveBranch(Branch_id)async{
      final CollectionReference branchCollection= _firebaseFirestore.collection('Branch');
     await branchCollection.doc(Branch_id).delete();
-    return await getBranches(); 
+ 
  }
   Future<void> editBranch(String branchId, {required Map<String, dynamic> updatedData}) async {
   final collectionReference = _firebaseFirestore.collection('Branch');
@@ -49,12 +50,15 @@ class RegisterBranch{
 
     transaction.set(document, existingData);
   });}
-  Future <List<Object>?>getBranches()async{
-     final CollectionReference branchCollection= _firebaseFirestore.collection('Branch');
-    final snapshot = await branchCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
-  }
-  Future<void> deleteCollectionInLoop(List<String> batchId) async {
+Future<List<Branch>?> getBranches() async {
+  final CollectionReference branchCollection = _firebaseFirestore.collection('Branch');
+  final snapshot = await branchCollection.get();
+  return snapshot.docs.map((doc) {
+    return Branch.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
+}
+
+  Future<void> deleteBranches(List<String> batchId) async {
   final batchRef = _firebaseFirestore.collection('Branch');
    final batch = _firebaseFirestore.batch();
   for (final id in batchId) {
@@ -71,22 +75,28 @@ class RegisterBranch{
     return null;
   }
  
- Future<void> addRefill({  required branchName, required refillRequest,required requestDate, required requestedBy,}) async{
+ Future<Refill?> addRefill({  required branchName, required refillRequest,required requestDate, required requestedBy,}) async{
   final refillRef = _firebaseFirestore.collection('refill');
+  final docRef = refillRef.doc().id;
+
   final refill = Refill(
+    id:docRef,
     branchName:branchName,
     refillRequest:refillRequest,
     requestedBy:requestedBy,
     requestDate:requestDate
   );
-  await refillRef.doc().set(refill.toMap());
+  await refillRef.doc(docRef).set(refill.toMap());
+  return refill;
  }
-   Future <List<Object>?>getRefill()async{
+   Future <List<Refill>?>getRefill()async{
      final CollectionReference refillCollection= _firebaseFirestore.collection('refill');
     final snapshot = await refillCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+     return snapshot.docs.map((doc) {
+    return Refill.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
   }
-   Future<void> removeRefill(id)async{
+   Future<void> removeRefill(String id)async{
      final CollectionReference refillCollection= _firebaseFirestore.collection('refill');
     await refillCollection.doc(id).delete();  
  }

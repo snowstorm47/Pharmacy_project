@@ -1,5 +1,7 @@
 import 'package:clean_a/Cashier/navigation_provider.dart';
 import 'package:clean_a/Pharmacist/navigation_provider.dart';
+import 'package:clean_a/branch_M/Provider/branchProvides.dart';
+import 'package:clean_a/branch_M/domain/entities/branch.dart';
 import 'package:clean_a/customer/model/providerC.dart';
 import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
@@ -38,6 +40,7 @@ void main() async {
           ChangeNotifierProvider<PharmacistProvider>(create:(_)=>PharmacistProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<MedicineProvider>(create: (_) => MedicineProvider()),
+        ChangeNotifierProvider<BranchProvider>(create: (_)=>BranchProvider()),
         ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), 
         ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),
         ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider())// Added MedicineProvider

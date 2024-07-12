@@ -4,8 +4,8 @@ class Branch{
   final String Address;
   final String BranchEmail;
   final String phoneNo;
-  final String totalEmployees;
-  final String storeCapacity;
+  final int totalEmployees;
+  final int storeCapacity;
   final String BranchManager;
   final String Description;
   final String openHours;
@@ -29,8 +29,8 @@ class Branch{
     Address:data['Address'] as String,
    BranchEmail:data['BranchEmail'] as String,
     phoneNo: data['phoneNo'] as String, 
-   totalEmployees:data['totalEmployees'] as String,
- storeCapacity:data['storeCapacity'] as String,
+   totalEmployees:data['totalEmployees'] as int,
+ storeCapacity:data['storeCapacity'] as int,
   BranchManager:data['BranchManager'] as String,
    Description:data["Description"] as String,
   openHours:data['openHours'] as String,

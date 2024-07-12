@@ -73,7 +73,7 @@ case   '/branch/refill_request':
     _currentScreen=const RefillRequestPage();
     break;
   case '/branch/add': 
-  _currentScreen=const AddBranch();
+  _currentScreen= AddBranch();
     break;
     case    '/branch/list': 
     _currentScreen= const BranchListPage();
