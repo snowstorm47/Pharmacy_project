@@ -1,10 +1,9 @@
+import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/customer/data/user_data.dart';
 import 'package:clean_a/customer/model/providerC.dart';
+import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:clean_a/Drawer/sidemenupage.dart';
-import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 
 class AuthorizedUser extends StatefulWidget {
   const AuthorizedUser({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class _AuthorizedUserState extends State<AuthorizedUser> {
   bool showSideMenu = false;
 
   void _editUser(BuildContext context, DataModel user) {
-    final _formKey = GlobalKey<FormState>();
     final TextEditingController employeeIdController = TextEditingController(text: user.employeeId);
     final TextEditingController employeeNameController = TextEditingController(text: user.employeeName);
     final TextEditingController phoneController = TextEditingController(text: user.phone);
@@ -29,38 +27,30 @@ class _AuthorizedUserState extends State<AuthorizedUser> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Edit User'),
-          content: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  controller: employeeIdController,
-                  decoration: const InputDecoration(labelText: 'Employee ID'),
-                  validator: (value) => value!.isEmpty ? 'Please enter an employee ID' : null,
-                ),
-                TextFormField(
-                  controller: employeeNameController,
-                  decoration: const InputDecoration(labelText: 'Employee Name'),
-                  validator: (value) => value!.isEmpty ? 'Please enter an employee name' : null,
-                ),
-                TextFormField(
-                  controller: phoneController,
-                  decoration: const InputDecoration(labelText: 'Phone'),
-                  validator: (value) => value!.isEmpty ? 'Please enter a phone number' : null,
-                ),
-                TextFormField(
-                  controller: companyNameController,
-                  decoration: const InputDecoration(labelText: 'Company Name'),
-                  validator: (value) => value!.isEmpty ? 'Please enter a company name' : null,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (value) => value!.isEmpty ? 'Please enter an email' : null,
-                ),
-              ],
-            ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: employeeIdController,
+                decoration: const InputDecoration(labelText: 'Employee ID'),
+              ),
+              TextField(
+                controller: employeeNameController,
+                decoration: const InputDecoration(labelText: 'Employee Name'),
+              ),
+              TextField(
+                controller: phoneController,
+                decoration: const InputDecoration(labelText: 'Phone'),
+              ),
+              TextField(
+                controller: companyNameController,
+                decoration: const InputDecoration(labelText: 'Company Name'),
+              ),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
+            ],
           ),
           actions: [
             TextButton(
@@ -71,20 +61,16 @@ class _AuthorizedUserState extends State<AuthorizedUser> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  final updatedUser = DataModel(
-                    employeeId: employeeIdController.text,
-                    employeeName: employeeNameController.text,
-                    phone: phoneController.text,
-                    companyName: companyNameController.text,
-                    email: emailController.text,
-                  );
+                final updatedUser = DataModel(
+                  employeeId: employeeIdController.text,
+                  employeeName: employeeNameController.text,
+                  phone: phoneController.text,
+                  companyName: companyNameController.text,
+                  email: emailController.text,
+                );
 
-                 // print('Updated User: $updatedUser');
-
-                  Provider.of<UserProvider>(context, listen: false).updateUser(updatedUser);
-                  Navigator.of(context).pop();
-                }
+                Provider.of<UserProvider>(context, listen: false).updateUser(updatedUser);
+                Navigator.of(context).pop();
               },
               child: const Text('Save'),
             ),
@@ -260,68 +246,69 @@ class _AuthorizedUserState extends State<AuthorizedUser> {
                                                       Icons.message,
                                                       color: Colors.black54,
                                                       size: 17,
-                                                ),
-                                                onPressed: () {
-                                                  // Implement message action
-                                                },
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.delete,
-                                                  color: Colors.red,
-                                                  size: 17,
-                                                ),
-                                                onPressed: () {
-                                                  _deleteUser(context, item);
-                                                },
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.edit,
-                                                  color: Colors.black54,
-                                                  size: 17,
-                                                ),
-                                                onPressed: () {
-                                                  _editUser(context, item);
-                                                },
-                                              ),
+                                                    ),
+                                                    onPressed: () {
+                                                      // Implement message action
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                      size: 17,
+                                                    ),
+                                                    onPressed: () {
+                                                      _deleteUser(context, item);
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.edit,
+                                                      color: Colors.black54,
+                                                      size: 17,
+                                                    ),
+                                                    onPressed: () {
+                                                      _editUser(context, item);
+                                                    },
+                                                  ),
+                                                ],
+                                              )),
                                             ],
-                                          )),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
+                ),
+              ],
+            ),
+            if (showSideMenu && MediaQuery.of(context).size.width <= 768)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showSideMenu = false;
+                    });
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    color: Colors.black54.withOpacity(0.5),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
-        if (showSideMenu && MediaQuery.of(context).size.width <= 768)
-          Positioned(
-            left: 0,
-            top: 0,
-            bottom: 0,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  showSideMenu = false;
-                });
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.75,
-                color: Colors.black54.withOpacity(0.5),
-              ),
-            ),
-          ),
-      ],
-    ),
-  ),
-);
-  }}
+      ),
+    );
+  }
+}

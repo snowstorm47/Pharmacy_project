@@ -1,10 +1,10 @@
-
-
-import 'package:clean_a/medicine/data/medicine_data.data.dart';
 import 'package:flutter/material.dart';
+import 'package:clean_a/medicine/data/medicine_data.data.dart';
 
 class MedicineProvider extends ChangeNotifier {
-  List<DataMD> _medicines = [];
+  List<DataMD> _medicines = [
+    // Your initial list of medicines
+  ];
 
   List<DataMD> get medicines => _medicines;
 
@@ -22,7 +22,7 @@ class MedicineProvider extends ChangeNotifier {
   }
 
   void deleteMedicine(DataMD medicine) {
-    _medicines.removeWhere((item) => item.id == medicine.id);
+    _medicines.removeWhere((m) => m.id == medicine.id);
     notifyListeners();
   }
 }

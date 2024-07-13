@@ -5,6 +5,8 @@ class DataS {
   final String status;
   final String address;
 
+  var id;
+
   DataS({
     required this.supplierId,
     required this.name,

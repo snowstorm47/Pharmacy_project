@@ -1,5 +1,9 @@
+import 'package:clean_a/branch_M/domain/models/branchprovider.dart';
 import 'package:clean_a/customer/model/providerC.dart';
 import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
+import 'package:clean_a/return/domain/models/retprovider.dart';
+import 'package:clean_a/supplier/domain/models/splyrprovider.dart';
+import 'package:clean_a/supplier/presentation/widgets/supplier_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clean_a/navigationprov.dart'; // Adjust the path as per your project structure
@@ -16,7 +20,11 @@ void main() {
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         // Add more providers as needed
+        
         ChangeNotifierProvider(create: (_) => MedicineProvider()), // Added MedicineProvider
+       ChangeNotifierProvider(create: (_) => SupplierProvider()),
+       ChangeNotifierProvider(create: (_) => DisposedListProvider()),
+              ChangeNotifierProvider(create: (_) => BranchProvider()),
       ],
       child: MyApp(),
     ),

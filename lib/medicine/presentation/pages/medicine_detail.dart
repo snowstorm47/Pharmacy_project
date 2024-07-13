@@ -1,9 +1,11 @@
-import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:clean_a/medicine/model/providerM.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:clean_a/medicine/data/medicine_data.data.dart';
+import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
-
-import 'package:clean_a/medicine/data/medicine_data.data.dart';
+//import 'package:clean_a/medicine/provider/medicine_provider.dart';
 
 class MedicineDetail extends StatefulWidget {
   const MedicineDetail({super.key});
@@ -24,68 +26,6 @@ class MedicineDetailState extends State<MedicineDetail> {
   @override
   Widget build(BuildContext context) {
     int totalPages = 3;
-    final data = [
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '29/40',
-        genericName: 'hefted',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: true,
-        isTaxable: true,
-      ),
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '2940',
-        genericName: 'heated',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: false,
-        isTaxable: true,
-      ),
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '2940',
-        genericName: 'hefted',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: true,
-        isTaxable: false,
-      ),
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '2940',
-        genericName: 'keyed',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: false,
-        isTaxable: true,
-      ),
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '2940',
-        genericName: 'eyed',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: true,
-        isTaxable: true,
-      ),
-      DataMD(
-        medicineName: 'amoxicillin',
-        id: '2940',
-        genericName: 'leyte',
-        category: 'painkiller',
-        weight: '200mg',
-        expiryDate: '12/12/23',
-        isPrescribed: true,
-        isTaxable: true,
-      ),
-    ];
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
@@ -130,11 +70,19 @@ class MedicineDetailState extends State<MedicineDetail> {
                         ),
                       ),
                       // Content
-                      Expanded(
+  //TABLEDATA                
+                   Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: SingleChildScrollView(
-                            child: _buildMedicineDetailTable(data, totalPages),
+                            child: Consumer<MedicineProvider>(
+                              builder: (context, medicineProvider, child) {
+                                return _buildMedicineDetailTable(
+                                  medicineProvider.medicines,
+                                  totalPages,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -215,26 +163,14 @@ class MedicineDetailState extends State<MedicineDetail> {
                   style: TextStyle(color: Colors.white),
                 )),
             const SizedBox(width: 20.0),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0)),
-                    backgroundColor: Colors.blue),
-                onPressed: () {
-                  updatemedicine(context);
-                },
-                child: const Text(
-                  'Update Medicine',
-                  style: TextStyle(color: Colors.white),
-                )),
-            const SizedBox(width: 20.0),
+           
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0)),
                     backgroundColor: Colors.red),
                 onPressed: () {
-                  deleteDialog(context);
+                  deleteMedicine(context);
                 },
                 child: const Text(
                   'Delete Medicine',
@@ -280,475 +216,457 @@ class MedicineDetailState extends State<MedicineDetail> {
   }
 
   void addMedicine(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.8,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Add new medicine',
-                    style: TextStyle(fontSize: 23),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'You can  add new medicine here',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Medicine name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Medicine ID',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Catagory',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Weight',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Generic name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Supplier price',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Selling price',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Expiry date',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Stock',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Taxable',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Prescription based',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              labelText: 'Details',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromARGB(
-                                          236, 27, 228, 4)),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Submit',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Reset',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+    final _medicineNameController = TextEditingController();
+    final _medicineIdController = TextEditingController();
+    final _genericNameController = TextEditingController();
+    final _categoryController = TextEditingController();
+    final _weightController = TextEditingController();
+    final _expiryDateController = TextEditingController();
+    bool _isTaxable = false;
+    bool _isPrescribed = false;
 
-  void updatemedicine(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.8,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Update medicine',
-                    style: TextStyle(fontSize: 23),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    'You can update the medicines here',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Medicine name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Medicine ID',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Category',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Weight',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Generic name',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Supplier price',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Selling price',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Expiry date',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Stock',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Taxable',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Prescription based',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              labelText: 'Details',
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromARGB(
-                                          236, 27, 228, 4)),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Submit',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Reset',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  void deleteDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Are you sure?'),
-          content: const Text('these data will be completly erased'),
-          actions: [
-            TextButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red)),
-              onPressed: () {},
-              child: const Text(
-                'Discard',
-                style: TextStyle(color: Colors.white),
-              ),
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.8,
+            padding: const EdgeInsets.all(20),
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Add Medicine',
+                      style: TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            _buildTextField(
+                              controller: _medicineNameController,
+                              label: 'Medicine Name',
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              controller: _medicineIdController,
+                              label: 'ID',
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              controller: _genericNameController,
+                              label: 'Generic Name',
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              controller: _categoryController,
+                              label: 'Category',
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              controller: _weightController,
+                              label: 'Weight',
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              controller: _expiryDateController,
+                              label: 'Expiry Date',
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text('Taxable'),
+                                Checkbox(
+                                  value: _isTaxable,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isTaxable = value ?? false;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text('Prescribed'),
+                                Checkbox(
+                                  value: _isPrescribed,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isPrescribed = value ?? false;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final newMedicine = DataMD(
+                              id: _medicineIdController.text,
+                              medicineName:
+                                  _medicineNameController.text,
+                              genericName:
+                                  _genericNameController.text,
+                              category: _categoryController.text,
+                              weight: _weightController.text,
+                              expiryDate: _expiryDateController.text,
+                              isTaxable: _isTaxable,
+                              isPrescribed: _isPrescribed,
+                            );
+                            Provider.of<MedicineProvider>(context,
+                                    listen: false)
+                                .addMedicine(newMedicine);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Add'),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(236, 27, 228, 4)),
-                onPressed: () {},
-                child: const Text(
-                  'Delete',
-                  style: TextStyle(color: Colors.white),
-                ))
-          ],
+          ),
         );
       },
     );
   }
 
-  Widget _buildHeaderRow() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(2.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            _buildHeaderCell('Medicine Name'),
-            _buildHeaderCell('Medicine Id'),
-            _buildHeaderCell('Generic Name'),
-            _buildHeaderCell('Category'),
-            _buildHeaderCell('Weight (mg)'),
-            _buildHeaderCell('Expiry Date'),
-            _buildHeaderCell('Taxable'),
-            _buildHeaderCell('Prescription'),
-          ],
-        ),
+  Widget _buildTextField(
+      {required TextEditingController controller, required String label}) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
       ),
     );
   }
 
-  Widget _buildDataRow(DataMD data) {
+  Widget _buildHeaderRow() {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(2.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            _buildDataCell(data.medicineName),
-            _buildDataCell(data.id),
-            _buildDataCell(data.genericName),
-            _buildDataCell(data.category),
-            _buildDataCell(data.weight),
-            _buildDataCell(data.expiryDate),
-            _buildDataCell('', isTaxable: data.isTaxable),
-            _buildDataCell('', isPrescribed: data.isPrescribed),
-          ],
-        ),
+      color: Colors.blue,
+      child: Row(
+        
+        children:  [
+         
+          _buildHeaderCell('Medicine_ID'),
+          _buildHeaderCell('Medicine_Name'),
+          _buildHeaderCell('Generic Name'),
+          _buildHeaderCell('Category'),
+          _buildHeaderCell('Weight'),
+          _buildHeaderCell('Expiry Date'),
+          _buildHeaderCell('Taxable'),
+          _buildHeaderCell('Prescribed'),
+          _buildHeaderCell('Actions'),
+        ],
       ),
     );
   }
 
   Widget _buildHeaderCell(String text) {
-    return SizedBox(
-      width: 120,
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      width: 150.0,
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
       ),
     );
   }
 
-  Widget _buildDataCell(String text,
-      {bool isPrescribed = false, bool isTaxable = false}) {
-    return SizedBox(
-      width: 120,
-      child: isPrescribed || isTaxable
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (isPrescribed)
-                  Checkbox(
-                    value: isPrescribed,
-                    onChanged: (bool? value) {},
-                  ),
-                if (isTaxable)
-                  Checkbox(
-                    value: isTaxable,
-                    onChanged: (bool? value) {},
-                  ),
-              ],
-            )
-          : Text(
-              text,
-              style: const TextStyle(
-                color: Colors.black,
+  Widget _buildDataRow(DataMD medicine) {
+    return Row(
+      children: [
+        _buildDataCell(medicine.id),
+        _buildDataCell(medicine.medicineName),
+        _buildDataCell(medicine.genericName),
+        _buildDataCell(medicine.category),
+        _buildDataCell(medicine.weight),
+        _buildDataCell(medicine.expiryDate),
+        _buildDataCell(medicine.isTaxable ? 'Yes' : 'No'),
+        _buildDataCell(medicine.isPrescribed ? 'Yes' : 'No'),
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          width: 150.0,
+          child: Row(
+            children: [
+              IconButton(
+  icon: const Icon(Icons.edit),
+  onPressed: () {
+    updateMedicine(context, medicine);
+  },
+),
+
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  deleteDialog(context, medicine);
+                },
               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDataCell(String text) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      width: 150.0,
+      child: Text(text),
+    );
+  }
+
+  void deleteDialog(BuildContext context, DataMD medicine) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Medicine'),
+          content:
+              const Text('Are you sure you want to delete this medicine?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
             ),
+            TextButton(
+              onPressed: () {
+                Provider.of<MedicineProvider>(context, listen: false)
+                    .deleteMedicine(medicine );
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+void updateMedicine(BuildContext context, DataMD medicine) {
+  final _medicineNameController = TextEditingController(text: medicine.medicineName);
+  final _genericNameController = TextEditingController(text: medicine.genericName);
+  final _categoryController = TextEditingController(text: medicine.category);
+  final _weightController = TextEditingController(text: medicine.weight);
+  final _expiryDateController = TextEditingController(text: medicine.expiryDate);
+  bool _isTaxable = medicine.isTaxable;
+  bool _isPrescribed = medicine.isPrescribed;
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.8,
+          padding: const EdgeInsets.all(20),
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Update Medicine',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          _buildTextField(
+                            controller: _medicineNameController,
+                            label: 'Medicine Name',
+                          ),
+                          const SizedBox(height: 10),
+                          _buildTextField(
+                            controller: _genericNameController,
+                            label: 'Generic Name',
+                          ),
+                          const SizedBox(height: 10),
+                          _buildTextField(
+                            controller: _categoryController,
+                            label: 'Category',
+                          ),
+                          const SizedBox(height: 10),
+                          _buildTextField(
+                            controller: _weightController,
+                            label: 'Weight',
+                          ),
+                          const SizedBox(height: 10),
+                          _buildTextField(
+                            controller: _expiryDateController,
+                            label: 'Expiry Date',
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              const Text('Taxable'),
+                              Checkbox(
+                                value: _isTaxable,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isTaxable = value ?? false;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text('Prescribed'),
+                              Checkbox(
+                                value: _isPrescribed,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isPrescribed = value ?? false;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final updatedMedicine = DataMD(
+                            id: medicine.id,
+                            medicineName: _medicineNameController.text,
+                            genericName: _genericNameController.text,
+                            category: _categoryController.text,
+                            weight: _weightController.text,
+                            expiryDate: _expiryDateController.text,
+                            isTaxable: _isTaxable,
+                            isPrescribed: _isPrescribed,
+                          );
+                          Provider.of<MedicineProvider>(context, listen: false)
+                              .updateMedicine(updatedMedicine);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Update'),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      );
+    },
+  );
+}
+
+
+
+
+
+
+  void deleteMedicine(BuildContext context) {
+    final _medicineIdController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.height * 0.33,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Delete Medicine',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildTextField(
+                  controller: _medicineIdController,
+                  label: 'Medicine ID',
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        final id = _medicineIdController.text;
+                        final provider = Provider.of<MedicineProvider>(context,
+                            listen: false);
+                        final medicineToDelete = provider.medicines
+                            .firstWhere(
+                                (medicine) => medicine.id == id,
+                                orElse: () => DataMD(
+                                    id: '',
+                                    medicineName: '',
+                                    genericName: '',
+                                    category: '',
+                                    weight: '',
+                                    expiryDate: '',
+                                    isTaxable: false,
+                                    isPrescribed: false));
+                        if (medicineToDelete.id.isNotEmpty) {
+                          provider.deleteMedicine(medicineToDelete );
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Delete'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

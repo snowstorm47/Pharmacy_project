@@ -90,17 +90,39 @@ class SideMenu extends StatelessWidget {
                       press: () {},
                       tileColor: Colors.white,
                     ),
- DrawerListTile(
-                      title: 'Sales',
-                           falIcon: FontAwesomeIcons.chartLine,
+  DrawerListTile(
+                      title: 'Supplier',
+                           falIcon: FontAwesomeIcons.car,
                       dropdownItems: [
-                        {'title': 'Sales Report', 'route': '/sales/sales report'},
+                        {'title': 'Suppliers_list', 'route': '/suppliers/suppliers_List'},
+                      
+                      ],
+                      press: () {},
+                      tileColor: Colors.white,
+                    ),
+ DrawerListTile(
+                      title: 'Return',
+                           falIcon: FontAwesomeIcons.rotateLeft,
+                      dropdownItems: [
+                        {'title': 'Disposed_list', 'route': '/return/disposed_List'},
                       
                       ],
                       press: () {},
                       tileColor: Colors.white,
                     ),
 
+
+
+ DrawerListTile(
+                      title: 'Branch',
+                           falIcon: FontAwesomeIcons.codeBranch,
+                      dropdownItems: [
+                        {'title': 'Branch_list', 'route': '/branch/branch_List'},
+                       {'title': 'Branch_Stock', 'route': '/branch/branch_Stock'},
+                      ],
+                      press: () {},
+                      tileColor: Colors.white,
+                    ),
 
                     // Add more DrawerListTile here for other pages
                   ],
