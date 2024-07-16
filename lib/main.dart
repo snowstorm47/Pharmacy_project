@@ -20,6 +20,8 @@ import 'package:clean_a/medicine/model/providerM.dart'; // Adjust the path as pe
 //import 'package:clean_a/medicine/presentation/add_med_screen.dart'; // Adjust the path as per your project structure
 //import 'package:clean_a/medicine/presentation/medicine_detail_screen.dart'; // Adjust the path as per your project structure
 import 'package:firebase_core/firebase_core.dart';
+
+import 'employee/provider/employee_provider.dart';
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -40,6 +42,7 @@ void main() async {
           ChangeNotifierProvider<PharmacistProvider>(create:(_)=>PharmacistProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<MedicineProvider>(create: (_) => MedicineProvider()),
+        ChangeNotifierProvider<EmployeeProvider>(create:(_)=>EmployeeProvider()),
         ChangeNotifierProvider<BranchProvider>(create: (_)=>BranchProvider()),
         ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), 
         ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),

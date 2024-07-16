@@ -1,4 +1,6 @@
+import 'package:clean_a/employee/provider/employee_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddEmployeePopup extends StatefulWidget {
   const AddEmployeePopup({super.key});
@@ -109,7 +111,7 @@ class AddEmployeePopupState extends State<AddEmployeePopup> {
           child: const Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async{
             if (_formKey.currentState!.validate()) {
               final newEmployee = {
                 'name': _nameController.text,
@@ -119,6 +121,8 @@ class AddEmployeePopupState extends State<AddEmployeePopup> {
                 'phone': _phoneController.text,
                 'email': _emailController.text,
               };
+              final empProvider=Provider.of<EmployeeProvider>(context,listen:false);
+             
               Navigator.of(context).pop(newEmployee);
             }
           },
