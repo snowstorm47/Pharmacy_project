@@ -44,6 +44,7 @@ Future<Medicine?> addMedicine({
       branchName: branchName,
   );
   final batch = Batch(
+    medName:medicineName,
       location: location,
       expiryDate: expiryDate,
       batchNumber: batchNumber,

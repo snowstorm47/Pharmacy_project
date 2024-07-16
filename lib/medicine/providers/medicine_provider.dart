@@ -44,6 +44,7 @@ class MedicineProvider extends ChangeNotifier{
   final med = await medService.addMedicine(medicineName: medicineName, branchName: branchName, location: location, catagory: catagory, weight: weight, genericName: genericName, suppliersPrice: suppliersPrice, sellingPrice: sellingPrice, expiryDate: expiryDate, stock: stock, taxable: taxable, prescriptionBased: prescriptionBased, details: details, dateAdded: dateAdded);
   final batchNumber= dateAdded.toString();
   final newBatch=Batch(
+     medName:medicineName,
       location: location,
       expiryDate: expiryDate,
       batchNumber: batchNumber,
@@ -67,6 +68,7 @@ class MedicineProvider extends ChangeNotifier{
 
   await medService.deleteMedicince(medicineName: medicineName, branchName: branchName);
   _medicines!.removeWhere((med) => med.medicineName == medicineName && med.branchName == branchName);
+  _batches!.removeWhere((batch)=> batch.medName == medicineName && batch.branchName == branchName);
   notifyListeners();
   }
   Future<void> editMedicine(String medicineName, {required Map<String,dynamic> updatedData}) async{
@@ -100,12 +102,24 @@ class MedicineProvider extends ChangeNotifier{
   }
   Future<void> sellMed(String medicineName,int quantityToSell)async{
    _price =await medService.sellItem(medicineName, quantityToSell);
-
-
+     final index = _batches?.indexWhere((med) => med.medName == medicineName);
+   if(index!=null){
+    if (index != -1 && _batches![index].stock >= quantityToSell) {
+      _batches![index].stock = _batches![index].stock - quantityToSell;
+      notifyListeners();
+    }
   }
+  }
+
   Future<void> sellCredit(String medicineName,int quantityToSell,String companyName,String customerName)async{  
     _price= await medService.sellCredit(medicineName, companyName, customerName, quantityToSell);
-    
+  final index = _batches?.indexWhere((med) => med.medName == medicineName);
+   if(index!=null){
+    if (index != -1 && _batches![index].stock >= quantityToSell) {
+          _batches![index].stock = _batches![index].stock -quantityToSell;
+            notifyListeners();
+    }
+  }
   }
 
   Future<void> getExpired()async{

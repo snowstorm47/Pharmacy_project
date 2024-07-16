@@ -3,10 +3,10 @@ import 'package:clean_a/return/domain/entities/disposed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DisposedRepo{
-  final FirebaseFirestore _firebaseFirestore;
-  DisposedRepo( this._firebaseFirestore);
+  final FirebaseFirestore _firebaseFirestore= FirebaseFirestore.instance;
 
-  Future<void> addDisposed({required String batchId,required String medicineName,required String reason})async{
+
+  Future<Disposed?> addDisposed({required String batchId,required String medicineName,required String reason})async{
   final dateAdded = DateTime.now();
   try{
   final medRef =  _firebaseFirestore.collection('medicine').doc(medicineName);
@@ -24,6 +24,7 @@ class DisposedRepo{
           );
           //fill the collection with disposed 
           await _firebaseFirestore.collection('disposed').doc(batchId).set(disposed.toMap());
+          return disposed;
    }else{
     print('there is no document');
    }
@@ -32,6 +33,7 @@ class DisposedRepo{
   catch(e){
     print(e.toString());
   }
+  return null;
  }
 
  Future<void> removeDisposed(String batchId)async{
@@ -50,9 +52,9 @@ class DisposedRepo{
      }
      batch.commit();
  } 
- Future<List<Object>?> getDisposed() async{
+ Future<List<Disposed>?> getDisposed() async{
    CollectionReference disposedRef = await _firebaseFirestore.collection('disposed');
      final snapshot = await disposedRef.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+     return snapshot.docs.map((doc) => Disposed.fromMap(doc.data() as Map<String, dynamic>)).toList();
  }
 }

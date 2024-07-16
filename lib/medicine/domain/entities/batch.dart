@@ -1,4 +1,5 @@
 class Batch{
+ String medName;
  String location;
  double sellingPrice;
  double suppliersPrice;
@@ -10,6 +11,7 @@ class Batch{
  bool taxable;
  
   Batch({
+  required this.medName,
   required this.suppliersPrice,
   required this.sellingPrice,
   required   this.location,
@@ -22,6 +24,7 @@ class Batch{
   });
     factory Batch.fromMap(Map<String,dynamic> data)=> 
   Batch(
+  medName:data['medName'] as String,
   sellingPrice:data['sellingPrice'] as double,
   suppliersPrice: data['supplierPrice'] as double,
   taxable: data['taxable'] as  bool,
@@ -33,6 +36,7 @@ class Batch{
  branchName: data['branchId'] as String,
   );
   Map<String,dynamic> toMap()=>{
+    'medName':medName,
   'location':location,
   'expiryDate':expiryDate,
  'stock':stock,

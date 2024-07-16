@@ -9,11 +9,14 @@ import '../domain/entities/customer.dart';
 class CustomerProvider extends ChangeNotifier{
 
 List<corporateCustomer>? _customer;
+List<Corpemployee>? _companyEmployee;
+
 List<Corpemployee>? _employee;
 CustomerRepo customerService = CustomerRepo();
 
 List<corporateCustomer>? get customer =>_customer;
 List<Corpemployee>? get employee =>_employee;
+List<Corpemployee>? get companyEmployee => _companyEmployee;
 
 
 
@@ -84,6 +87,22 @@ await customerService.addCredit(company,id,price);
  }
 }
 
+Future<void> listCustomer()async{
+ try{
+_customer= await customerService.listCustomer();
+notifyListeners();
+ }catch(e){
+  print(e.toString());
+ }
+}
+
+Future<void> creditUsers(String company) async{
+  try{
+    _companyEmployee= await customerService.getEmployees(company);
+  }catch(e){
+    print(e.toString());
+  }
+}
 
 }
 
@@ -97,5 +116,6 @@ Future<void> getEmployee()async{
   _employeeData = await pickAndReadCsv();
   notifyListeners();
 }
+
 
 }

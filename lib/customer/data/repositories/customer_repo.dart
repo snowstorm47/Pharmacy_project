@@ -228,6 +228,24 @@ Future<void> addCredit(String company, String id, double price) async{
   }
 }
 
+Future<List<corporateCustomer>?> listCustomer() async{
+  final docRef= _firebaseFirestore.collection('Customer');
+  final snapShot = await docRef.get();
+  if(snapShot!= null){
+    return snapShot.docs.map((doc) => corporateCustomer.fromMap(doc.data() as Map<String, dynamic>)).toList();
+  }
+  return null;
+}
 
+Future<List<Corpemployee>?> getEmployees(String company)async{
+
+final docRef= _firebaseFirestore.collection('Customer').doc(company).collection('employees');
+final snapShot = await docRef.get();
+if(snapShot!=null){
+  return snapShot.docs.map((doc) => Corpemployee.fromMap(doc.data() as Map<String, dynamic>)).toList();
+}
+return null;
+
+}
 
 }
