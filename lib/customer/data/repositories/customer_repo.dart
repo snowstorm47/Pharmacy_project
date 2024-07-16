@@ -26,8 +26,8 @@ Future<List<List<dynamic>>?> pickAndReadCsv() async {
 }
 
 class CustomerRepo{
- final FirebaseFirestore _firebaseFirestore;
-  CustomerRepo(this._firebaseFirestore);
+ final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
  
 
   Future<void> addCustomer({
@@ -157,7 +157,7 @@ final employee = Corpemployee(
 
 
 //finds the authorized customer
-Future<List<Object>?> findCustomer(String company, String searchString) async {
+Future<List<Corpemployee>?> findCustomer(String company, String searchString) async {
   final customerRef = _firebaseFirestore.collection('Customer').doc(company);
 
   try {
@@ -165,11 +165,12 @@ Future<List<Object>?> findCustomer(String company, String searchString) async {
     if (docSnapshot.exists) {
       final employeeRef = _firebaseFirestore.collection('employees');
       final searchItem= searchString.toLowerCase();
-      final query = employeeRef.where('firstName',isGreaterThanOrEqualTo:searchItem);
-        return query.get().then((querySnapshot) {
-    print(querySnapshot.docs); // Print retrieved documents
-     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
-  });
+  final query = employeeRef.where('firstName', isGreaterThanOrEqualTo: searchItem);
+
+return query.get().then((querySnapshot) {
+  return querySnapshot.docs.map((doc) => Corpemployee.fromMap(doc.data() as Map<String, dynamic>)).toList();
+});
+
     }
   } catch (error) {
     // Handle errors (e.g., document not found, network issues)
@@ -180,25 +181,24 @@ Future<List<Object>?> findCustomer(String company, String searchString) async {
 }
 
 // returns list of customers from different companies
-Future<List<Object>?> getAllcustomers() async {
+Future<List<Corpemployee>?> getAllcustomers() async {
   final customerRef = _firebaseFirestore.collection('Customer');
   try {
     final querySnapshot = await customerRef.get();
     for (final docSnapshot in querySnapshot.docs) {
       final companyData = docSnapshot.data()!;
       final companyName = companyData['companyName'] as String;
-      final employeeRef = _firebaseFirestore.collection('employees');
-      QuerySnapshot employeeSnapshot = await employeeRef.get();
-       if(employeeSnapshot!= null){
-        return employeeSnapshot.docs.map((doc)=>doc.data() as Map<String, dynamic>).toList();
-       }
-       else{
-        continue;
-       }
-    }
-  } catch (error) {
+      final employeeRef = customerRef.doc(companyName).collection('employees');
+    QuerySnapshot employeeSnapshot = await employeeRef.get();
+if (employeeSnapshot != null) {
+  return employeeSnapshot.docs.map((doc) => Corpemployee.fromMap(doc.data() as Map<String, dynamic>)).toList();
+} else {
+  // Handle case where employeeSnapshot is null (optional)
+  return []; // Return an empty list if employeeSnapshot is null
+}
+  }}catch(e) {
     // Handle errors (e.g., network issues)
-    print('Error getting products: $error');
+    print('Error getting products: $e');
   }
 
   return null;
@@ -226,7 +226,6 @@ Future<void> addCredit(String company, String id, double price) async{
   }
     } 
   }
-
 }
 
 
