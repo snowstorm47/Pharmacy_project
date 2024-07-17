@@ -3,11 +3,13 @@ import 'package:clean_a/finance/domain/entities/expense.dart';
 import 'package:clean_a/finance/domain/entities/invoice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../domain/entities/income.dart';
+
 class FinanceRepo{
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+ final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
 
- Future<void> addInvoice({
+ Future<Invoice?> addInvoice({
    branchId,
    amount,
   catagory,
@@ -22,14 +24,15 @@ class FinanceRepo{
   final invoiceId = ('INV' + '$randomizer');
   final income = Invoice(branchId: branchId, invoiceId: invoiceId, amount: amount, catagory: catagory, createdAt: createdAt, customerName: customerName, incomeHead: incomeHead, invoiceNumber: invoiceId, items: items, price: price);
   await incomeRef.doc(invoiceId).set(income.toMap());
+  return income;
  }
  
- Future<void> addExpense({
-   branchId,
-   amount,
-  catagory,
-  expenseHead,
-  createdAt
+ Future<Expense?> addExpense({
+ required branchId,
+ required  amount,
+  required catagory,
+  required expenseHead,
+  required createdAt
  })async{
   final expenseRef= _firebaseFirestore.collection('expense');
   final date= createdAt;
@@ -37,17 +40,22 @@ class FinanceRepo{
   final invoiceId = ('INV' + '$randomizer');
   final expense =Expense(branchId: branchId, invoiceId: invoiceId, amount: amount, catagory: catagory, createdAt: date, expenseHead: expenseHead);
   await expenseRef.doc(invoiceId).set(expense.toMap());
+  return expense;
  }
- Future<List<Object>?> getlistIncome()async{
+ Future<List<Invoice>?> getlistIncome()async{
   final incomeRef= _firebaseFirestore.collection('income');
   final snapshot= await incomeRef.get();
-  return snapshot.docs.map((doc) => doc.data() as Map<String,dynamic>).toList();
+ return snapshot.docs.map((doc) {
+    return Invoice.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
  
  }
- Future<List<Object>?> getlistExpense()async{
+ Future<List<Expense>?> getlistExpense()async{
   final expenseRef= _firebaseFirestore.collection('expense');
   final snapshot= await expenseRef.get();
-  return  snapshot.docs.map((doc) => doc.data() as Map<String,dynamic>).toList();
+ return snapshot.docs.map((doc) {
+    return Expense.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
  }
 
 Future<double> getMonthIncome() async {
@@ -94,15 +102,15 @@ Future<double> getMonthIncome() async {
 
   return totalExpense;
  }
- Future<Map<String,dynamic>> getIncome(String invoiceId)async{
+ Future<Invoice?> getIncome(String invoiceId)async{
  final incomeRef= _firebaseFirestore.collection('income').doc(invoiceId);
  final snapShot=await incomeRef.get();
-   return snapShot.data() as Map<String,dynamic>;
+   return snapShot.data() as Invoice;
    }
-Future<Map<String,dynamic>> getExpense(String invoiceId)async{
+Future<Expense?> getExpense(String invoiceId)async{
  final expenseRef= _firebaseFirestore.collection('expense').doc(invoiceId);
 final snapShot= await expenseRef.get();
-return snapShot.data() as Map<String,dynamic>;
+return snapShot.data() as Expense;
  }
  Future<double> getMonthExpense() async {
   final expenseRef = _firebaseFirestore.collection('expense');
