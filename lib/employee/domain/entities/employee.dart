@@ -1,4 +1,6 @@
-import 'dart:ffi';
+
+
+
 
 import 'package:clean_a/shared/models/puser.dart';
 
@@ -8,7 +10,7 @@ class Employee extends PUser{
   String Status;
   //date  of birth
    DateTime DoB;
-   Char Gender;
+   String Gender;
    String Address;
    String Phone;
    int Salary;
@@ -47,7 +49,7 @@ class Employee extends PUser{
     Status: data['Status'] as String,
     Phone: data['Phone'] as String,
     DoB: data['DoB'] as DateTime,
-    Gender:data['Gender'] as Char,
+    Gender:data['Gender'] as String,
     Address: data['Address'] as String,
     Salary: data['Salary'] as int,
     CvURL: data['CvURL'] as String,
