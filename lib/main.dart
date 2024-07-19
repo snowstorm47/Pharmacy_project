@@ -1,23 +1,24 @@
 import 'package:clean_a/Cashier/navigation_provider.dart';
 import 'package:clean_a/Pharmacist/navigation_provider.dart';
 import 'package:clean_a/branch_M/Provider/branchProvides.dart';
-import 'package:clean_a/branch_M/domain/entities/branch.dart';
+
 import 'package:clean_a/customer/model/providerC.dart';
 import 'package:clean_a/customer/providers/customerProviders.dart';
 import 'package:clean_a/dummy/register.dart';
-import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
+
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/services/providers/registrationProvider.dart';
 import 'package:clean_a/sign_in/reset_password_otp.dart';
 import 'package:clean_a/sign_in/sign_in_page.dart';
 import 'package:clean_a/wrapper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clean_a/navigationprov.dart'; // Adjust the path as per your project structure
-import 'package:clean_a/dashboard/presentation/pages/dashboard_screen.dart'; // Adjust the path as per your project structure
-import 'package:clean_a/Drawer/sidemenupage.dart'; // Adjust the path as per your project structure
-import 'package:clean_a/medicine/model/providerM.dart'; // Adjust the path as per your project structure
+// Adjust the path as per your project structure
+// Adjust the path as per your project structure
+//Adjust the path as per your project structure
 //import 'package:clean_a/medicine/presentation/add_med_screen.dart'; // Adjust the path as per your project structure
 //import 'package:clean_a/medicine/presentation/medicine_detail_screen.dart'; // Adjust the path as per your project structure
 import 'package:firebase_core/firebase_core.dart';
@@ -76,8 +77,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-     home: // const MySignInPage(),
-     const RegisterView()     
+     home:const MySignInPage(),
+     // const RegisterView()    
     );
   }
 }

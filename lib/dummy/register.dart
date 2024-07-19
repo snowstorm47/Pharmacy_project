@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 
 
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,21 +82,23 @@ class RegisterView extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  final RegistrationProvider = Provider.of<registrationProvider>(context, listen: false);
-                  final user = RegistrationProvider.registerUser(
-                    branch: branchController.text,
-                    role: roleController.text,
-                    email: emailController.text,
-                    password: passwordController.text,
-                    FirstName: firstNameController.text,
-                    LastName: lastNameController.text,
-                    permission: ['add', 'delete'],
-                    access: ['medicine'],
-                    bytes: webImage,
-                  );
-                  if (user != null) {
+                  // final RegistrationProvider = Provider.of<registrationProvider>(context, listen: false);
+                  // final user = RegistrationProvider.registerUser(
+                  //   branch: branchController.text,
+                  //   role: roleController.text,
+                  //   email: emailController.text,
+                  //   password: passwordController.text,
+                  //   FirstName: firstNameController.text,
+                  //   LastName: lastNameController.text,
+                  //   permission: ['add', 'delete'],
+                  //   access: ['medicine'],
+                  //   bytes: webImage,
+                  // );
+                  final medProvider= Provider.of<MedicineProvider>(context,listen:false);
+                 await medProvider.addMedicine(medicineName: 'Paracetamol', branchName: '1', location: 'e23', catagory: 'painkiller', weight:'22g' , genericName: 'Paracetamol', suppliersPrice: 2.50, sellingPrice: 3.00, expiryDate: DateTime.now(), stock: 25, taxable: false, prescriptionBased: false, details: "painkiller", dateAdded: DateTime.now());
+                  if (medProvider.medicines!= null) {
                     // Handle successful registration (e.g., navigate to home)
-                    print(user);
+                    print(medProvider.medicines);
                   }
                 } catch (e) {
                   print(e.toString()); // Log the error

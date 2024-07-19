@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Disposed{
   String batchId;
   String medicineName;
@@ -20,14 +22,14 @@ Disposed({
 
 factory Disposed.fromMap(Map<String,dynamic> data) =>
   Disposed(
-  expiryDate:data["expiryDate"] as DateTime,
   batchId: data["batchId"] as String,
   medicineName: data['medicineName'] as String, 
   catagory: data['catagory'] as String, 
   genericName:data['genericName'] as String, 
   sellingPrice: data['sellingPrice'] as String, 
   reason: data['reason'] as String,
-  dateAdded: data['dateAdded'] as DateTime
+ expiryDate: (data['expiryDate'] as Timestamp).toDate(),
+      dateAdded: (data['dateAdded'] as Timestamp).toDate(),
   );
 Map<String,dynamic> toMap()=>{
   'expiryDate':expiryDate,

@@ -4,8 +4,8 @@ class Medicine {
   final String catagory;
   final String weight;
   final String genericName;
-  final int suppliersPrice;
-  final int sellingPrice;
+  final double suppliersPrice;
+  final double sellingPrice;
   final bool taxable;
   final bool prescriptionBased;
   final String details;
@@ -30,8 +30,8 @@ class Medicine {
       catagory: map['Catagory'] as String,
       weight: map['weight'] as String,
       genericName: map['GenericName'] as String,
-      suppliersPrice: map['SuppliersPrice'] as int,
-      sellingPrice: map['SellingPrice'] as int,
+      suppliersPrice: map['SuppliersPrice'] as double,
+      sellingPrice: map['SellingPrice'] as double,
       taxable: map['Taxable'] as bool,
       prescriptionBased: map['PrescriptionBased'] as bool,
       details: map['Details'] as String,

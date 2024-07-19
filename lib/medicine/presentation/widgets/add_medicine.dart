@@ -1,5 +1,6 @@
 import 'package:clean_a/medicine/data/medicine_data.data.dart';
-import 'package:clean_a/medicine/model/providerM.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //import '../providers/medicine_provider.dart'; // Adjust the path as per your project structure
@@ -74,8 +75,8 @@ class _AddMedScreenState extends State<AddMedScreen> {
                       isTaxable: _isTaxable,
                     );
 
-                    Provider.of<MedicineProvider>(context, listen: false)
-                        .addMedicine(newMedicine);
+                    Provider.of<MedicineProvider>(context, listen: false);
+                       
 
                     Navigator.pop(context); // Close the screen after adding
                   }

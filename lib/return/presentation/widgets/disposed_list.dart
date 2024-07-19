@@ -5,8 +5,7 @@ import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/return/domain/entities/disposed.dart';
 import 'package:clean_a/return/provider/return_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class DisposedList extends StatefulWidget {
   const DisposedList({Key? key}) : super(key: key);
@@ -341,7 +340,7 @@ class _DisposedListState extends State<DisposedList> {
               icon: Icon(Icons.delete),
               onPressed: () async {
                 final returnProvider = Provider.of<ReturnProvider>(context, listen: false);
-                returnProvider.removeDisposed(data.batchId);
+                await returnProvider.removeDisposed(data.batchId);
               },
             ),
           ],
