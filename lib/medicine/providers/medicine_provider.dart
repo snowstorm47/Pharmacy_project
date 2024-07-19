@@ -82,9 +82,9 @@ class MedicineProvider extends ChangeNotifier{
    }
   }
 
-  Future<void> addMed()async{
+  // Future<void> addMed()async{
 
-  }
+  // }
   Future<void> editBatch(String medicineName,{required Map<String,dynamic> updateData})async{
    await medService.addBatch(medicineName, updatedData: updateData);
    final index = _medicines?.indexWhere((med) => med.medicineName == medicineName);

@@ -20,7 +20,9 @@ class DisposedRepo{
               catagory: medicine['catagory'],
               genericName: medicine['genericName'],
               sellingPrice: medicine['sellingPrice'],
-              reason: reason, dateAdded: dateAdded
+              reason: reason, 
+              expiryDate:medicine['expiryDate'],
+              dateAdded: dateAdded
           );
           //fill the collection with disposed 
           await _firebaseFirestore.collection('disposed').doc(batchId).set(disposed.toMap());

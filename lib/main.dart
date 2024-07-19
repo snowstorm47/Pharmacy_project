@@ -3,6 +3,7 @@ import 'package:clean_a/Pharmacist/navigation_provider.dart';
 import 'package:clean_a/branch_M/Provider/branchProvides.dart';
 import 'package:clean_a/branch_M/domain/entities/branch.dart';
 import 'package:clean_a/customer/model/providerC.dart';
+import 'package:clean_a/customer/providers/customerProviders.dart';
 import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/medicine/presentation/widgets/add_medicine.dart';
 import 'package:clean_a/shared/services/providers/authProvider.dart';
@@ -22,17 +23,18 @@ import 'package:clean_a/medicine/model/providerM.dart'; // Adjust the path as pe
 import 'package:firebase_core/firebase_core.dart';
 
 import 'employee/provider/employee_provider.dart';
+import 'return/provider/return_provider.dart';
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(   
-    apiKey: "AIzaSyCvx38ISXmxYet79jWcDr3vobNqLzpF7tk",
-    authDomain: "pharmacyproj-b7ad8.firebaseapp.com",
-    projectId: "pharmacyproj-b7ad8",
-    storageBucket: "pharmacyproj-b7ad8.appspot.com",
-    messagingSenderId: "142915038111",
-    appId: "1:142915038111:web:93d5506d1097e77dc96baa",
-    measurementId: "G-1GVVPRC6MV")
+      apiKey: "AIzaSyCi0CoG-MWX8J1a9aaOWU7s-hQ1Zq53idg",
+      authDomain: "pharmaproj-bc96f.firebaseapp.com",
+      projectId: "pharmaproj-bc96f",
+      storageBucket: "pharmaproj-bc96f.appspot.com",
+      messagingSenderId: "346379586744",
+      appId: "1:346379586744:web:77eef81ff8f50b6007b84d",
+      measurementId: "G-VY12N0681H")
   );
   runApp(
     MultiProvider(
@@ -41,12 +43,14 @@ void main() async {
          ChangeNotifierProvider<CashierProvider>(create:(_)=>CashierProvider()),
           ChangeNotifierProvider<PharmacistProvider>(create:(_)=>PharmacistProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider<ReturnProvider>(create: (_)=>ReturnProvider(),),
         ChangeNotifierProvider<MedicineProvider>(create: (_) => MedicineProvider()),
         ChangeNotifierProvider<EmployeeProvider>(create:(_)=>EmployeeProvider()),
         ChangeNotifierProvider<BranchProvider>(create: (_)=>BranchProvider()),
         ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), 
         ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),
-        ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider())// Added MedicineProvider
+        ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider()),
+        ChangeNotifierProvider<CustomerProvider>(create: (_)=>CustomerProvider())// Added MedicineProvider
       ],
       child: MyApp(),
     ),
@@ -72,8 +76,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-     home:  const MySignInPage(),
-    //  const RegisterView()     
+     home: // const MySignInPage(),
+     const RegisterView()     
     );
   }
 }

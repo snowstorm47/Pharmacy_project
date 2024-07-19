@@ -5,6 +5,7 @@ class Disposed{
   String sellingPrice;
   String genericName;
   String reason;
+  DateTime expiryDate;
   DateTime dateAdded;
 Disposed({
   required this.batchId,
@@ -13,11 +14,13 @@ Disposed({
   required this.genericName,
   required this.sellingPrice,
   required this.reason,
-  required this.dateAdded
+  required this.dateAdded,
+  required this.expiryDate
 });
 
 factory Disposed.fromMap(Map<String,dynamic> data) =>
   Disposed(
+  expiryDate:data["expiryDate"] as DateTime,
   batchId: data["batchId"] as String,
   medicineName: data['medicineName'] as String, 
   catagory: data['catagory'] as String, 
@@ -27,7 +30,7 @@ factory Disposed.fromMap(Map<String,dynamic> data) =>
   dateAdded: data['dateAdded'] as DateTime
   );
 Map<String,dynamic> toMap()=>{
-
+  'expiryDate':expiryDate,
   'batchId':batchId,
   'medicineName':medicineName,
   'catagory':catagory,

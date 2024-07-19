@@ -1,7 +1,9 @@
+import 'package:clean_a/return/provider/return_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
 
 class AddDisposed extends StatefulWidget {
   const AddDisposed({super.key});
@@ -12,6 +14,23 @@ class AddDisposed extends StatefulWidget {
 
 class _AddDisposedState extends State<AddDisposed> {
   bool showSideMenu = false;
+
+ 
+  final TextEditingController medicineNameController = TextEditingController();
+  final TextEditingController reasonController = TextEditingController();
+  final TextEditingController batchIdController= TextEditingController();
+
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    medicineNameController.dispose();
+    reasonController.dispose();
+    batchIdController.dispose();
+  
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,115 +191,112 @@ class _AddDisposedState extends State<AddDisposed> {
               )),
         ),
         const SizedBox(height: 20),
-        const Row(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // First Column
             Flexible(
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      controller:batchIdController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Batch',
+                        labelText: 'Batch Id',
                       ),
                     ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Type',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Quantity in price',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Branch_no',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     labelText: 'Type',
+                    //   ),
+                    // ),
+                    // SizedBox(height: 30),
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     labelText: 'Quantity in price',
+                    //   ),
+                    // ),
+                    // SizedBox(height: 30),
+                    
+                    const SizedBox(height: 30),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 20), // Space between columns
+            const SizedBox(width: 20), // Space between columns
 
             // Second Column
             Flexible(
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      decoration: InputDecoration(
+                      controller:medicineNameController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Product_no',
+                        labelText: 'Medicine Name',
                       ),
                     ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Catagory',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Price',
-                      ),
-                    ),
+                    const SizedBox(height: 30),
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     labelText: 'Catagory',
+                    //   ),
+                    // ),
+                    // SizedBox(height: 30),
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     labelText: 'Price',
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 20), // Space between columns
+            const SizedBox(width: 20), // Space between columns
 
             // Third Column
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Generic Name',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Amount',
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Date',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Flexible(
+            //   child: Padding(
+            //     padding: EdgeInsets.all(10.0),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         TextField(
+            //           decoration: InputDecoration(
+            //             border: OutlineInputBorder(),
+            //             labelText: 'Generic Name',
+            //           ),
+            //         ),
+            //         SizedBox(height: 30),
+            //         TextField(
+            //           decoration: InputDecoration(
+            //             border: OutlineInputBorder(),
+            //             labelText: 'Amount',
+            //           ),
+            //         ),
+            //         SizedBox(height: 30),
+            //         TextField(
+            //           decoration: InputDecoration(
+            //             border: OutlineInputBorder(),
+            //             labelText: 'Date',
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         buildDescriptionAndButton(),
@@ -289,77 +305,79 @@ class _AddDisposedState extends State<AddDisposed> {
   }
 
   Widget buildTextFieldsColumn() {
-    return const Column(
+    return  Column(
       children: [
         TextField(
-          decoration: InputDecoration(
+          controller:batchIdController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Batch',
+            labelText: 'Batch Id',
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Type',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Quantity Price',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Branch_no',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Product_no',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Catagory',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Price',
+        //   ),
+        // ),
+        const SizedBox(height: 20),
         TextField(
-          decoration: InputDecoration(
+          controller:medicineNameController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Type',
+            labelText: 'Medicine Name',
           ),
         ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Quantity Price',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Branch_no',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Product_no',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Catagory',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Price',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Generic Name',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Amount',
-          ),
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Date',
-          ),
-        ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Amount',
+        //   ),
+        // ),
+        // SizedBox(height: 20),
+        // TextField(
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     labelText: 'Date',
+        //   ),
+        // ),
       ],
     );
   }
@@ -368,11 +386,12 @@ class _AddDisposedState extends State<AddDisposed> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextField(
+         TextField(
           maxLines: 5,
-          decoration: InputDecoration(
+          controller:reasonController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Enter additional description here...',
+            labelText: 'Enter the reason for disposal here...',
           ),
         ),
         const SizedBox(height: 20),
@@ -387,8 +406,10 @@ class _AddDisposedState extends State<AddDisposed> {
                   backgroundColor: const Color.fromARGB(236, 27, 228, 4),
                   minimumSize: const Size(130, 40),
                 ),
-                onPressed: () {
+                onPressed: () async{
                   // Add button action
+                  final returnProvider = Provider.of<ReturnProvider>(context,listen:false);
+                  await returnProvider.addDisposed(batchId:batchIdController.text,medicineName:medicineNameController.text,reason:reasonController.text);
                 },
                 child: const Text(
                   'Save',

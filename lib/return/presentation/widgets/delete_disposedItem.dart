@@ -1,4 +1,6 @@
+import 'package:clean_a/return/provider/return_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DeleteDisposedItem extends StatelessWidget {
   const DeleteDisposedItem({super.key});
@@ -60,7 +62,10 @@ class DeleteDisposedItem extends StatelessWidget {
                             backgroundColor:
                                 const Color.fromARGB(236, 27, 228, 4),
                           ),
-                          onPressed: () {},
+                          onPressed: () async{
+                            // final returnProvider= Provider.of<ReturnProvider>(context,listen:false);
+                            // await returnProvider.removeDisposed();
+                          },
                           child: Text(
                             'Delete',
                             style: TextStyle(
