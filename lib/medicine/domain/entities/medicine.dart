@@ -26,15 +26,15 @@ class Medicine {
   factory Medicine.fromMap(Map<String, dynamic> map) {
     return Medicine(
       medicineName: map['medicineName'] as String,
-      branchName: map['branchId'] as String,
-      catagory: map['Catagory'] as String,
+      branchName: map['branchName'] as String,
+      catagory: map['catagory'] as String,
       weight: map['weight'] as String,
-      genericName: map['GenericName'] as String,
-      suppliersPrice: map['SuppliersPrice'] as double,
-      sellingPrice: map['SellingPrice'] as double,
-      taxable: map['Taxable'] as bool,
-      prescriptionBased: map['PrescriptionBased'] as bool,
-      details: map['Details'] as String,
+      genericName: map['genericName'] as String,
+      suppliersPrice: map['suppliersPrice'] as double,
+      sellingPrice: map['sellingPrice'] as double,
+      taxable: map['taxable'] as bool,
+      prescriptionBased: map['prescriptionBased'] as bool,
+      details: map['details'] as String,
     );
   }
 

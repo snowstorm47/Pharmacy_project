@@ -1,4 +1,5 @@
 import 'package:clean_a/Cashier/Drawer/sidemenupage.dart';
+import 'package:clean_a/Pharmacist/sales/presentation/widgets/sucess.dart';
 import 'package:clean_a/sales/presentation/widgets/sales_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';

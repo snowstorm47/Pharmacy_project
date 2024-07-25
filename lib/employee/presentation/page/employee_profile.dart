@@ -1,9 +1,14 @@
+import 'package:clean_a/employee/domain/entities/employee.dart';
 import 'package:clean_a/employee/presentation/Componet/EmployeeProfile/add_employee_popup.dart';
+import 'package:clean_a/employee/presentation/Componet/EmployeeProfile/delete_employee_popup.dart';
+import 'package:clean_a/employee/presentation/Componet/EmployeeProfile/edit_employee_popup.dart';
+import 'package:clean_a/employee/provider/employee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/employee/presentation/Componet/EmployeeProfile/employee_profile_table.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
 
 class EmployeeProfilePage extends StatefulWidget {
   const EmployeeProfilePage({super.key});
@@ -14,37 +19,27 @@ class EmployeeProfilePage extends StatefulWidget {
 
 class EmployeeProfilePageState extends State<EmployeeProfilePage> {
   bool showSideMenu = false;
+  bool isLoading = true;
 
-  final List<Map<String, String>> employees = [
-    {
-      'name': 'John Doe',
-      'position': 'Pharmacist',
-      'address': '123 Main St',
-      'location': 'City, Country',
-      'phone': '+1234567890',
-      'email': 'john@example.com',
-    },
-    {
-      'name': 'Alice Smith',
-      'position': 'Assistant Pharmacist',
-      'address': '456 Elm St',
-      'location': 'Town, Country',
-      'phone': '+0987654321',
-      'email': 'alice@example.com',
-    },
-    {
-      'name': 'Bob Johnson',
-      'position': 'Technician',
-      'address': '789 Pine St',
-      'location': 'Village, Country',
-      'phone': '+1122334455',
-      'email': 'bob@example.com',
-    },
-    // Add more employees here
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _fetchEmployees();
+  }
+
+  Future<void> _fetchEmployees() async {
+    final employeeProvider = Provider.of<EmployeeProvider>(context, listen: false);
+    await employeeProvider.getEmployees();
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmployeeProvider>(context);
+    final employees = provider.employee;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -101,17 +96,10 @@ class EmployeeProfilePageState extends State<EmployeeProfilePage> {
                               ),
                               onPressed: () {
                                 // Handle add employee action
-                                showDialog<Map<String, String>>(
+                                showDialog(
                                   context: context,
-                                  builder: (context) =>
-                                      const AddEmployeePopup(),
-                                ).then((newEmployee) {
-                                  if (newEmployee != null) {
-                                    setState(() {
-                                      employees.add(newEmployee);
-                                    });
-                                  }
-                                });
+                                  builder: (context) => const AddEmployeePopup(),
+                                );
                               },
                               child: const Text(
                                 'Add Employee',
@@ -123,19 +111,101 @@ class EmployeeProfilePageState extends State<EmployeeProfilePage> {
                       ),
                       const SizedBox(height: 20),
                       // Responsive layout for employee profiles
-                      Expanded(
-                        child: ResponsiveD(
-                          mobile: SingleChildScrollView(
-                            child: EmployeeProfileTable(employees: employees),
-                          ),
-                          tablet: SingleChildScrollView(
-                            child: EmployeeProfileTable(employees: employees),
-                          ),
-                          desktop: SingleChildScrollView(
-                            child: EmployeeProfileTable(employees: employees),
-                          ),
-                        ),
-                      ),
+                      isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : employees!.isEmpty
+                              ? Center(child: Text("Add Employee to see"))
+                              : Expanded(
+                                  child: ResponsiveD(
+                                    mobile: SingleChildScrollView(
+                                      child: EmployeeProfileTable(
+                                        employees: employees,
+                                        onEditEmployee: (index) async {
+                                          final editedEmployee = await showDialog<Employee>(
+                                            context: context,
+                                            builder: (context) => EditEmployeePopup(employee: employees[index]),
+                                          );
+
+                                          if (editedEmployee != null) {
+                                            provider.editEmployee(employees[index].uid, updatedData:editedEmployee.toMap());
+                                          }
+                                        },
+                                        onDeleteEmployee: (index) async {
+                                          final shouldDelete = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => DeleteEmployeePopup(
+                                              lastName: employees[index].LastName,
+                                              employeeName: employees[index].FirstName ?? '',
+                                              uid: employees[index].uid,
+                                            ),
+                                          );
+
+                                          if (shouldDelete == true) {
+                                            provider.removeEmployee(employees[index].uid);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    tablet: SingleChildScrollView(
+                                      child: EmployeeProfileTable(
+                                        employees: employees,
+                                        onEditEmployee: (index) async {
+                                          final editedEmployee = await showDialog<Employee>(
+                                            context: context,
+                                            builder: (context) => EditEmployeePopup(employee: employees[index]),
+                                          );
+
+                                          if (editedEmployee != null) {
+                                            provider.editEmployee(employees[index].uid, updatedData:editedEmployee.toMap());
+                                          }
+                                        },
+                                        onDeleteEmployee: (index) async {
+                                          final shouldDelete = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => DeleteEmployeePopup(
+                                              lastName: employees[index].LastName,
+                                              employeeName: employees[index].FirstName ?? '',
+                                              uid: employees[index].uid,
+                                            ),
+                                          );
+
+                                          if (shouldDelete == true) {
+                                            provider.removeEmployee(employees[index].uid);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    desktop: SingleChildScrollView(
+                                      child: EmployeeProfileTable(
+                                        employees: employees,
+                                        onEditEmployee: (index) async {
+                                          final editedEmployee = await showDialog<Employee>(
+                                            context: context,
+                                            builder: (context) => EditEmployeePopup(employee: employees[index]),
+                                          );
+
+                                          if (editedEmployee != null) {
+                                            provider.editEmployee(employees[index].uid, updatedData:editedEmployee.toMap());
+                                          }
+                                        },
+                                        onDeleteEmployee: (index) async {
+                                          final shouldDelete = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => DeleteEmployeePopup(
+                                              lastName: employees[index].LastName,
+                                              employeeName: employees[index].FirstName ?? '',
+                                              uid: employees[index].uid,
+                                            ),
+                                          );
+
+                                          if (shouldDelete == true) {
+                                            provider.removeEmployee(employees[index].uid);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
                     ],
                   ),
                 ),

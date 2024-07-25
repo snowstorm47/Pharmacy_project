@@ -1,18 +1,36 @@
+
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:clean_a/branch_M/data/models/branch_stock_data.dart';
+
+import 'package:intl/intl.dart';
+
+
 
 class BranchStockWidget extends StatelessWidget {
-  final List<BranchStockData> data;
+  final List<Batch> data;
+  final List<Medicine> med;
+  final List<MedColor> medColor;
+  final String? branch;
 
-  const BranchStockWidget({super.key, required this.data});
+  
+
+
+
+  const BranchStockWidget({super.key, required this.data,required this.med,required this.medColor,required this.branch});
 
   @override
   Widget build(BuildContext context) {
+     
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isTablet = constraints.maxWidth > 600;
         double padding = isTablet ? 46.0 : 16.0;
-
+        if(branch == '' ){
+          return const Center(child:Text("Please go to the Stock Menu"));
+        }
+         
         return Padding(
           padding: EdgeInsets.all(padding),
           child: SingleChildScrollView(
@@ -24,8 +42,9 @@ class BranchStockWidget extends StatelessWidget {
                   'Branch Stock',
                   style: TextStyle(fontSize: isTablet ? 23 : 20),
                 ),
+             
                 Text(
-                  'AshewaMeda Branch',
+                  branch!,
                   style: TextStyle(fontSize: isTablet ? 23 : 20),
                 ),
                 SizedBox(height: isTablet ? 40 : 20),
@@ -65,10 +84,10 @@ class BranchStockWidget extends StatelessWidget {
                       _buildHeaderRow(isTablet),
                       const SizedBox(height: 10),
                       Column(
-                        children: data
+                        children: getBatch(data,branch!)
                             .map((item) => Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
-                                  child: _buildDataRow(item, isTablet),
+                                  child: _buildDataRow(item,med,medColor, isTablet),
                                 ))
                             .toList(),
                       ),
@@ -105,22 +124,28 @@ class BranchStockWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDataRow(BranchStockData data, bool isTablet) {
+  Widget _buildDataRow(Batch? data,List<Medicine> med,List<MedColor> medColor, bool isTablet) {
+    if(data == null){
+      return Container(); 
+    }
+    final date = data.expiryDate;
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+
     return Container(
       decoration: BoxDecoration(
-        color: data.getStatusColor(),
+        color:getColor(data,medColor),
         borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
         padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
           children: [
-            _buildDataCell(data.batch, isTablet),
-            _buildDataCell(data.productName, isTablet),
-            _buildDataCell(data.category, isTablet),
-            _buildDataCell(data.price, isTablet),
-            _buildDataCell(data.expiryDate, isTablet),
-            _buildDataCell(data.quantity, isTablet),
+            _buildDataCell(data.batchNumber, isTablet),
+            _buildDataCell(data.medName, isTablet),
+            _buildDataCell(getCatagory(data,med).toString(), isTablet),
+            _buildDataCell(data.sellingPrice.toString(), isTablet),
+            _buildDataCell(formattedDate.toString(), isTablet),
+            _buildDataCell(data.stock.toString(), isTablet),
           ],
         ),
       ),
@@ -177,4 +202,34 @@ class BranchStockWidget extends StatelessWidget {
       ],
     );
   }
+  
+    String? getCatagory(Batch? data,List<Medicine>? medicines) {
+      if (medicines == null && data == null  ) {
+        return null;
+      }
+     
+      for (final med in medicines!) {
+        if(data!.medName == med.medicineName){
+        return med.catagory;
+        }
+      }
+     
+    }
+     Color? getColor(Batch data, List<MedColor> medColors) {
+      for (final item in medColors) {
+        if (item.medicineName == data.medName) {
+          return item.color;
+        }
+      }
+     return null;
+    }
+    List<Batch> getBatch(List<Batch> data, String branch) {
+       List<Batch> batches =[];
+      for (final item in data) {
+        if (item.branchName == branch) {
+          batches.add(item);
+        }
+      }
+     return batches;
+    }
 }

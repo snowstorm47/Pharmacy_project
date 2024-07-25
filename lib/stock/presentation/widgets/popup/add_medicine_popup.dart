@@ -1,5 +1,7 @@
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 class AddMedicinePage extends StatefulWidget {
   const AddMedicinePage({super.key});
 
@@ -18,10 +20,12 @@ class AddMedicinePageState extends State<AddMedicinePage> {
   final TextEditingController _locationCodeController = TextEditingController();
   final TextEditingController _expiryDateController = TextEditingController();
   final TextEditingController _stockBoxController = TextEditingController();
-  final TextEditingController _supplierPriceController =
-      TextEditingController();
+  final TextEditingController _supplierPriceController = TextEditingController();
+  final TextEditingController _sellingPriceController = TextEditingController();
   final TextEditingController _detailsController = TextEditingController();
 
+  DateTime? expiryDate;
+  bool taxable= false;
   @override
   void dispose() {
     _nameController.dispose();
@@ -33,13 +37,30 @@ class AddMedicinePageState extends State<AddMedicinePage> {
     _expiryDateController.dispose();
     _stockBoxController.dispose();
     _supplierPriceController.dispose();
+    _sellingPriceController.dispose();
     _detailsController.dispose();
     super.dispose();
   }
 
-  void _saveMedicine() {
+  void _saveMedicine() async {
     if (_formKey.currentState!.validate()) {
-      // Implement the save logic here
+      final provider = Provider.of<MedicineProvider>(context, listen: false);
+
+      final batch = Batch(
+        medName: _nameController.text,
+        branchName: _idController.text,
+        location: _locationCodeController.text,
+        expiryDate: expiryDate!,
+        stock: int.parse(_stockBoxController.text),
+        suppliersPrice: double.parse(_supplierPriceController.text),
+        sellingPrice: double.parse(_sellingPriceController.text), 
+        batchNumber: DateTime.now().toString(), 
+        dateAdded: DateTime.now(), 
+        taxable: taxable,
+      );
+
+      await provider.editBatch(_nameController.text,updateData: batch.toMap() );
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Medicine added to stock')),
       );
@@ -58,13 +79,13 @@ class AddMedicinePageState extends State<AddMedicinePage> {
     _expiryDateController.clear();
     _stockBoxController.clear();
     _supplierPriceController.clear();
+    _sellingPriceController.clear();
     _detailsController.clear();
   }
 
   InputDecoration _inputDecoration(String labelText) {
     return InputDecoration(
-      contentPadding:
-          const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
       labelText: labelText,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -102,7 +123,7 @@ class AddMedicinePageState extends State<AddMedicinePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(200, 50, 200, 50),
+              padding: const EdgeInsets.fromLTRB(16, 50, 16, 50),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -127,9 +148,7 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                           flex: 3,
                           child: TextFormField(
                             controller: _idController,
-                            decoration: _inputDecoration(
-                              'Medicine ID',
-                            ),
+                            decoration: _inputDecoration('Branch Name'),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter the medicine ID';
@@ -185,13 +204,27 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                           ),
                         ),
                         const SizedBox(width: 30),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: taxable,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    taxable = value!;
+                                  });
+                                  print(value);
+                                },
+                              ),
+                              const Text('Taxable'),
+                            ],
+                          ),
+                        const SizedBox(width: 30),
                         Expanded(
                           flex: 2,
                           child: TextFormField(
                             controller: _categoryController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 14.0, horizontal: 16.0),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
                               labelText: 'Category',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -217,16 +250,31 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                     Row(
                       children: [
                         Expanded(
-                          flex: 3,
-                          child: TextFormField(
-                            controller: _expiryDateController,
-                            decoration: _inputDecoration('Expiry Date'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter the expiry date';
-                              }
-                              return null;
-                            },
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2101),
+                                  );
+                                  if (pickedDate != null) {
+                                    setState(() {
+                                      expiryDate = pickedDate;
+                                    });
+                                  }
+                                },
+                                child: const Text('Select Expiry Date'),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                expiryDate != null
+                                    ? 'Expiry Date: ${expiryDate.toString().split(' ')[0]}'
+                                    : 'No date selected',
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(width: 30),
@@ -235,8 +283,7 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                           child: TextFormField(
                             controller: _stockBoxController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 14.0, horizontal: 16.0),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
                               labelText: 'Stock/Box',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
@@ -247,13 +294,10 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                                   IconButton(
                                     icon: const Icon(Icons.remove),
                                     onPressed: () {
-                                      int value = int.tryParse(
-                                              _stockBoxController.text) ??
-                                          0;
+                                      int value = int.tryParse(_stockBoxController.text) ?? 0;
                                       if (value > 0) {
                                         setState(() {
-                                          _stockBoxController.text =
-                                              (value - 1).toString();
+                                          _stockBoxController.text = (value - 1).toString();
                                         });
                                       }
                                     },
@@ -261,12 +305,9 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                                   IconButton(
                                     icon: const Icon(Icons.add),
                                     onPressed: () {
-                                      int value = int.tryParse(
-                                              _stockBoxController.text) ??
-                                          0;
+                                      int value = int.tryParse(_stockBoxController.text) ?? 0;
                                       setState(() {
-                                        _stockBoxController.text =
-                                            (value + 1).toString();
+                                        _stockBoxController.text = (value + 1).toString();
                                       });
                                     },
                                   ),
@@ -291,6 +332,24 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter the supplier price';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            controller: _sellingPriceController,
+                            decoration: _inputDecoration('Selling Price'),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter the selling price';
                               }
                               return null;
                             },
@@ -330,12 +389,10 @@ class AddMedicinePageState extends State<AddMedicinePage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                           ),
-                          child: const Text('Reset',
-                              style: TextStyle(color: Colors.white)),
+                          child: const Text('Reset', style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
-                    // Your form fields here...
                   ],
                 ),
               ),

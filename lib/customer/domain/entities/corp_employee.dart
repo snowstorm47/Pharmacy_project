@@ -1,6 +1,7 @@
 class Corpemployee{
   String employeeId;
   String firstName;
+  String  phone;
   String lastName;
   String email;
   String company;
@@ -11,6 +12,7 @@ class Corpemployee{
   String details;
   double credit; 
   Corpemployee({
+    required this.phone,
     required this.credit,
     required this.company,
     required this.email,
@@ -25,6 +27,7 @@ class Corpemployee{
   });
   factory Corpemployee.fromMap(Map<String,dynamic> data)=>
   Corpemployee(
+    phone:data['phone'] as String,
     credit: data['credit'] as double,
     company: data['company'] as String  ,
      email: data['email'] as String,
@@ -40,6 +43,7 @@ class Corpemployee{
        );
 
   Map<String,dynamic> toMap()=>{
+    'phone':phone,
    'credit':credit,
    'company':company,
    'email':email,

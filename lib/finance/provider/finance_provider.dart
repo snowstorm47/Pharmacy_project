@@ -35,11 +35,12 @@ Future<void> addInvoice(branchId,
   }
   }
 
-  Future<void> addExpense(  branchId,
-   amount,
-  catagory,
-  expenseHead,
-  createdAt)async{
+  Future<void> addExpense(  {
+    required String branchId,
+   required double amount,
+  required String catagory,
+ required String  expenseHead,
+  required DateTime createdAt})async{
 final exp = await financeService.addExpense(branchId: branchId,amount: amount,catagory: catagory,expenseHead: expenseHead,createdAt: createdAt);
 if(exp!= null){
   _expense?.add(exp);
@@ -78,6 +79,17 @@ Future<double?> getMonthExpense()async{
 }
 Future<double?> getMonthIncome() async{
   return await financeService.getMonthIncome();
+}
+Future<void> addIncome({
+  required String branchId,
+  required  String catagory,
+  required String incomeHead,
+   required double price,
+})async{
+ final incom= (await financeService.addIncome(branchId: branchId, amount: price, catagory: catagory, incomeHead: incomeHead, price: price))!;
+ _income?.add(incom);
+ notifyListeners();
+
 }
 
 }

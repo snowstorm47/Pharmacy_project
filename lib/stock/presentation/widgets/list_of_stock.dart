@@ -1,8 +1,15 @@
+import 'package:clean_a/branch_M/Provider/branchProvides.dart';
+import 'package:clean_a/branch_M/domain/entities/branch.dart';
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
+import 'package:clean_a/navigationprov.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/stock/presentation/widgets/popup/add_medicine_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:provider/provider.dart';
 
 import 'popup/delete_medicine_popup.dart';
 // Import the new add medicine page
@@ -16,33 +23,119 @@ class ListOfStockPage extends StatefulWidget {
 
 class ListOfStockPageState extends State<ListOfStockPage> {
   bool showSideMenu = false;
-  List<bool> checkboxValues = List<bool>.generate(10, (index) => false);
+  bool isLoading = true;
+    List<Medicine> med = [];
+  List<Batch> batch = [];
+   @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async {
+      final brprovider = Provider.of<BranchProvider>(context, listen: false);
+      final provider = Provider.of<MedicineProvider>(context, listen: false);
+      await provider.getMedicines();
+      await provider.getColor();
+      await brprovider.getBranches();
+      setState(() {
+        isLoading = false;
+         med = provider.medicines ?? []; // Initialize `med`
+        batch = provider.batches ?? []; // Initialize `batch`
+      });
+    });
+  }
 
-  TextStyle _getStatusTextStyle(String status) {
+  List<bool> checkboxValues = List<bool>.generate(10, (index) => false);
+     
+Batch? getBatch(Medicine? data, List<Batch>? batch) {
+      if (data != null && batch != null) {
+        for (final item in batch) {
+          if (item.medName == data.medicineName) {
+            return item;
+      }
+    }}
+    }
+
+  Text _getStatusTextStyle(Color? status) {
     switch (status) {
-      case 'Completed':
-        return const TextStyle(color: Colors.green);
-      case 'Pending':
-        return const TextStyle(color: Colors.yellow);
-      case 'Cancelled':
-        return const TextStyle(color: Colors.red);
+      case Colors.green:
+        return Text("Safe", style: const TextStyle(color: Colors.green));
+      case Colors.yellow:
+        return Text("Pending", style: const TextStyle(color: Colors.yellow));
+      case Colors.red:
+        return Text("Expired", style: const TextStyle(color: Colors.red));
       default:
-        return const TextStyle(color: Colors.grey);
+        return Text("No information", style: const TextStyle(color: Colors.grey));
     }
   }
 
-  void _showDeletePopup() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return DeleteMedicinePopup(
-          onDeleteConfirmed: () {
-            // Add your delete logic here
-          },
-        );
-      },
-    );
-  }
+ void _showDeletePopup() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return DeleteMedicinePopup(
+        onDeleteConfirmed: () async {
+          final provider = Provider.of<MedicineProvider>(context, listen: false);
+          
+          // Collect selected items
+          List<String> selectedMedicineNames = [];
+          List<String> selectedBranchNames = []; // Use String if branchName is a String
+
+          for (int i = 0; i < checkboxValues.length; i++) {
+            if (checkboxValues[i]) {
+              selectedMedicineNames.add(med[i].medicineName);
+              final bat = getBatch(med[i],batch); // Find the Batch for each selected medicine
+              if (bat != null) {
+                selectedBranchNames.add(bat.branchName); // Assuming Batch has a branchName property
+              } else {
+                // Handle case where Batch is null if necessary
+                selectedBranchNames.add('Unknown'); // Or some default value
+              }
+            }
+          }
+
+          // Ensure both lists have the same length
+          if (selectedMedicineNames.length != selectedBranchNames.length) {
+            // Handle mismatched lists
+            Navigator.of(context).pop();
+            return;
+          }
+
+          try {
+            // Delete medicines based on the collected names and branches
+            for (int i = 0; i < selectedMedicineNames.length; i++) {
+              await provider.deleteMedicine(
+                medicineName: selectedMedicineNames[i],
+                branchName: selectedBranchNames[i],
+              );
+            }
+
+            // Show success message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Medicines successfully deleted.'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          } catch (e) {
+            // Show error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to delete medicines: ${e.toString()}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+
+          // Refresh the table or data
+          setState(() {
+            // Your refresh logic here
+          });
+
+        },
+      );
+    },
+  );
+}
 
   void _navigateToAddMedicinePage() {
     Navigator.push(
@@ -53,6 +146,66 @@ class ListOfStockPageState extends State<ListOfStockPage> {
 
   @override
   Widget build(BuildContext context) {
+   
+    final provider = Provider.of<MedicineProvider>(context, listen: false);
+    final branchProvider = Provider.of<BranchProvider>(context, listen: false);
+    final branches = branchProvider.branches ?? [];
+    final med = provider.medicines ?? [];
+    final batch = provider.batches ?? [];
+    final medColors = provider.medColor ?? [];
+    
+    List<String>? getMedbyBranch(List<Branch>? branches) {
+      if (branches == null) {
+        return null;
+      }
+
+      List<String> branchNames = [];
+      for (final branch in branches) {
+        branchNames.add(branch.BranchName);
+      }
+      return branchNames;
+    }
+
+    DateTime? getExpiry(Medicine? data, List<Batch>? batch) {
+      if (data != null && batch != null) {
+        for (final item in batch) {
+          if (item.medName == data.medicineName) {
+            return item.expiryDate;
+          }
+        }
+      }
+      return null;
+    }
+
+    String? getLocation(Medicine? data, List<Batch>? batch) {
+      if (data != null && batch != null) {
+        for (final item in batch) {
+          if (item.medName == data.medicineName) {
+            return item.location;
+          }
+        }
+      }
+      return null;
+    }
+    Batch? getBatch(Medicine? data, List<Batch>? batch) {
+      if (data != null && batch != null) {
+        for (final item in batch) {
+          if (item.medName == data.medicineName) {
+            return item;
+      }
+    }}
+    }
+
+    Color? getColor(Medicine data, List<MedColor> medColors) {
+      for (final item in medColors) {
+        if (item.medicineName == data.medicineName) {
+          return item.color;
+        }
+      }
+      return null;
+    }
+    
+    List<String> branchNames = getMedbyBranch(branches) ?? [];
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -90,7 +243,10 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                       ),
                       // Content
                       Expanded(
-                        child: ListView(
+                        child: isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : 
+                         ListView(
                           padding: const EdgeInsets.all(16.0),
                           children: [
                             const Text(
@@ -168,23 +324,16 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                               10.0), // Adjust the roundness
                                         ),
                                         child: DropdownButton<String>(
-                                          isExpanded:
-                                              true, // Ensure the dropdown button fills the available width
-                                          items: <String>[
-                                            'Branch A',
-                                            'Branch B',
-                                            'Branch C',
-                                            'Branch D'
-                                          ].map((String value) {
+                                          isExpanded: true,
+                                          items: branchNames.map((String item) {
                                             return DropdownMenuItem<String>(
-                                              value: value,
+                    
+                                              value: item,
                                               child: Center(
                                                 child: Text(
-                                                  value,
-                                                  textAlign: TextAlign
-                                                      .center, // Center the text
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
+                                                  item,
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(color: Colors.black),
                                                 ),
                                               ),
                                             );
@@ -192,16 +341,11 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                           onChanged: (String? newValue) {
                                             // Implement dropdown change logic
                                           },
-                                          icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white),
-                                          underline: const SizedBox(
-                                            width: 10,
-                                          ),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                          value:
-                                              'Branch A', // Set the default value to the first option
+                                          icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                                          underline: const SizedBox(),
+                                          style: const TextStyle(color: Colors.white),
+                                          value: branchNames.isNotEmpty ? branchNames.first : null,
+                                          
                                         ),
                                       ),
                                     ),
@@ -220,13 +364,13 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                 dividerThickness: 0, // Remove the dividers
                                 columns: const <DataColumn>[
                                   DataColumn(label: SizedBox(width: 20)),
-                                  DataColumn(label: SizedBox(width: 40)),
+                                  DataColumn(label: SizedBox(width: 20)),
+                                  // DataColumn(
+                                  //   label: Text('Index',
+                                  //       style: TextStyle(color: Colors.white)),
+                                  // ),
                                   DataColumn(
                                     label: Text('Medicine Name',
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                  DataColumn(
-                                    label: Text('Medicine ID',
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                   DataColumn(
@@ -262,19 +406,20 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                   ),
                                 ],
                                 rows: List<DataRow>.generate(
-                                  7, // Change this to the number of rows you have
+                                  med.length, // Change this to the number of rows you have
                                   (index) {
                                     // Example status values
-                                    List<String> statuses = [
-                                      'Completed',
-                                      'Pending',
-                                      'Cancelled',
-                                      'Completed',
-                                      'Pending',
-                                      'Cancelled',
-                                      'Completed'
-                                    ];
-                                    String status = statuses[index];
+                                    // List<String> statuses = [
+                                    //   'Completed',
+                                    //   'Pending',
+                                    //   'Cancelled',
+                                    //   'Completed',
+                                    //   'Pending',
+                                    //   'Cancelled',
+                                    //   'Completed'
+                                    // ];
+                                    // String status = statuses[index];
+                                     final status = getColor(med[index],medColors);
                                     return DataRow(
                                       color: MaterialStateColor.resolveWith(
                                           (states) {
@@ -294,31 +439,30 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                             },
                                           ),
                                         ),
-                                        DataCell(Text('$index')),
-                                        DataCell(Text('Medicine Name $index')),
-                                        DataCell(Text('Medicine ID $index')),
-                                        DataCell(Text('Generic Name $index')),
-                                        DataCell(Text('Category $index')),
-                                        DataCell(Text('Weight $index')),
-                                        DataCell(Text('Location Code $index')),
-                                        DataCell(Text('Expiry Date $index')),
+                                      DataCell(Text('$index')),
+                                        DataCell(Text(med[index].medicineName)),
+                                        DataCell(Text(med[index].genericName)),
+                                        DataCell(Text(med[index].catagory)),
+                                        DataCell(Text(med[index].weight)),
+                                        DataCell(Text(getLocation(med[index], batch) ?? 'Unknown')),
+                                        DataCell(Text(getExpiry(med[index], batch)?.toIso8601String() ?? 'Unknown')),
                                         DataCell(
                                           Row(
                                             children: [
                                               CircleAvatar(
-                                                backgroundColor:
-                                                    (_getStatusTextStyle(
-                                                            status))
-                                                        .color,
+                                                backgroundColor:status,
+                                                   
+                                                        
                                                 radius:
                                                     4.0, // Adjust the radius as needed
                                               ),
                                               const SizedBox(width: 4),
-                                              Text(
-                                                status,
-                                                style:
-                                                    _getStatusTextStyle(status),
-                                              ),
+                                              _getStatusTextStyle(status),
+                                              // Text(
+                                              //   status,
+                                              //   style:
+                                              //       _getStatusTextStyle(status),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -381,6 +525,7 @@ class ListOfStockPageState extends State<ListOfStockPage> {
                                 ElevatedButton(
                                   onPressed: () {
                                     // Handle navigate to medicine detail page
+                                    Provider.of<NavigationProvider>(context,listen:false).navigateTo('/medicine/details');
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(

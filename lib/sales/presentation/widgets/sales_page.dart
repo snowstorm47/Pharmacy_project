@@ -1,189 +1,224 @@
+import 'package:clean_a/Drawer/sidemenupage.dart';
+import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
+
+import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'cart_pop_up.dart';
+import 'sales_table.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Sales extends StatefulWidget {
+  const Sales({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Pharmacy Demo',
-      home: PharmacySalesScreen(),
-    );
+  SalesState createState() => SalesState();
+}
+
+class SalesState extends State<Sales> {
+  bool showSideMenu = false;
+  // final List<DataM> data = [
+  //   DataM(
+  //     medicineName: 'Panadol',
+  //     category: 'Painkiller',
+  //     dosage: '30mg',
+  //     inStock: '4',
+  //     pricePerUnit: '100',
+  //   ),
+  //   // Add more items as needed
+  // ];
+  @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async{
+      final provider = Provider.of<MedicineProvider>(context, listen: false);
+      await provider.getMedicines();
+    });
   }
-}
+   
 
-class PharmacySalesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+    final provider = Provider.of<MedicineProvider>(context,listen:false);
+    final List<Batch> data = provider.batches ?? [];
+    final List<Medicine> med = provider.medicines ?? [];
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sales'),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      backgroundColor: const Color(0xFFF3F6F0),
+      body: SafeArea(
+        child: Stack(
           children: [
-            _buildDateTimeSection(),
-            _buildSearchBar(),
-            _buildCategoryTabs(),
-            _buildProductTable(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showCartSummary(context);
-        },
-        child: const Icon(Icons.shopping_cart),
-      ),
-    );
-  }
-
-  Widget _buildDateTimeSection() {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: const Text(
-        'Date and Time', // Replace with actual date and time string
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 14, color: Colors.grey),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Search products...',
-          prefixIcon: const Icon(Icons.search),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryTabs() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildCategoryTab('Medicine', true), // Active tab example
-          _buildCategoryTab('Personal Care', false), // Inactive tab example
-          _buildCategoryTab('Supplements', false), // Inactive tab example
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCategoryTab(String category, bool isActive) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Chip(
-        label: Text(category),
-        backgroundColor: isActive ? Colors.blue : Colors.blue.withOpacity(0.3),
-      ),
-    );
-  }
-
-  Widget _buildProductTable() {
-    return DataTable(
-      columns: const [
-        DataColumn(label: Text('Product Name')),
-        DataColumn(label: Text('Description')),
-        DataColumn(label: Text('Price')),
-        DataColumn(label: Text('Action')),
-      ],
-      rows: List.generate(
-        10, // Replace with actual product count
-        (index) => DataRow(
-          cells: [
-            DataCell(Text('Product ${index + 1}')),
-            DataCell(Text('Description of Product ${index + 1}')),
-            const DataCell(Text('\$10.00')), // Replace with actual price
-            DataCell(IconButton(
-              icon: const Icon(Icons.add_shopping_cart),
-              onPressed: () {
-                // Implement add to cart functionality
-              },
-            )),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showCartSummary(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300,
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 3, // Replace with actual cart items count
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text('Product ${index + 1}'),
-                      subtitle: const Text('Quantity: 2'),
-                      trailing: const Text('\$20.00'),
-                    );
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (ResponsiveD.isDesktop(context))
+                  Expanded(
+                    child: SideMenu(
+                      onClose: () {
+                        setState(() {
+                          showSideMenu = false;
+                        });
+                      },
+                    ),
+                  ),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      HeaderPage(
+                        onMenuPressed: () {
+                          setState(() {
+                            showSideMenu = !showSideMenu;
+                          });
+                        },
+                        isSideMenuOpen: showSideMenu,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: const Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'Search',
+                                          border: InputBorder.none,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          prefixIcon: Icon(Icons.search,
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0),
+                                      ),
+                                      backgroundColor:
+                                          const Color.fromARGB(236, 27, 228, 4),
+                                    ),
+                                    onPressed: () {},
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.filter_list,
+                                            color: Colors.white),
+                                        SizedBox(width: 10),
+                                        Text('Filter By',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0),
+                                      ),
+                                      backgroundColor:
+                                          const Color.fromRGBO(33, 150, 243, 1),
+                                    ),
+                                    onPressed: () {
+                                      _showCartPopup(context);
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.add_shopping_cart,
+                                            color: Colors.white),
+                                        SizedBox(width: 10),
+                                        Text('Add to Cart',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  IconButton(
+                                    onPressed: () {
+                                      _showCalculatorDialog(context);
+                                    },
+                                    icon: const Icon(Icons.calculate),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Expanded(
+                                child: SalesTable(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (!ResponsiveD.isDesktop(context) && showSideMenu)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: SideMenu(
+                  onClose: () {
+                    setState(() {
+                      showSideMenu = false;
+                    });
                   },
                 ),
               ),
-              const Divider(),
-              const ListTile(
-                title: Text('Total:'),
-                trailing: Text('\$60.00'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _showConfirmationDialog(context);
-                },
-                child: const Text('Checkout'),
-              ),
-            ],
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 
-  void _showConfirmationDialog(BuildContext context) {
+  void _showCalculatorDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Purchase'),
-          content: const Text('Total: \$60.00'), // Replace with dynamic total
-          actions: [
+          title: const Text('Calculator'),
+          content: Container(
+            width: 200,
+            height: 300,
+            child: const Placeholder(), // Replace with your calculator widget
+          ),
+          actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _showSuccessScreen(context);
-              },
-              child: const Text('Confirm'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -191,41 +226,12 @@ class PharmacySalesScreen extends StatelessWidget {
     );
   }
 
-  void _showSuccessScreen(BuildContext context) {
-    Navigator.of(context).pop(); // Close confirmation dialog
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => SuccessScreen(),
-    ));
-  }
-}
-
-class SuccessScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Success'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.check_circle, size: 100, color: Colors.green),
-            const SizedBox(height: 16),
-            const Text(
-              'Transaction Successful!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-              child: const Text('Back to Sales Screen'),
-            ),
-          ],
-        ),
-      ),
+  void _showCartPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CartPopup();
+      },
     );
   }
 }

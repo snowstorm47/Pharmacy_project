@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Batch{
  String medName;
  String location;
@@ -22,19 +24,19 @@ class Batch{
   required this.branchName,
   required this.taxable
   });
-    factory Batch.fromMap(Map<String,dynamic> data)=> 
-  Batch(
+    factory Batch.fromMap(Map<String,dynamic> data){
+ return Batch(
   medName:data['medName'] as String,
   sellingPrice:data['sellingPrice'] as double,
-  suppliersPrice: data['supplierPrice'] as double,
+  suppliersPrice: data['suppliersPrice'] as double,
   taxable: data['taxable'] as  bool,
-   location:data['Location'] as String,
-  expiryDate:data['ExpiryDate'] as DateTime,
-  stock:data['Stock'] as int,
-  batchNumber:data['BatchNumber'] as String,
- dateAdded:data['dateAdded'] as DateTime,
+   location:data['location'] as String,
+  expiryDate:(data['expiryDate'] as Timestamp).toDate(),
+  stock:data['stock'] as int,
+  batchNumber:data['batchNumber'] as String,
+ dateAdded:(data['dateAdded'] as Timestamp).toDate() ,
  branchName: data['branchId'] as String,
-  );
+  );}
   Map<String,dynamic> toMap()=>{
     'medName':medName,
   'location':location,

@@ -1,7 +1,9 @@
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/settings/provider/setting_provider.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PasswordRequestsPage extends StatefulWidget {
   const PasswordRequestsPage({super.key});
@@ -13,9 +15,17 @@ class PasswordRequestsPage extends StatefulWidget {
 class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(7, (index) => false);
-
+   @override
+  void initState(){
+    super.initState();
+    Future.microtask(() {
+      Provider.of<SettingProvider>(context, listen: false).getPassReq();
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<SettingProvider>(context,listen:false);
+    final passReq = provider.passreq ??[];
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -101,7 +111,7 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                       ),
                                       icon: const Icon(Icons.recycling,
                                           color: Colors.white, size: 20),
-                                      label: const Text('Recycle',
+                                      label: const Text('Refresh',
                                           style:
                                               TextStyle(color: Colors.white)),
                                     ),
@@ -118,6 +128,7 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            passReq == null ? Center(child:Text("There are no requests")):
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
@@ -151,16 +162,7 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                           style:
                                               TextStyle(color: Colors.white)),
                                     ),
-                                    DataColumn(
-                                      label: Text('Ip Address',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ),
-                                    DataColumn(
-                                      label: Text('Attempt',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ),
+                                  
                                     DataColumn(
                                       label: Text('Actions',
                                           style:
@@ -168,7 +170,7 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
-                                    7, // Number of rows
+                                    passReq.length, // Number of rows
                                     (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
                                           (states) {
@@ -188,28 +190,49 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
                                             },
                                           ),
                                         ),
-                                        DataCell(Text('Employee Email $index')),
-                                        DataCell(Text('Role $index')),
-                                        DataCell(Text('Time Stamp $index')),
-                                        DataCell(Text('Ip Address $index')),
-                                        DataCell(Text('Attempt $index')),
+                                        DataCell(Text(index.toString())),
+                                        DataCell(Text(passReq[index].email)),
+                                        DataCell(Text(passReq[index].role)),
+                                        DataCell(Text(passReq[index].requestedAt.toString())),
+                                       
                                         DataCell(
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              // Handle actions button press
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.blue,
-                                            ),
-                                            child: const Text(
-                                              'Actions',
-                                              style: TextStyle(
-                                                fontFamily: 'Poppins',
-                                                color: Colors.white,
+                                          Row(
+                                            children:[ ElevatedButton(
+                                              onPressed: () async{
+                                                final provider = Provider.of<SettingProvider>(context,listen:false);
+                                                await provider.sendPass(passReq[index].email);
+                                                // Handle actions button press
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                              child: const Text(
+                                                'Send Password',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                            ElevatedButton(
+                                              onPressed: () async{
+                                                // Handle actions button press
+                                               final provider = Provider.of<SettingProvider>(context,listen:false);
+                                                await provider.delPass(passReq[index].email);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.red,
+                                              ),
+                                              child: const Text(
+                                                'Delete',
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                        
+                                       ]) ),
                                       ],
                                     ),
                                   ),

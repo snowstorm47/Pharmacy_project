@@ -1,6 +1,8 @@
 
 import 'package:clean_a/settings/domain/entities/complaint.dart';
 import 'package:clean_a/settings/domain/entities/role.dart';
+import 'package:clean_a/shared/models/puser.dart';
+import 'package:clean_a/shared/services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../domain/entities/passwordRequest.dart';
@@ -67,10 +69,12 @@ class SettingRepo{
   });
 }
 
-  Future <List<Object>?>getRoles()async{
+  Future <List<Role>?>getRoles()async{
      final CollectionReference roleCollection= _firebaseFirestore.collection('role');
     final snapshot = await roleCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+  return snapshot.docs.map((doc) {
+    return Role.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
   }
 Future<void> deleteRole(List<String> employeeName) async {
   final roleRef = _firebaseFirestore.collection('role');
@@ -94,10 +98,12 @@ final complaint =Complaint(
  await complaintRef.doc(complaintTime.toIso8601String()).set(complaint.toMap());
 }
 
-  Future <List<Object>?>getComplaint()async{
+  Future <List<Complaint>?>getComplaint()async{
      final CollectionReference complaintCollection= _firebaseFirestore.collection('complaint');
     final snapshot = await complaintCollection.get();
-   return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+return snapshot.docs.map((doc) {
+    return Complaint.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
   }
 
   Future <void> complaintActions({required String id, required Map<String,dynamic> updatedData}) async{
@@ -125,8 +131,17 @@ final complaint =Complaint(
   });
   }
 
-  Future<void> addRequest ({required email})async{
+Future<List<PasswordRequest>?> getRequest()async{
+     final passRequestRef = _firebaseFirestore.collection('passRequest');
+     final snapshot=await passRequestRef.get();
+     return snapshot.docs.map((doc) {
+    return PasswordRequest.fromMap(doc.data() as Map<String, dynamic>);
+  }).toList();
+
+}
+  Future<PasswordRequest?> addRequest ({required email})async{
     bool isUser;
+    String role;
     final requestedAt = DateTime.now();
    final userRef = _firebaseFirestore.collection('users');
    final query = await userRef.where('email',isEqualTo :email).get();
@@ -134,25 +149,51 @@ final complaint =Complaint(
     isUser=false;
    }else{
     isUser=true;
-   }
-   final passRequestRef = _firebaseFirestore.collection('passRequest');
+     final userDoc = query.docs.first;
+    role = userDoc['role'] as String;
+      final passRequestRef = _firebaseFirestore.collection('passRequest');
    final passReq =PasswordRequest(
+    role:role,
     email:email,
     requestedAt:requestedAt,
     isUser:isUser
    );
-   await passRequestRef.doc().set(passReq.toMap());
+   await passRequestRef.doc(email).set(passReq.toMap());
+   return passReq;
+   }
+ 
   }
 
 
 Future<void> deleteRequest( String id) async {
-  try {
-    final docRef = FirebaseFirestore.instance.collection('passRequest').doc(id);
-    await docRef.delete();
-    print('Document deleted successfully');
-  } catch (e) {
-    print('Error deleting document: $e');
-  }
+    try {
+      final docRef =
+          FirebaseFirestore.instance.collection('passRequest').doc(id);
+      await docRef.delete();
+      print('Document deleted successfully');
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+}
+Future<void> grantNewPass(String id)async{
+    try {
+      final docRef =
+          FirebaseFirestore.instance.collection('passRequest').doc(id);
+          final userRef = FirebaseFirestore.instance.collection('employees');
+          final data= await docRef.get();
+          if(data!=null){
+            final req= data.data() as Map<String,dynamic>;
+            final email= req['email'] as String;
+ SigninService  passService = SigninService();
+       await passService.sendPasswordResetEmail(email:email);
+            
+          }
+     
+      print('Document deleted successfully');
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+
 }
 
 } 

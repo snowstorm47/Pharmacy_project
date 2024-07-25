@@ -1,11 +1,18 @@
 import 'package:clean_a/employee/presentation/utility/Finger_print.dart';
 import 'package:clean_a/employee/presentation/Componet/attendance/attendance_form.dart';
 import 'package:clean_a/employee/presentation/Componet/attendance/attendance_table.dart';
+import 'package:clean_a/employee/provider/employee_provider.dart';
+import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart'; // Add this import for DateFormat
+ 
 class AttendancePage extends StatefulWidget {
   const AttendancePage({super.key});
 
@@ -19,6 +26,13 @@ class AttendancePageState extends State<AttendancePage> {
   final TextEditingController _signInController = TextEditingController();
   final TextEditingController _signOutController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the date controller with the current date
+    _dateController.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  }
+
   void _showFingerprintDialog() {
     showDialog(
       context: context,
@@ -28,8 +42,7 @@ class AttendancePageState extends State<AttendancePage> {
     );
   }
 
-  Future<void> _selectTime(
-      BuildContext context, TextEditingController controller) async {
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -48,11 +61,9 @@ class AttendancePageState extends State<AttendancePage> {
       body: SafeArea(
         child: Stack(
           children: [
-            // Main content area
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Sidebar (only for desktop)
                 if (ResponsiveD.isDesktop(context))
                   Expanded(
                     child: SideMenu(
@@ -63,13 +74,11 @@ class AttendancePageState extends State<AttendancePage> {
                       },
                     ),
                   ),
-                // Main content
                 Expanded(
                   flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Header
                       HeaderPage(
                         onMenuPressed: () {
                           setState(() {
@@ -78,17 +87,14 @@ class AttendancePageState extends State<AttendancePage> {
                         },
                         isSideMenuOpen: showSideMenu,
                       ),
-                      // Content
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // Row with Attendance Text and Fingerprint Icon
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     'Attendance',
@@ -98,60 +104,55 @@ class AttendancePageState extends State<AttendancePage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20.0, left: 20),
+                                    padding: const EdgeInsets.only(top: 20.0, left: 20),
                                     child: GestureDetector(
                                       onTap: _showFingerprintDialog,
-                                      child: const Icon(Icons.fingerprint,
-                                          size: 30),
+                                      child: const Icon(Icons.fingerprint, size: 30),
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              // Text fields layout
-                              if (ResponsiveD.isMobile(context))
-                                AttendanceForm(
-                                  dateController: _dateController,
-                                  signInController: _signInController,
-                                  signOutController: _signOutController,
-                                  onTapSignIn: () {
-                                    _selectTime(context, _signInController);
-                                  },
-                                  onTapSignOut: () {
-                                    _selectTime(context, _signOutController);
-                                  },
-                                )
-                              else
-                                AttendanceForm(
-                                  dateController: _dateController,
-                                  signInController: _signInController,
-                                  signOutController: _signOutController,
-                                  onTapSignIn: () {
-                                    _selectTime(context, _signInController);
-                                  },
-                                  onTapSignOut: () {
-                                    _selectTime(context, _signOutController);
-                                  },
-                                ),
+                              // Use AttendanceForm widget with dateController and time controllers
+                              AttendanceForm(
+                                dateController: _dateController,
+                                signInController: _signInController,
+                                signOutController: _signOutController,
+                                onTapSignIn: () {
+                                  _selectTime(context, _signInController);
+                                },
+                                onTapSignOut: () {
+                                  _selectTime(context, _signOutController);
+                                },
+                              ),
                               const SizedBox(height: 20),
-                              // Save and Cancel buttons
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {
-                                      // Handle save functionality
+                                    onPressed: () async {
+                                      final provide = Provider.of<EmployeeProvider>(context, listen: false);
+                                      final userProvider = Provider.of<Authprovider>(context, listen: false);
+                                      final currentUser = userProvider.user;
+                                      if (currentUser != null) {
+                                        await provide.addAttendance(
+                                          currentUser.uid,
+                                          "Active",
+                                          _signInController.text,
+                                          _signOutController.text,
+                                          currentUser.FirstName,
+                                          DateTime.now(),
+                        // Ensure this matches the actual field name
+                                        );
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(4.0),
                                       ),
                                       backgroundColor: Colors.green,
                                     ),
-                                    child: const Text('Save',
-                                        style: TextStyle(color: Colors.white)),
+                                    child: const Text('Save', style: TextStyle(color: Colors.white)),
                                   ),
                                   const SizedBox(width: 30),
                                   ElevatedButton(
@@ -160,8 +161,7 @@ class AttendancePageState extends State<AttendancePage> {
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(4.0),
                                       ),
                                       backgroundColor: Colors.red,
                                     ),
@@ -173,7 +173,6 @@ class AttendancePageState extends State<AttendancePage> {
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              // Centered Table
                               const AttendanceTable(),
                             ],
                           ),
@@ -184,7 +183,6 @@ class AttendancePageState extends State<AttendancePage> {
                 ),
               ],
             ),
-            // Sidebar (for mobile and tablet)
             if (!ResponsiveD.isDesktop(context) && showSideMenu)
               Positioned(
                 left: 0,

@@ -1,59 +1,34 @@
+import 'package:clean_a/employee/domain/entities/employee.dart';
 import 'package:flutter/material.dart';
 
 import 'delete_employee_popup.dart';
 import 'edit_employee_popup.dart';
 
-class EmployeeProfileTable extends StatefulWidget {
-  final List<Map<String, String>> employees;
+class EmployeeProfileTable extends StatelessWidget {
+  final List<Employee> employees;
+  final Function(int) onEditEmployee;
+  final Function(int) onDeleteEmployee;
 
-  const EmployeeProfileTable({super.key, required this.employees});
-
-  @override
-  EmployeeProfileTableState createState() => EmployeeProfileTableState();
-}
-
-class EmployeeProfileTableState extends State<EmployeeProfileTable> {
-  void _showEditEmployeePopup(int index) async {
-    final editedEmployee = await showDialog<Map<String, String>>(
-      context: context,
-      builder: (context) =>
-          EditEmployeePopup(employee: widget.employees[index]),
-    );
-
-    if (editedEmployee != null) {
-      setState(() {
-        widget.employees[index] = editedEmployee;
-      });
-    }
-  }
-
-  void _showDeleteEmployeePopup(int index) async {
-    final shouldDelete = await showDialog<bool>(
-      context: context,
-      builder: (context) => DeleteEmployeePopup(
-          employeeName: widget.employees[index]['name'] ?? ''),
-    );
-
-    if (shouldDelete == true) {
-      setState(() {
-        widget.employees.removeAt(index);
-      });
-    }
-  }
+  const EmployeeProfileTable({
+    super.key,
+    required this.employees,
+    required this.onEditEmployee,
+    required this.onDeleteEmployee,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 50), // Adjust the padding around the table
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: DataTable(
-          columnSpacing:
-              20, // Adjust this value to decrease the spacing between columns
+          columnSpacing: 20,
           columns: const [
             DataColumn(
-                label: Text('Name', style: TextStyle(color: Colors.white))),
+                label: Text('First Name', style: TextStyle(color: Colors.white))),
+            DataColumn(
+                label: Text('Last Name', style: TextStyle(color: Colors.white))),
             DataColumn(
                 label: Text('Position', style: TextStyle(color: Colors.white))),
             DataColumn(
@@ -68,28 +43,25 @@ class EmployeeProfileTableState extends State<EmployeeProfileTable> {
                 label: Text('Actions', style: TextStyle(color: Colors.white))),
           ],
           rows: List.generate(
-            widget.employees.length,
+            employees.length,
             (index) => DataRow(
               cells: [
-                DataCell(Text(widget.employees[index]['name'] ?? '')),
-                DataCell(Text(widget.employees[index]['position'] ?? '')),
-                DataCell(Text(widget.employees[index]['address'] ?? '')),
-                DataCell(Text(widget.employees[index]['location'] ?? '')),
-                DataCell(Text(widget.employees[index]['phone'] ?? '')),
-                DataCell(Text(widget.employees[index]['email'] ?? '')),
+                DataCell(Text(employees[index].FirstName ?? '')),
+                DataCell(Text(employees[index].LastName ?? '')),
+                DataCell(Text(employees[index].role ?? '')),
+                DataCell(Text(employees[index].Address ?? '')),
+                DataCell(Text(employees[index].location ?? '')),
+                DataCell(Text(employees[index].Phone ?? '')),
+                DataCell(Text(employees[index].email ?? '')),
                 DataCell(Row(
                   children: [
                     IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        _showEditEmployeePopup(index);
-                      },
+                      onPressed: () => onEditEmployee(index),
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        _showDeleteEmployeePopup(index);
-                      },
+                      onPressed: () => onDeleteEmployee(index),
                     ),
                   ],
                 )),

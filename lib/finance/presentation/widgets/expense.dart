@@ -1,7 +1,10 @@
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/finance/provider/finance_provider.dart';
+import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExpensePage extends StatefulWidget {
   const ExpensePage({super.key});
@@ -13,13 +16,25 @@ class ExpensePage extends StatefulWidget {
 class _ExpensePageState extends State<ExpensePage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(6, (index) => false);
+    @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async{
+      final provider = Provider.of<FinanceProvider>(context, listen: false);
+     
+      await provider.getlistIncome();
+     
+    });
+  }
 
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController invoiceIdController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController expenseHeadController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
-
+  final TextEditingController branchController = TextEditingController();
+  
   @override
   void dispose() {
     categoryController.dispose();
@@ -31,9 +46,12 @@ class _ExpensePageState extends State<ExpensePage> {
   }
 
   void _showAddExpenseDialog(BuildContext context) {
+    final user = Provider.of<Authprovider>(context,listen:false);
+    DateTime? dateAdded;
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        if(user.user!.role == "Admin" || user.user!.role == "admin"){
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
@@ -68,9 +86,9 @@ class _ExpensePageState extends State<ExpensePage> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: TextField(
-                        controller: invoiceIdController,
+                        controller: branchController,
                         decoration: const InputDecoration(
-                          labelText: 'Invoice ID',
+                          labelText: 'Branch',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -80,15 +98,32 @@ class _ExpensePageState extends State<ExpensePage> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    Expanded(
-                      child: TextField(
-                        controller: dateController,
-                        decoration: const InputDecoration(
-                          labelText: 'Date',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
+                    Row(
+                     children: [
+                       ElevatedButton(
+                                    onPressed: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2101),
+                                      );
+                                      if (pickedDate != null) {
+                                        setState(() {
+                                          dateAdded = pickedDate;
+                                        });
+                                      }
+                                    },
+                                    child: const Text('Select Date Added '),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    dateAdded != null
+                                        ? 'Date Added: ${dateAdded.toString().split(' ')[0]}'
+                                        : 'No date selected',
+                                  ),
+                                ],
+                              ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: TextField(
@@ -114,7 +149,126 @@ class _ExpensePageState extends State<ExpensePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
+                      onPressed: () async{
+                        final provider= Provider.of<FinanceProvider>(context,listen:false);
+                        provider.addExpense(branchId: branchController.text, amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2CBF29),
+                      ),
+                      child: const Text('Add Expense',
+                          style: TextStyle(fontFamily: 'Poppins')),
+                    ),
+                    const SizedBox(width: 12),
+                    ElevatedButton(
                       onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ),
+                      child: const Text('Cancel',
+                          style: TextStyle(fontFamily: 'Poppins')),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );}
+        else{
+             return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            width: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'Add Expense',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: categoryController,
+                        decoration: const InputDecoration(
+                          labelText: 'Category',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                      Row(
+                     children: [
+                       ElevatedButton(
+                                    onPressed: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2101),
+                                      );
+                                      if (pickedDate != null) {
+                                        setState(() {
+                                          dateAdded = pickedDate;
+                                        });
+                                      }
+                                    },
+                                    child: const Text('Select Date of Birth'),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    dateAdded != null
+                                        ? 'Date Birth: ${dateAdded.toString().split(' ')[0]}'
+                                        : 'No date selected',
+                                  ),
+                                ],
+                              ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: expenseHeadController,
+                        decoration: const InputDecoration(
+                          labelText: 'Expense Head',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: amountController,
+                  decoration: const InputDecoration(
+                    labelText: 'Amount',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        final provider= Provider.of<FinanceProvider>(context,listen:false);
+                        provider.addExpense(branchId: user.user!.branch.toString(), amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -140,12 +294,15 @@ class _ExpensePageState extends State<ExpensePage> {
             ),
           ),
         );
+        }
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FinanceProvider>(context,listen:false);
+    final expense = provider.expense ?? [];
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -243,6 +400,7 @@ class _ExpensePageState extends State<ExpensePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            expense == [] ? Center(child:Text("Add expense to see the list")):
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
@@ -283,7 +441,7 @@ class _ExpensePageState extends State<ExpensePage> {
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
-                                    6,
+                                    expense.length,
                                     (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
                                           (states) {
@@ -292,11 +450,11 @@ class _ExpensePageState extends State<ExpensePage> {
                                             : Colors.white;
                                       }),
                                       cells: <DataCell>[
-                                        DataCell(Text('Invoice $index')),
-                                        DataCell(Text('Category $index')),
-                                        DataCell(Text('Expense Head $index')),
-                                        DataCell(Text('Amount $index')),
-                                        DataCell(Text('Date $index')),
+                                        DataCell(Text(expense[index].invoiceId)),
+                                        DataCell(Text(expense[index].catagory)),
+                                        DataCell(Text(expense[index].expenseHead)),
+                                        DataCell(Text(expense[index].amount.toString())),
+                                        DataCell(Text(expense[index].createdAt.toString())),
                                       ],
                                     ),
                                   ),

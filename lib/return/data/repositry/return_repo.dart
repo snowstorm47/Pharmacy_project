@@ -29,7 +29,7 @@ Future<Disposed?> addDisposed({
         expiryDate: medicine['expiryDate'].toDate(), // Convert Firestore timestamp to DateTime
         dateAdded: dateAdded,
       );
-      await _firebaseFirestore.collection('batch').doc(batchId).delete();
+      await _firebaseFirestore.collection('batches').doc(batchId).delete();
       await _firebaseFirestore.collection('disposed').doc(batchId).set(disposed.toMap());
       print('Disposed added: ${disposed.toMap()}');
       return disposed;
@@ -52,7 +52,7 @@ Future<Disposed?> addDisposed({
   }
  }
  Future<void> deleteManyDisposed(List<String> batchId) async{
-     final batchRef = await _firebaseFirestore.collection('disposed');
+     final batchRef = _firebaseFirestore.collection('disposed');
      final batch = _firebaseFirestore.batch();
      for(String id in batchId){
         batch.delete(batchRef.doc(id));
@@ -60,7 +60,7 @@ Future<Disposed?> addDisposed({
      batch.commit();
  } 
  Future<List<Disposed>?> getDisposed() async{
-   CollectionReference disposedRef = await _firebaseFirestore.collection('disposed');
+   CollectionReference disposedRef =  _firebaseFirestore.collection('disposed');
      final snapshot = await disposedRef.get();
      return snapshot.docs.map((doc) => Disposed.fromMap(doc.data() as Map<String, dynamic>)).toList();
  }

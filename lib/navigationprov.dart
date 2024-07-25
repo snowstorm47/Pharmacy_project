@@ -7,7 +7,8 @@ import 'package:clean_a/customer/Presentation/pages/authorized_user_list.dart';
 import 'package:clean_a/employee/presentation/page/attendance_pages.dart';
 import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
 import 'package:clean_a/medicine/presentation/pages/medicine_detail.dart';
-import 'package:clean_a/sales/presentation/widgets/sales.dart';
+
+import 'package:clean_a/sales/presentation/widgets/sales_page.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/dashboard/presentation/pages/dashboard_screen.dart';
 
@@ -50,14 +51,14 @@ class NavigationProvider extends ChangeNotifier {
         _currentScreen = const AddAuthorizedUser();
         break;
          case '/customer/authorized_user':
-        _currentScreen = const AuthorizedUser();
+        _currentScreen =  AuthorizedUser();
         break;
       case '/customer/add_authorized_company':
         _currentScreen = const AddAuthorizedCompany();
         break;
         //medicine
 case '/medicine/details':
-        _currentScreen =const  MedicineDetail();
+        _currentScreen =  MedicineDetail();
         break;
         //sales
 case '/sales':

@@ -252,7 +252,8 @@ class _ResetPasswordOtpState extends State<ResetPasswordOtp> {
                                           "Password: ${_otpController.text}");
                                     }
                                        final authProvider = Provider.of<Authprovider>(context, listen: false);
-                                       await authProvider.sign_in(_emailController.text, _otpController.text);
+                                       await authProvider.sendPassword(_emailController.text);
+                                       Navigator.pop(context);
                                   },
                                   child: const Text(
                                     "send code",

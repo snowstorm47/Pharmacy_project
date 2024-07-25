@@ -2,10 +2,14 @@ import 'package:clean_a/Cashier/navigation_provider.dart';
 import 'package:clean_a/Pharmacist/navigation_provider.dart';
 import 'package:clean_a/branch_M/Provider/branchProvides.dart';
 
-import 'package:clean_a/customer/model/providerC.dart';
+
 import 'package:clean_a/customer/providers/customerProviders.dart';
 import 'package:clean_a/dummy/register.dart';
+import 'package:clean_a/finance/provider/finance_provider.dart';
 import 'package:clean_a/medicine/providers/medicine_provider.dart';
+import 'package:clean_a/sales/presentation/widgets/screen/CreditCustomerSelectionScreen.dart';
+import 'package:clean_a/sales/provider/sales_provider.dart';
+
 
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/services/providers/registrationProvider.dart';
@@ -43,15 +47,19 @@ void main() async {
         ChangeNotifierProvider<NavigationProvider>(create:(_)=>NavigationProvider()),
          ChangeNotifierProvider<CashierProvider>(create:(_)=>CashierProvider()),
           ChangeNotifierProvider<PharmacistProvider>(create:(_)=>PharmacistProvider()),
-        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+          ChangeNotifierProvider<employeeData>(create:(_)=>employeeData()),
         ChangeNotifierProvider<ReturnProvider>(create: (_)=>ReturnProvider(),),
         ChangeNotifierProvider<MedicineProvider>(create: (_) => MedicineProvider()),
         ChangeNotifierProvider<EmployeeProvider>(create:(_)=>EmployeeProvider()),
         ChangeNotifierProvider<BranchProvider>(create: (_)=>BranchProvider()),
         ChangeNotifierProvider<Authprovider>(create:(_) => Authprovider()), 
         ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),
+        ChangeNotifierProvider<cvProvider>(create:(_)=> cvProvider()),
         ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider()),
-        ChangeNotifierProvider<CustomerProvider>(create: (_)=>CustomerProvider())// Added MedicineProvider
+        ChangeNotifierProvider<CustomerProvider>(create: (_)=>CustomerProvider()),
+        ChangeNotifierProvider<SalesProvider>(create:(_)=>SalesProvider()),
+      ChangeNotifierProvider<FinanceProvider>(create:(_)=>FinanceProvider()),
+// Added MedicineProvider
       ],
       child: MyApp(),
     ),

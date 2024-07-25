@@ -13,5 +13,7 @@ class DataM {
     required this.pricePerUnit,
   });
 
+  get quantity => null;
+
   // ignore: non_constant_identifier_names
 }

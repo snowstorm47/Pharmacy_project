@@ -12,12 +12,20 @@ class AddAuthorizedUser extends StatefulWidget {
 
 class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
   bool showSideMenu = false;
-
+   final TextEditingController employeeNameController = TextEditingController();
+   final TextEditingController phoneController = TextEditingController();
+   final TextEditingController companyController = TextEditingController();
+   final TextEditingController emailController =TextEditingController();
+   final TextEditingController addressController= TextEditingController();
+   final TextEditingController subCityController = TextEditingController();
+   final TextEditingController roleController=TextEditingController();
+   final TextEditingController employeeIdController = TextEditingController();
+   final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 600;
-
+   
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -126,7 +134,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
           style: TextStyle(fontFamily: 'Poppins.regular'),
         ),
         const SizedBox(height: 20),
-        const Row(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // First Column
@@ -137,6 +145,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
+                      controller:employeeNameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Employee Name',
@@ -144,6 +153,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:addressController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Address',
@@ -151,6 +161,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:roleController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Role/position',
@@ -170,6 +181,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
+                      controller:phoneController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Phone number',
@@ -177,6 +189,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:subCityController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'City',
@@ -184,6 +197,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:employeeIdController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Employee Id',
@@ -203,6 +217,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
+                      controller:emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
@@ -210,6 +225,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:subCityController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Sub City',
@@ -217,6 +233,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
                     ),
                     SizedBox(height: 30),
                     TextField(
+                      controller:companyController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Company Name',
@@ -235,9 +252,10 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
   }
 
   Widget buildTextFieldsColumn() {
-    return const Column(
+    return  Column(
       children: [
         TextField(
+          controller:employeeNameController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Employee Name',
@@ -245,6 +263,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:addressController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Address',
@@ -252,6 +271,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:roleController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Role/position',
@@ -259,6 +279,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:phoneController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Phone number',
@@ -266,6 +287,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:subCityController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'City',
@@ -273,6 +295,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:employeeIdController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Employee Id',
@@ -280,6 +303,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:emailController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Email',
@@ -287,6 +311,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:subCityController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Sub City',
@@ -294,6 +319,7 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
         ),
         SizedBox(height: 20),
         TextField(
+          controller:companyController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Company Name',
@@ -307,7 +333,8 @@ class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextField(
+        TextField(
+          controller:descriptionController,
           maxLines: 5,
           decoration: InputDecoration(
             border: OutlineInputBorder(),

@@ -1,7 +1,13 @@
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/finance/provider/finance_provider.dart';
+import 'package:clean_a/shared/models/puser.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../shared/services/providers/authProvider.dart';
+import '../../domain/entities/invoice.dart';
 
 class IncomePage extends StatefulWidget {
   const IncomePage({super.key});
@@ -13,6 +19,19 @@ class IncomePage extends StatefulWidget {
 class _IncomePageState extends State<IncomePage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(6, (index) => false);
+
+    @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async{
+      final provider = Provider.of<FinanceProvider>(context, listen: false);
+     
+      await provider.getlistIncome();
+     
+    });
+  }
+   
 
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController invoiceIdController = TextEditingController();
@@ -31,10 +50,13 @@ class _IncomePageState extends State<IncomePage> {
   }
 
   void _showAddIncomeDialog(BuildContext context) {
+     final user = Provider.of<Authprovider>(context,listen:false);
+     final role = user.user!.role;
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
+        if(role == "Admin" ||  role == "admin"){
+      return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
                 16.0), // Adjust the border radius as needed
@@ -71,7 +93,7 @@ class _IncomePageState extends State<IncomePage> {
                       child: TextField(
                         controller: invoiceIdController,
                         decoration: const InputDecoration(
-                          labelText: 'Invoice ID',
+                          labelText: 'Branch',
                           border: OutlineInputBorder(), // Add border
                         ),
                       ),
@@ -79,6 +101,104 @@ class _IncomePageState extends State<IncomePage> {
                   ],
                 ),
                 const SizedBox(height: 12),
+                Row(
+                  children: [
+                  
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: expenseHeadController,
+                        decoration: const InputDecoration(
+                          labelText: 'Income Head',
+                          border: OutlineInputBorder(), // Add border
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: amountController,
+                  decoration: const InputDecoration(
+                    labelText: 'Amount',
+                    border: OutlineInputBorder(), // Add border
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async{
+                        // Add Income functionality
+                                          final provider = Provider.of<FinanceProvider>(context,listen:false);
+                        await provider.addIncome(branchId: invoiceIdController.text, catagory: categoryController.text, incomeHead: expenseHeadController.text, price: double.parse(amountController.text));
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(
+                            0xFF2CBF29), // Set background color here
+                      ),
+                      child: const Text('Add Income',
+                          style: TextStyle(fontFamily: 'Poppins')),
+                    ),
+                    const SizedBox(width: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Colors.grey, // Set background color here
+                      ),
+                      child: const Text('Cancel',
+                          style: TextStyle(fontFamily: 'Poppins')),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+
+        }
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                16.0), // Adjust the border radius as needed
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            width: 500, // Set width to make it a square
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'Add Income',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: categoryController,
+                        decoration: const InputDecoration(
+                          labelText: 'Category',
+                          border: OutlineInputBorder(), // Add border
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                 
+                  ],
+                ),
+              
                 Row(
                   children: [
                     Expanded(
@@ -115,8 +235,10 @@ class _IncomePageState extends State<IncomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         // Add Income functionality
+                                          final provider = Provider.of<FinanceProvider>(context,listen:false);
+                        await provider.addIncome(branchId: user.user!.branch.toString(), catagory: categoryController.text, incomeHead: expenseHeadController.text, price: double.parse(amountController.text));
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -150,6 +272,9 @@ class _IncomePageState extends State<IncomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FinanceProvider>(context,listen:false);
+    List<Invoice> income = provider.income ?? [];
+    
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -244,6 +369,7 @@ class _IncomePageState extends State<IncomePage> {
                               ],
                             ),
                             const SizedBox(height: 8),
+                            income == [] ? Container(child:Center(child:Text("Add Income to the List"))):
                             const Text(
                               'Income List',
                               style: TextStyle(
@@ -297,7 +423,7 @@ class _IncomePageState extends State<IncomePage> {
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
-                                    6, // Number of rows
+                                    income.length, // Number of rows
                                     (index) => DataRow(
                                       color: MaterialStateColor.resolveWith(
                                           (states) {
@@ -317,12 +443,20 @@ class _IncomePageState extends State<IncomePage> {
                                             },
                                           ),
                                         ),
-                                        DataCell(Text('Category $index')),
-                                        DataCell(Text('Income Head $index')),
+                                         DataCell(
+                                          SingleChildScrollView(
+                                           scrollDirection:Axis.vertical,     
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: income[index].catagory.map((action) => Text(action)).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(Text(income[index].incomeHead)),
                                         DataCell(
                                             Text('Permitted Action $index')),
-                                        DataCell(Text('Amount $index')),
-                                        DataCell(Text('Date $index')),
+                                        DataCell(Text(income[index].amount.toString())),
+                                        DataCell(Text(income[index].createdAt.toString())),
                                       ],
                                     ),
                                   ),
@@ -463,3 +597,4 @@ class _IncomePageState extends State<IncomePage> {
     );
   }
 }
+

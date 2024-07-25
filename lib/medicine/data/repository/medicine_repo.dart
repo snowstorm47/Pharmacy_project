@@ -174,7 +174,23 @@ Future<List<Medicine>?> searchMedicine( String medicineName) async {
      return querySnapshot.docs.map((doc) => doc.data() as Medicine).toList();
   });
 }
-
+Future<List<Medicine>?> getMedicines() async {
+  try {
+    final medRef = _firebaseFirestore.collection('medicine');
+    final querySnapshot = await medRef.get();
+    
+    // Map Firestore documents to Medicine instances
+    List<Medicine> medicines = querySnapshot.docs.map((doc) {
+      // Assuming Medicine has a fromMap constructor
+      return Medicine.fromMap(doc.data() as Map<String, dynamic>);
+    }).toList();
+    
+    return medicines;
+  } catch (e) {
+    print("Error getting medicines: $e");
+    return null;
+  }
+}
 
 Future<bool> checkExpiry(String medicineName)async{
  
@@ -387,7 +403,22 @@ Future<double?> sellCredit(String medicineName, String company, String customerN
     }
   });
 }
-
+Future<List<Batch>?> getBatch() async {
+  try {
+    final snapshot = await _firebaseFirestore.collection('batches').get();
+    
+    // Map Firestore documents to Batch instances
+    final batches = snapshot.docs.map((doc) {
+      // Use the fromMap method to create a Batch instance
+      return Batch.fromMap(doc.data() as Map<String, dynamic>);
+    }).toList();
+    
+    return batches;
+  } catch (e) {
+    print("Error getting batches: $e");
+    return null;
+  }
+}
 Future<List<Batch>?> getExpiredMed() async {
  
   final snapshot = await _firebaseFirestore.collection('batches').get();
@@ -399,13 +430,14 @@ Future<List<Batch>?> getExpiredMed() async {
     return givenTime.isBefore(today) || givenTime.isAtSameMomentAs(today);
   }).toList();
 }
-Future<List<Batch>?> getOutofStock()async{
+Future<List<Batch>?> getOutofStock() async {
   final snapshot = await _firebaseFirestore.collection('batches').get();
-  final meds = snapshot.docs.map((doc)=>doc.data() as Batch).toList();
-  return meds.where((med){
-    final quantity =med.stock ;
-    return quantity==0;
-  }).toList();}
+  final meds = snapshot.docs.map((doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Batch.fromMap(data);
+  }).toList();
+  return meds.where((med) => med.stock == 0).toList();
+}
 
   Future<List<Medicine>?> getMedicine()async{
    final CollectionReference medCollection = _firebaseFirestore.collection('medicine');

@@ -1,7 +1,11 @@
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
+
+import '../../../medicine/providers/medicine_provider.dart';
 
 class StockDetailPage extends StatefulWidget {
   const StockDetailPage({super.key});
@@ -12,6 +16,7 @@ class StockDetailPage extends StatefulWidget {
 
 class StockDetailPageState extends State<StockDetailPage> {
   bool showSideMenu = false;
+ 
   List<bool> checkboxValues = List<bool>.generate(10, (index) => false);
   List<String> statuses = [
     'Pending',

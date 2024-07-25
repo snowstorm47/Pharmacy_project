@@ -29,8 +29,8 @@ class PUser{
     role:data['role'] as String,
     branch:data['Branch']as String?,
     photoUrl:data['photoUrl']as String?,
-    permission:data['Permission'] as List<String>,
-    access:data['Access'] as List<String>,
+    permission:data['permission'] as List<String>,
+    access:data['access'] as List<String>,
   );
   Map<String,dynamic> toMap()=>{
    'uid':uid,

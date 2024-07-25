@@ -132,5 +132,16 @@ return snapShot.data() as Expense;
 
   return totalExpense;
 }
-
+ 
+ Future<Invoice?> addIncome({required branchId, required amount,required catagory,required incomeHead,required price})async{
+  
+  final incomeRef= _firebaseFirestore.collection('income');
+  final createdAt= DateTime.now();
+  final randomizer=  createdAt.toString();
+  final invoiceId = ('INV' + '$randomizer');
+  final income = Invoice(branchId: branchId, invoiceId: invoiceId, amount: amount, catagory: catagory, createdAt: createdAt, customerName: '', incomeHead: incomeHead, invoiceNumber: invoiceId, items: [], price: price);
+  await incomeRef.doc(invoiceId).set(income.toMap());
+  return income;
+ }
+ 
 }

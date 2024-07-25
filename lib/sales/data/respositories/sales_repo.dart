@@ -6,6 +6,7 @@ import 'package:clean_a/finance/domain/entities/cart.dart';
 import 'package:clean_a/finance/domain/entities/invoice.dart';
 import 'package:clean_a/medicine/data/repository/medicine_repo.dart';
 import 'package:clean_a/sales/data/helper/expenseInvoiceCreator.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../helper/incomeInvoiceCreator.dart';
@@ -120,4 +121,5 @@ class SalesRepo{
    }
    return null;
   }
+
 }

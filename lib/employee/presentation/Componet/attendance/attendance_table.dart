@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class AttendanceTable extends StatelessWidget {
   const AttendanceTable({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
+    
     return Expanded(
       child: Center(
         child: SingleChildScrollView(
@@ -85,7 +86,7 @@ class AttendanceTable extends StatelessWidget {
                 DataCell(Text('09:00 AM')),
                 DataCell(Text('06:00 PM')),
                 DataCell(Text('9 hours')),
-                DataCell(Icon(Icons.edit)), // New Data for icons
+              //New Data for icons
               ]),
             ],
           ),

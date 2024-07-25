@@ -47,15 +47,26 @@ class EmployeeRepo{
 
  
 
-  Future<List<Employee>?> listEmployees()async{
-    final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
+ Future<List<Employee>?> listEmployees() async {
+  try {
+    final CollectionReference employeeCollection = _firebaseFirestore.collection('employees');
     final snapshot = await employeeCollection.get();
- return snapshot.docs.map((doc) {
-    return Employee.fromMap(doc.data() as Map<String, dynamic>);
-  }).toList();
+
+    if (snapshot.docs.isNotEmpty) {
+      return snapshot.docs.map((doc) {
+        return Employee.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+    } else {
+      return []; // Return an empty list if no documents found
+    }
+  } catch (e) {
+    print('Error fetching employees: $e');
+    return null; // Return null on error
   }
+}
+
   Future<Employee> getEmployee(String uid) async {
-    final docRef = _firebaseFirestore.collection('Employees').doc(uid);
+    final docRef = _firebaseFirestore.collection('employees').doc(uid);
     final snapshot = await docRef.get();
     if (!snapshot.exists) {
       throw Exception('Employee with ID $uid not found');
@@ -64,7 +75,8 @@ class EmployeeRepo{
     return Employee.fromMap(data); // Convert from Map to Employee object
   }
 
-  Future<Employee?> saveEmployee({  
+  Future<Employee?>  saveEmployee({  
+    required location,
   required Status,
   required DoB,
   required Gender,
@@ -96,6 +108,7 @@ class EmployeeRepo{
               Address: Address,
               Phone: Phone,
                 Salary: Salary, 
+                location:location,
                 CvURL: Cvurl,
                 ); 
      await _firebaseFirestore.collection('employees').doc(uid).set(employee.toMap());
@@ -107,7 +120,7 @@ class EmployeeRepo{
   // Convert Employee object to Map
   }
   Future<void> RemoveEmployee(String uid) async{
-      final CollectionReference employeeCollection= _firebaseFirestore.collection('Employees');
+      final CollectionReference employeeCollection= _firebaseFirestore.collection('employees');
     await employeeCollection.doc(uid).delete();
    
  
@@ -146,37 +159,64 @@ Future<void> editEmployee(String uid, {required Map<String, dynamic> updatedData
     transaction.set(document, existingData);
   });
 }
-Future<void> addAttendance(String uid, {required DateTime checkIn, required DateTime checkOut, required String status}) async {
+Future<void> addAttendance(String uid, {
+  required DateTime date,
+  required String name,
+  required String signInTime,
+  required String signOutTime,
+}) async {
   final collectionReference = _firebaseFirestore.collection('Attendance');
-  final attendance = Attendance(checkIn: checkIn, checkOut: checkOut, status: status);
+  final attendance = Attendance(
+    id: uid, // Assuming UID is used as the document ID
+    date: date,
+    name: name,
+    signInTime: signInTime,
+    signOutTime: signOutTime,
+  );
 
   // Transaction to ensure data consistency
   await _firebaseFirestore.runTransaction((transaction) async {
-    final documentSnapshot = await transaction.get(collectionReference.doc(uid));
+    final documentReference = collectionReference.doc(uid);
+    final documentSnapshot = await transaction.get(documentReference);
 
     List<Map<String, dynamic>> existingAttendance = [];
     if (documentSnapshot.exists) {
-      existingAttendance = documentSnapshot.data()!['attendance'] as List<Map<String, dynamic>>;
+      final data = documentSnapshot.data() as Map<String, dynamic>;
+      if (data.containsKey('attendance')) {
+        existingAttendance = List<Map<String, dynamic>>.from(data['attendance']);
+      }
     }
 
-    existingAttendance.add(attendance.toMap());  // Add new attendance to the list
+    // Add new attendance to the list
+    existingAttendance.add(attendance.toMap());
 
-    transaction.set(collectionReference.doc(uid), {
+    // Update the document with the new list of attendances
+    transaction.set(documentReference, {
       'attendance': existingAttendance,
     });
   });
 }
+
 Future<List<Attendance>> getAttendance(String uid) async {
   final collectionReference = _firebaseFirestore.collection('Attendance');
   final documentSnapshot = await collectionReference.doc(uid).get();
 
   if (!documentSnapshot.exists) {
-    return []; // No document found, returns empty list
+    return []; // No document found, returns an empty list
   }
 
-  final List<Map<String, dynamic>> attendanceData = documentSnapshot.data()!['attendance'] as List<Map<String, dynamic>>;
+  final data = documentSnapshot.data();
+  if (data == null || !data.containsKey('attendance')) {
+    return []; // No attendance field found, returns an empty list
+  }
 
-  final List<Attendance> attendances = attendanceData.map((data) => Attendance.fromMap(data)).toList();
+  final List<dynamic> attendanceList = data['attendance'] as List<dynamic>;
+
+  final List<Attendance> attendances = attendanceList.map((item) {
+    final attendanceData = item as Map<String, dynamic>;
+    return Attendance.fromMap(attendanceData);
+  }).toList();
+
   return attendances;
 }
 

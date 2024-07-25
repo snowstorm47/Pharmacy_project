@@ -13,6 +13,8 @@ class MedicineProvider extends ChangeNotifier{
  List<Batch>? _expired=[];
  List<Batch>? _outofStock=[];
  double? _price=0;
+ List<MedColor>? _medColor =[];
+//  Color? _color;
  List<Batch>? _batches=[];
  
 
@@ -22,6 +24,8 @@ class MedicineProvider extends ChangeNotifier{
   List<Batch>? get batches =>_batches;
    List<Batch>? get expired=> _expired;
     List<Batch>? get outofStock => _outofStock;
+    List<MedColor>? get medColor => _medColor;
+    // Color? get color => _color;
   
   double? get price => _price;
   
@@ -60,6 +64,11 @@ class MedicineProvider extends ChangeNotifier{
     notifyListeners();
   }
  }
+ Future<void> getMedicines()async{
+  _medicines= await medService.getMedicines();
+  _batches= await medService.getBatch();
+    notifyListeners();
+ }
  
  Future<void> deleteMedicine({
     required medicineName,
@@ -96,9 +105,15 @@ class MedicineProvider extends ChangeNotifier{
 
   }
   }
-  Future<Color?> getColor(String medicineName) async{
-   Color? coloring =await medService.colorCoding(medicineName);
-   return coloring;
+  Future<void> getColor() async{
+    final medList=await medService.getMedicines();
+    if(medList !=null){
+    for(final med in medList){
+   final coloring =await medService.colorCoding(med.medicineName);
+   if(coloring!=null){
+    final item = MedColor(medicineName:med.medicineName,color:coloring);
+     _medColor?.add(item);
+   }}}
   }
   Future<void> sellMed(String medicineName,int quantityToSell)async{
    _price =await medService.sellItem(medicineName, quantityToSell);
@@ -140,3 +155,24 @@ class MedicineProvider extends ChangeNotifier{
   }
   
   }
+
+  class MedColor{
+  String medicineName;
+  Color color;
+MedColor({
+   required this.medicineName,
+   required this.color, 
+});
+ factory MedColor.fromMap(Map<String,dynamic> data)=> 
+  MedColor(
+   
+    medicineName:data['medicineName'] as String,
+    color: data['color'] as Color
+    );
+  
+   Map<String,dynamic> toMap()=>{
+   
+    'medicineName':medicineName,
+    'color':color
+  };
+}

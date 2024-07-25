@@ -1,7 +1,12 @@
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
+import 'package:clean_a/employee/provider/employee_provider.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+
+// Import your file paths for EmployeeProvider, etc.
 
 class ViewRolesPage extends StatefulWidget {
   const ViewRolesPage({super.key});
@@ -12,20 +17,35 @@ class ViewRolesPage extends StatefulWidget {
 
 class _ViewRolesPageState extends State<ViewRolesPage> {
   bool showSideMenu = false;
+  bool isLoading = true;
   List<bool> checkboxValues = List<bool>.generate(7, (index) => false);
 
   @override
+  void initState() {
+    super.initState();
+    _fetchEmployees();
+  }
+
+  Future<void> _fetchEmployees() async {
+    final employeeProvider = Provider.of<EmployeeProvider>(context, listen: false);
+    await employeeProvider.getEmployees();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmployeeProvider>(context);
+    final employees = provider.employee;
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
         child: Stack(
           children: [
-            // Main content area
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Sidebar (only for desktop)
                 if (ResponsiveD.isDesktop(context))
                   Expanded(
                     child: SideMenu(
@@ -36,13 +56,11 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                       },
                     ),
                   ),
-                // Main content
                 Expanded(
-                  flex: 4, // Adjust flex ratio as needed
+                  flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header
                       HeaderPage(
                         onMenuPressed: () {
                           setState(() {
@@ -51,7 +69,6 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                         },
                         isSideMenuOpen: showSideMenu,
                       ),
-                      // Content
                       Expanded(
                         child: ListView(
                           padding: const EdgeInsets.all(16.0),
@@ -74,7 +91,6 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                             const SizedBox(height: 20),
                             Row(
                               children: [
-                                // Search placeholder
                                 Expanded(
                                   flex: 2,
                                   child: Padding(
@@ -84,21 +100,16 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                         hintText: 'Search...',
                                         prefixIcon: const Icon(Icons.search),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                          borderRadius: BorderRadius.circular(8.0),
                                           borderSide: BorderSide.none,
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 0.0,
-                                                horizontal: 16.0),
+                                        contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
                                       ),
                                     ),
                                   ),
                                 ),
-                                // Filter by button
                                 Expanded(
                                   child: ElevatedButton.icon(
                                     onPressed: () {
@@ -107,14 +118,11 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.blue,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            10.0), // Adjust the radius as needed
+                                        borderRadius: BorderRadius.circular(10.0),
                                       ),
                                     ),
-                                    icon: const Icon(Icons.filter_list,
-                                        color: Colors.white),
-                                    label: const Text('Filter By',
-                                        style: TextStyle(color: Colors.white)),
+                                    icon: const Icon(Icons.filter_list, color: Colors.white),
+                                    label: const Text('Filter By', style: TextStyle(color: Colors.white)),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -124,56 +132,36 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                    minWidth:
-                                        MediaQuery.of(context).size.width),
+                                constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
                                 child: DataTable(
                                   columnSpacing: 20.0,
-                                  headingRowColor:
-                                      MaterialStateColor.resolveWith(
-                                          (states) => Colors.blue),
-                                  dividerThickness: 0, // Remove the dividers
+                                  headingRowColor: MaterialStateColor.resolveWith((states) => Colors.blue),
+                                  dividerThickness: 0,
                                   columns: const <DataColumn>[
                                     DataColumn(
-                                      label: Text('No',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('No', style: TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
-                                      label: Text('Employee Name',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('Employee Name', style: TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
-                                      label: Text('Role',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('Role', style: TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
-                                      label: Text('Permitted Action',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('Permitted Action', style: TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
-                                      label: Text('System Access',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('System Access', style: TextStyle(color: Colors.white)),
                                     ),
                                     DataColumn(
-                                      label: Text('Actions',
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                      label: Text('Actions', style: TextStyle(color: Colors.white)),
                                     ),
                                   ],
                                   rows: List<DataRow>.generate(
-                                    7, // Number of rows
+                                    employees!.length,
                                     (index) => DataRow(
-                                      color: MaterialStateColor.resolveWith(
-                                          (states) {
-                                        // Alternating colors
-                                        return index % 2 == 0
-                                            ? Colors.grey[200]!
-                                            : Colors.white;
+                                      color: MaterialStateColor.resolveWith((states) {
+                                        return index % 2 == 0 ? Colors.grey[200]! : Colors.white;
                                       }),
                                       cells: <DataCell>[
                                         DataCell(
@@ -186,11 +174,26 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                             },
                                           ),
                                         ),
-                                        DataCell(Text('Employee Name $index')),
-                                        DataCell(Text('Role $index')),
+                                        DataCell(Text(employees[index].FirstName)),
+                                        DataCell(Text(employees[index].LastName)),
                                         DataCell(
-                                            Text('Permitted Action $index')),
-                                        DataCell(Text('System Access $index')),
+                                          SingleChildScrollView(
+                                           scrollDirection:Axis.vertical,     
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: employees[index].permission.map((action) => Text(action)).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          SingleChildScrollView(
+                                            scrollDirection:Axis.vertical, 
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: employees[index].access.map((access) => Text(access)).toList(),
+                                            ),
+                                          ),
+                                        ),
                                         DataCell(
                                           Row(
                                             children: [
@@ -198,6 +201,7 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                                 icon: const Icon(Icons.edit),
                                                 onPressed: () {
                                                   // Handle edit action
+                                                  
                                                 },
                                               ),
                                               IconButton(
@@ -215,9 +219,7 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            const SizedBox(height: 30),
                             Row(
                               children: [
                                 ElevatedButton(
@@ -225,8 +227,7 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                     // Navigate to previous page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(0xFFF1EFEF),
                                   ),
                                   child: const Text(
                                     'prev',
@@ -238,11 +239,10 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    // Navigate to previous page
+                                    // Navigate to page 1
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(0xFFF1EFEF),
                                   ),
                                   child: const Text(
                                     '1',
@@ -255,11 +255,10 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                 const SizedBox(width: 8),
                                 ElevatedButton(
                                   onPressed: () {
-                                    // Navigate to previous page
+                                    // Navigate to page 2
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(0xFFF1EFEF),
                                   ),
                                   child: const Text(
                                     '2',
@@ -272,11 +271,10 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                 const SizedBox(width: 8),
                                 ElevatedButton(
                                   onPressed: () {
-                                    // Navigate to previous page
+                                    // Navigate to page 3
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(0xFFF1EFEF),
                                   ),
                                   child: const Text(
                                     '3',
@@ -292,8 +290,7 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                     // Navigate to next page
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xFFF1EFEF), // Set background color here
+                                    backgroundColor: const Color(0xFFF1EFEF),
                                   ),
                                   child: const Text(
                                     'Next',
@@ -305,9 +302,7 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 16,
-                            ),
+                            const SizedBox(height: 16),
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Container(
@@ -328,7 +323,6 @@ class _ViewRolesPageState extends State<ViewRolesPage> {
                 ),
               ],
             ),
-            // Sidebar (for mobile and tablet)
             if (!ResponsiveD.isDesktop(context) && showSideMenu)
               Positioned(
                 left: 0,

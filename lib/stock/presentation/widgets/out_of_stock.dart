@@ -1,7 +1,13 @@
+import 'package:clean_a/branch_M/Provider/branchProvides.dart';
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
+import 'package:clean_a/stock/presentation/widgets/popup/delete_medicine_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
 
 class OutOfStockItemsPage extends StatefulWidget {
   const OutOfStockItemsPage({super.key});
@@ -13,9 +19,116 @@ class OutOfStockItemsPage extends StatefulWidget {
 class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(10, (index) => false);
+   bool isLoading = true;
+   List<Batch> med =[];
+   @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async {
+      final brprovider = Provider.of<BranchProvider>(context, listen: false);
+      final provider = Provider.of<MedicineProvider>(context, listen: false);
+      await provider.getOutofStock();
+      await provider.getColor();
+      await brprovider.getBranches();
+      setState(() {
+        isLoading = false;
+          setState(() {
+        isLoading = false;
+         med = provider.outofStock ?? []; // Initialize `med`
+      // Initialize `batch`
+      });
+      });
+    });
+  }
+  
 
+ void _showDeletePopup() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return DeleteMedicinePopup(
+        onDeleteConfirmed: () async {
+          final provider = Provider.of<MedicineProvider>(context, listen: false);
+          
+          // Collect selected items
+          List<String> selectedMedicineNames = [];
+          List<String> selectedBranchNames = []; // Use String if branchName is a String
+
+          for (int i = 0; i < checkboxValues.length; i++) {
+            if (checkboxValues[i]) {
+              selectedMedicineNames.add(med[i].medName);
+              selectedBranchNames.add(med[i].branchName);
+            }
+          }
+
+          // Ensure both lists have the same length
+          if (selectedMedicineNames.length != selectedBranchNames.length) {
+            // Handle mismatched lists
+            Navigator.of(context).pop();
+            return;
+          }
+
+          try {
+            // Delete medicines based on the collected names and branches
+            for (int i = 0; i < selectedMedicineNames.length; i++) {
+              await provider.deleteMedicine(medicineName: selectedMedicineNames[i], branchName: selectedBranchNames[i]
+                
+              );
+            }
+
+            // Show success message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Medicines successfully deleted.'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          } catch (e) {
+            // Show error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to delete medicines: ${e.toString()}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+
+          // Refresh the table or data
+          setState(() {
+            // Your refresh logic here
+          });
+
+        },
+      );
+    },
+  );
+}
   @override
   Widget build(BuildContext context) {
+    final provider= Provider.of<MedicineProvider>(context,listen: false);
+    final med = provider.outofStock ?? [];
+    final data = provider.medicines ?? [];
+    String? getCatagory(List<Medicine>? data, Batch? batch) {
+      if (data != null && batch != null) {
+        for (final item in data) {
+          if (batch.medName == item.medicineName) {
+            return item.catagory;
+          }
+        }
+      }
+      return null;
+    }
+        String? getWeight(List<Medicine>? data, Batch? batch) {
+      if (data != null && batch != null) {
+        for (final item in data) {
+          if (batch.medName == item.medicineName) {
+            return item.weight;
+          }
+        }
+      }
+      return null;
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -53,7 +166,10 @@ class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
                       ),
                       // Content
                       Expanded(
-                        child: ListView(
+                        child: isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : 
+                        ListView(
                           padding: const EdgeInsets.all(16.0),
                           children: [
                             const Text(
@@ -132,11 +248,11 @@ class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
                                 columns: const <DataColumn>[
                                   DataColumn(label: SizedBox(width: 20)),
                                   DataColumn(
-                                    label: Text('Medicine Name',
+                                    label: Text('Index',
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                   DataColumn(
-                                    label: Text('Medicine ID',
+                                    label: Text('Medicine Name',
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                   DataColumn(
@@ -173,7 +289,7 @@ class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
                                   ),
                                 ],
                                 rows: List<DataRow>.generate(
-                                  7, // Change this to the number of rows you have
+                                  med.length, // Change this to the number of rows you have
                                   (index) => DataRow(
                                     color: MaterialStateColor.resolveWith(
                                         (states) {
@@ -193,15 +309,15 @@ class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
                                           },
                                         ),
                                       ),
-                                      DataCell(Text('Medicine Name $index')),
-                                      DataCell(Text('Medicine ID $index')),
-                                      DataCell(Text('Category $index')),
-                                      DataCell(Text('Weight $index')),
-                                      DataCell(Text('Expiry Date $index')),
-                                      DataCell(Text('Purchased Price $index')),
-                                      DataCell(Text('Selling Price $index')),
-                                      DataCell(Text('Quantity $index')),
-                                      DataCell(Text('Branch $index')),
+                                      DataCell(Text('$index')),
+                                      DataCell(Text(med[index].medName)),
+                                      DataCell(Text(getCatagory(data,med[index]).toString())),
+                                      DataCell(Text(getWeight(data, med[index]).toString())),
+                                      DataCell(Text(med[index].location)),
+                                      DataCell(Text(med[index].suppliersPrice.toString())),
+                                      DataCell(Text(med[index].sellingPrice.toString())),
+                                      DataCell(Text(med[index].stock.toString())),
+                                      DataCell(Text(med[index].branchName)),
                                       DataCell(
                                         Row(
                                           children: [
@@ -253,6 +369,7 @@ class OutOfStockItemsPageState extends State<OutOfStockItemsPage> {
                                     ElevatedButton(
                                       onPressed: () {
                                         // Handle delete from stock
+                                         _showDeletePopup;
                                       },
                                       style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(

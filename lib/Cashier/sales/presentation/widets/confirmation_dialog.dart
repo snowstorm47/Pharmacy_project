@@ -1,4 +1,5 @@
-import 'package:clean_a/sales/presentation/widgets/screen/success_screen.dart';
+
+import 'package:clean_a/Pharmacist/sales/presentation/widgets/sucess.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationDialogCashier extends StatelessWidget {

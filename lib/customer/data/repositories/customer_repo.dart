@@ -61,7 +61,7 @@ class CustomerRepo{
      policyNumber: policyNumber
             );
             await customerRef.doc(companyName).set(customer.toMap());
-final employeeRef = _firebaseFirestore.collection('employees');
+final employeeRef =customerRef.doc(companyName).collection('employees');
    try{
    if(csvData != null){
      var info = <Map<String,dynamic>> [];
@@ -74,11 +74,13 @@ final employeeRef = _firebaseFirestore.collection('employees');
       final lastName = row[3] as String;
       final email = row[4] as String;
       final address= row[5] as String;
+      final phone = row[6] as String;
       final city = row[6] as String;
       final subCity = row[7] as String;
       final role = row[8] as String;
       final details = row[9] as String;
        var employee =  Corpemployee(
+        phone:phone,
        employeeId: employeeId,
        firstName:firstName,
         lastName:lastName,
@@ -114,6 +116,7 @@ final employeeRef = _firebaseFirestore.collection('employees');
 
  //adds credit customer to a specific company
   Future<void> addCorpCustomer({
+    required phone,
         required employeeId,
         required firstName,
         required lastName,
@@ -128,6 +131,7 @@ final employeeRef = _firebaseFirestore.collection('employees');
  
  final  customerRef = _firebaseFirestore.collection('Customer').doc(company);
 final employee = Corpemployee(
+            phone:phone,
               credit:0,
               company: company, 
                email: email,
@@ -142,7 +146,7 @@ final employee = Corpemployee(
  final transaction = await _firebaseFirestore.runTransaction((transaction)async{
  final docSnapshot = await transaction.get(customerRef);
   if(docSnapshot.exists){
-  final employeeRef = _firebaseFirestore.collection('employees').doc(employeeId);
+  final employeeRef = customerRef.collection('employees').doc(employeeId);
   await employeeRef.set(employee.toMap());
 }
  
@@ -163,7 +167,7 @@ Future<List<Corpemployee>?> findCustomer(String company, String searchString) as
   try {
     final docSnapshot = await customerRef.get();
     if (docSnapshot.exists) {
-      final employeeRef = _firebaseFirestore.collection('employees');
+      final employeeRef = customerRef.collection('employees');
       final searchItem= searchString.toLowerCase();
   final query = employeeRef.where('firstName', isGreaterThanOrEqualTo: searchItem);
 
@@ -212,7 +216,7 @@ Future<void> addCredit(String company, String id, double price) async{
     final limit =customerSnapshot.get('creditLimit');
     print(limit);
     if(limit >= price){
-      final employeeRef =  _firebaseFirestore.collection('employees').doc(id);
+      final employeeRef =  customerRef.collection('employees').doc(id);
         DocumentSnapshot employeeSnapshot = await employeeRef.get();
            try {
     // Prepare update data
@@ -247,5 +251,36 @@ if(snapShot!=null){
 return null;
 
 }
-
+Future<void> deleteCorpEmployee({required String employeeId, required String company}) async {
+  try {
+    final docRef = _firebaseFirestore.collection('Customer')
+                                      .doc(company)
+                                      .collection('employees')
+                                      .doc(employeeId);
+    await docRef.delete();
+    print('Document deleted successfully');
+  } catch (e) {
+    print('Error deleting document: $e');
+  }
 }
+Future<void> editCorpEmployee({required String employeeId,required String company,required Map<String,dynamic> updatedData})async{
+
+  final collectionReference = _firebaseFirestore.collection('Customer').doc(company).collection('employees');
+  final document = collectionReference.doc(employeeId);
+
+  // Transaction for data consistency
+  await _firebaseFirestore.runTransaction((transaction) async {
+    final documentSnapshot = await transaction.get(document);
+
+    if (!documentSnapshot.exists) {
+      throw Exception('Request Not Found not found'); // Handle non-existent employee
+    }
+
+    // Update only specified fields (prevents overwriting entire document)
+    final existingData = documentSnapshot.data()!;
+    existingData.updateAll((key, value) => updatedData.containsKey(key) ? updatedData[key] : value);
+
+    transaction.set(document, existingData);
+  });}
+}
+

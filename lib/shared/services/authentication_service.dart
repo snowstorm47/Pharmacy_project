@@ -92,5 +92,26 @@ Future<void> sendPasswordResetEmail({required email}) async {
     }
   }
 }
-
+ Future<PUser?> getCurrent()async{
+  User? currentUser= _firebaseAuth.currentUser;
+  if(currentUser!=null){
+    final userDoc= await _firebaseFirestore.collection('users').doc(currentUser.uid).get();
+    if(userDoc.exists){
+           final docData = userDoc.data() as Map<String, dynamic>;
+  final userData = PUser(
+            access: (docData['access'] != null) ? List<String>.from(docData['access']) : [],
+        permission: (docData['permission'] != null) ? List<String>.from(docData['permission']) : [],
+        photoUrl: docData['photoUrl'] ?? '',
+        role: docData['role'] ?? '',
+        FirstName: docData['FirstName'] ?? '',
+        LastName: docData['LastName'] ?? '',
+        branch: docData['branch'] ?? '',
+        email: docData['email'] ?? '',
+        uid: docData['uid'] ?? '',
+      );
+      return userData;
+  }
+  }
+  return null;
+ }
 }

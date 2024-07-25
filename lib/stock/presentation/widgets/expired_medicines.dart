@@ -1,7 +1,12 @@
+import 'package:clean_a/branch_M/Provider/branchProvides.dart';
+import 'package:clean_a/medicine/domain/entities/batch.dart';
+import 'package:clean_a/medicine/domain/entities/medicine.dart';
+import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
+import 'package:provider/provider.dart';
 
 class ExpiredMedicinesPage extends StatefulWidget {
   const ExpiredMedicinesPage({super.key});
@@ -13,9 +18,60 @@ class ExpiredMedicinesPage extends StatefulWidget {
 class ExpiredMedicinesPageState extends State<ExpiredMedicinesPage> {
   bool showSideMenu = false;
   List<bool> checkboxValues = List<bool>.generate(10, (index) => false);
+   bool isLoading = true;
+  
+   @override
+  void initState() {
+    super.initState();
+    // Fetch data from provider
+    Future.microtask(() async {
+      final brprovider = Provider.of<BranchProvider>(context, listen: false);
+      final provider = Provider.of<MedicineProvider>(context, listen: false);
+      await provider.getMedicines();
+      await provider.getColor();
+      await brprovider.getBranches();
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+  
 
   @override
   Widget build(BuildContext context) {
+    final provider= Provider.of<MedicineProvider>(context,listen: false);
+    final med = provider.expired ?? [];
+    final data = provider.medicines ?? [];
+      String? getCatagory(List<Medicine>? data, Batch? batch) {
+      if (data != null && batch != null) {
+        for (final item in data) {
+          if (batch.medName == item.medicineName) {
+            return item.catagory;
+          }
+        }
+      }
+      return null;
+    }
+        String? getWeight(List<Medicine>? data, Batch? batch) {
+      if (data != null && batch != null) {
+        for (final item in data) {
+          if (batch.medName == item.medicineName) {
+            return item.weight;
+          }
+        }
+      }
+      return null;
+    }
+     String? getDetails(List<Medicine>? data, Batch? batch) {
+      if (data != null && batch != null) {
+        for (final item in data) {
+          if (batch.medName == item.medicineName) {
+            return item.details;
+          }
+        }
+      }
+      return null;
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6F0),
       body: SafeArea(
@@ -132,11 +188,11 @@ class ExpiredMedicinesPageState extends State<ExpiredMedicinesPage> {
                                 columns: const <DataColumn>[
                                   DataColumn(label: SizedBox(width: 20)),
                                   DataColumn(
-                                    label: Text('Medicine Name',
+                                    label: Text('Index',
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                   DataColumn(
-                                    label: Text('Medicine ID',
+                                    label: Text('Medicine Name',
                                         style: TextStyle(color: Colors.white)),
                                   ),
                                   DataColumn(
@@ -155,10 +211,10 @@ class ExpiredMedicinesPageState extends State<ExpiredMedicinesPage> {
                                     label: Text('Quantity',
                                         style: TextStyle(color: Colors.white)),
                                   ),
-                                  DataColumn(
-                                    label: Text('Duration',
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
+                                  // DataColumn(
+                                  //   label: Text('Duration',
+                                  //       style: TextStyle(color: Colors.white)),
+                                  // ),
                                   DataColumn(
                                     label: Text('Additional Info',
                                         style: TextStyle(color: Colors.white)),
@@ -172,7 +228,7 @@ class ExpiredMedicinesPageState extends State<ExpiredMedicinesPage> {
                                   ),
                                 ],
                                 rows: List<DataRow>.generate(
-                                  7, // Change this to the number of rows you have
+                                   med.length, // Change this to the number of rows you have
                                   (index) => DataRow(
                                     color: MaterialStateColor.resolveWith(
                                         (states) {
@@ -192,15 +248,15 @@ class ExpiredMedicinesPageState extends State<ExpiredMedicinesPage> {
                                           },
                                         ),
                                       ),
-                                      DataCell(Text('Medicine Name $index')),
-                                      DataCell(Text('Medicine ID $index')),
-                                      DataCell(Text('Category $index')),
-                                      DataCell(Text('Weight $index')),
-                                      DataCell(Text('Expiry Date $index')),
-                                      DataCell(Text('Quantity $index')),
-                                      DataCell(Text(
-                                          'Duration $index')), // Add duration cell
-                                      DataCell(Text('Additional Info $index')),
+                                      DataCell(Text('$index')),
+                                      DataCell(Text(med[index].medName)),
+                                      DataCell(Text(getCatagory(data,med[index]).toString())),
+                                      DataCell(Text(getWeight(data, med[index]).toString())),
+                                      DataCell(Text(med[index].expiryDate.toString())),
+                                      DataCell(Text(med[index].stock.toString())),
+                                      // DataCell(Text(
+                                      //     'Duration $index')), // Add duration cell
+                                      DataCell(Text(getDetails(data,med[index]).toString())),
                                       DataCell(
                                         Padding(
                                           padding: const EdgeInsets.only(

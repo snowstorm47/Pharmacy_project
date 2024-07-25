@@ -1,5 +1,6 @@
 import 'package:clean_a/customer/data/user_data.dart';
-import 'package:clean_a/customer/model/providerC.dart';
+
+import 'package:clean_a/customer/providers/customerProviders.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
@@ -16,16 +17,17 @@ class AddAuthorizedUser extends StatefulWidget {
 }
 
 class _AddAuthorizedUserState extends State<AddAuthorizedUser> {
-  TextEditingController _employeeNameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _companyNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-TextEditingController _adressController = TextEditingController();
-  TextEditingController _cityController = TextEditingController();
-  TextEditingController _subcityController = TextEditingController();
-  TextEditingController _roleController = TextEditingController();
-  TextEditingController _employeeidController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+    final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _companyNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+final TextEditingController _adressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _subcityController = TextEditingController();
+  final TextEditingController _roleController = TextEditingController();
+  final TextEditingController _employeeidController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -43,7 +45,9 @@ TextEditingController _adressController = TextEditingController();
                 Expanded(
                   child: SideMenu(
                     onClose: () {
-                      
+                       setState(() {
+                          
+                        });
                       // Handle closing of side menu
                     },
                   ),
@@ -80,16 +84,24 @@ TextEditingController _adressController = TextEditingController();
                               ),
                               const SizedBox(height: 20.0),
                               TextField(
-                                controller: _employeeNameController,
-                                decoration: InputDecoration(
+                                controller: _firstNameController,
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  labelText: 'Employee Name',
+                                  labelText: 'First Name',
+                                ),
+                              ),
+                              const SizedBox(height: 20.0),
+                              TextField(
+                                controller: _lastNameController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Last Name',
                                 ),
                               ),
                               const SizedBox(height: 20.0),
                               TextField(
                                 controller: _phoneController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Phone Number',
                                 ),
@@ -97,7 +109,7 @@ TextEditingController _adressController = TextEditingController();
                               const SizedBox(height: 20.0),
                               TextField(
                                 controller: _companyNameController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Company Name',
                                 ),
@@ -105,7 +117,7 @@ TextEditingController _adressController = TextEditingController();
                               const SizedBox(height: 20.0),
                               TextField(
                                 controller: _emailController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Email',
                                 ),
@@ -113,58 +125,75 @@ TextEditingController _adressController = TextEditingController();
                               const SizedBox(height: 20.0),
                                 TextField(
                                 controller: _adressController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  labelText: 'Adress',
+                                  labelText: 'Address',
                                 ),
                               ),
                               const SizedBox(height: 20.0),
                                 TextField(
                                 controller: _subcityController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'subcity',
+                                ),
+                              ),
+                           const SizedBox(height: 20.0),
+                                  TextField(   
+                                controller: _cityController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'City',
                                 ),
                               ),
                               const SizedBox(height: 20.0),
                                 TextField(
                                 controller: _roleController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  labelText: 'role/position',
+                                  labelText: 'Role/Position',
                                 ),
                               ),
                               const SizedBox(height: 20.0),
                                 TextField(
                                 controller: _employeeidController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
-                                  labelText: 'Employee_Id',
+                                  labelText: 'Employee Id',
+                                ),
+                              ),
+                              const SizedBox(height: 20.0),
+                                TextField(
+                                maxLines: 4,
+                                controller: _descriptionController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Description',
                                 ),
                               ),
                               
                               const SizedBox(height: 20.0),
                               ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(236, 27, 228, 4)),
+                                style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(236, 27, 228, 4)),
                                 onPressed: () {
-                                  // Create a new DataModel instance
-                                  DataModel newUser = DataModel(
-                                    employeeId: '', // Assign as needed
-                                    employeeName: _employeeNameController.text,
-                                    phone: _phoneController.text,
-                                    companyName: _companyNameController.text,
-                                    email: _emailController.text,
-                                   
-                                  );
-
-                                  // Access the UserProvider and add the user
-                                  Provider.of<UserProvider>(context, listen: false).addUser(newUser);
-
-                                  // Clear text fields after adding
-                                  _employeeNameController.clear();
+                                   try {
+     Provider.of<CustomerProvider>(context, listen: false).addCreditUser(employeeId:_employeeidController.text, firstName: _firstNameController.text, lastName: _lastNameController.text, email: _emailController.text, company: _companyNameController.text, address: _adressController.text, city: _cityController.text, subCity: _subcityController.text, role: _roleController.text, details:_descriptionController.text, phone: _phoneController.text);
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User ${_firstNameController.text} ${_lastNameController.text} added successfully')));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error deleting user: $e')));
+                }
+                                  _firstNameController.clear();
                                   _phoneController.clear();
                                   _companyNameController.clear();
                                   _emailController.clear();
+                                  _lastNameController.clear();
+                              _phoneController.clear();
+                              _adressController.clear();
+                                _cityController.clear();
+                              _subcityController.clear();
+                              _roleController.clear();
+                                _employeeidController.clear();
+                              _descriptionController.clear();
 
                                   // Navigate back or handle as needed
                                 },

@@ -56,7 +56,7 @@ class  BranchProvider extends ChangeNotifier{
   return branch;
   }
  
-  Future<void> addRefiil({  required branchName, required refillRequest,required requestDate, required requestedBy,}) async{
+  Future<void> addRefill( {  required branchName, required refillRequest,required requestDate, required requestedBy}) async{
      
      final refilReq= await branchService.addRefill(branchName: branchName, refillRequest: refillRequest, requestDate: requestDate, requestedBy: requestedBy);
       if(refilReq!=null){
@@ -64,8 +64,9 @@ class  BranchProvider extends ChangeNotifier{
      notifyListeners();
      }
   }
-  Future<void> getRefill(String id) async{
-  _refills= await branchService.getRefill();
+  Future<void> getRefill() async{
+  final refill= (await branchService.getRefill())!;
+  _refills=refill;
   notifyListeners();
   }
  
@@ -85,6 +86,7 @@ class  BranchProvider extends ChangeNotifier{
   _refills?.removeWhere((refill) => refill.id == id);
   notifyListeners();
   }
-  
+
+   
 
 }

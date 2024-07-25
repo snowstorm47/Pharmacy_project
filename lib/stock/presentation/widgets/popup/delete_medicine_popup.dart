@@ -20,7 +20,8 @@ class DeleteMedicinePopup extends StatelessWidget {
           child: const Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async{
+            
             onDeleteConfirmed();
             Navigator.of(context).pop();
           },
