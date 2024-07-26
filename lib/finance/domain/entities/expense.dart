@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Expense{
  
   String branchId;
@@ -30,7 +32,7 @@ factory Expense.fromMap(Map<String,dynamic> data)=>
    catagory:data['catagory'] as String,
 
   expenseHead:data['expenseHead'] as String,
- createdAt:data['createdAt'] as DateTime,
+ createdAt: (data['createdAt'] as Timestamp).toDate(), 
  branchId: data['branchId'] as String, 
  
 
@@ -42,7 +44,7 @@ factory Expense.fromMap(Map<String,dynamic> data)=>
   'branchId':branchId,
   'catagory':catagory,
   'expenseHead':expenseHead,
-  'createdAt':createdAt,
+  'createdAt': Timestamp.fromDate(createdAt), //
   
   
 

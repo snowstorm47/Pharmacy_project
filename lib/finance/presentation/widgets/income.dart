@@ -391,6 +391,12 @@ class _IncomePageState extends State<IncomePage> {
                                           (states) => Colors.blue),
                                   dividerThickness: 0, // Remove the dividers
                                   columns: const <DataColumn>[
+                                     
+                                    DataColumn(
+                                      label: Text('Selection',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
                                     DataColumn(
                                       label: Text('Invoice Id',
                                           style:
@@ -406,11 +412,7 @@ class _IncomePageState extends State<IncomePage> {
                                           style:
                                               TextStyle(color: Colors.white)),
                                     ),
-                                    DataColumn(
-                                      label: Text('Permitted Action',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ),
+                                 
                                     DataColumn(
                                       label: Text('Amount',
                                           style:
@@ -443,18 +445,19 @@ class _IncomePageState extends State<IncomePage> {
                                             },
                                           ),
                                         ),
-                                         DataCell(
-                                          SingleChildScrollView(
-                                           scrollDirection:Axis.vertical,     
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: income[index].catagory.map((action) => Text(action)).toList(),
-                                            ),
-                                          ),
-                                        ),
-                                        DataCell(Text(income[index].incomeHead)),
+                                     DataCell(Text(income[index].invoiceId)),
                                         DataCell(
-                                            Text('Permitted Action $index')),
+  SingleChildScrollView(
+    scrollDirection: Axis.vertical, 
+       child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+           children: income[index].catagory.map((action) => Text(action)).toList(),
+                                            ),
+    ),
+  ),
+
+                                        DataCell(Text(income[index].incomeHead)),
+                                      
                                         DataCell(Text(income[index].amount.toString())),
                                         DataCell(Text(income[index].createdAt.toString())),
                                       ],

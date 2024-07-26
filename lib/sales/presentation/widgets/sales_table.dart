@@ -4,7 +4,6 @@ import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:clean_a/sales/provider/sales_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 class SalesTable extends StatefulWidget {
   SalesTable({super.key});
 
@@ -13,14 +12,22 @@ class SalesTable extends StatefulWidget {
 }
 
 class _SalesTableState extends State<SalesTable> {
+  late TextEditingController qtyController;
+
   @override
   void initState() {
     super.initState();
-    // Fetch data from provider
+    qtyController = TextEditingController();
     Future.microtask(() async {
       final provider = Provider.of<MedicineProvider>(context, listen: false);
       await provider.getMedicines();
     });
+  }
+
+  @override
+  void dispose() {
+    qtyController.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,7 +80,6 @@ class _SalesTableState extends State<SalesTable> {
 
   TableRow _buildDataRow(BuildContext context, Batch data, List<Medicine> med, bool isMobile) {
     final cartProvider = context.watch<SalesProvider>();
-    final TextEditingController qtyController = TextEditingController();
 
     return TableRow(
       decoration: BoxDecoration(
@@ -86,7 +92,7 @@ class _SalesTableState extends State<SalesTable> {
         _buildDataCell(getWeight(med, data).toString(), isMobile),
         _buildDataCell(data.stock.toString(), isMobile),
         _buildDataCell(data.sellingPrice.toString(), isMobile),
-        _buildActionCell(context, data, qtyController),
+        _buildActionCell(context, data),
       ],
     );
   }
@@ -117,7 +123,7 @@ class _SalesTableState extends State<SalesTable> {
     );
   }
 
-  Widget _buildActionCell(BuildContext context, Batch data, TextEditingController qtyController) {
+  Widget _buildActionCell(BuildContext context, Batch data) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -146,13 +152,12 @@ class _SalesTableState extends State<SalesTable> {
                 height: 24,
                 child: TextFormField(
                   controller: qtyController,
-                 
                   onChanged: (value) {
-                  
-                  
                     if (int.tryParse(value) != null) {
                       setState(() {
                         data.stock -= int.tryParse(value)!;
+                        final num = int.tryParse(value)!;
+                        qtyController.text = num.toString();
                       });
                     }
                   },

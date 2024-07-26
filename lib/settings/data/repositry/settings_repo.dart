@@ -131,14 +131,28 @@ return snapshot.docs.map((doc) {
   });
   }
 
-Future<List<PasswordRequest>?> getRequest()async{
-     final passRequestRef = _firebaseFirestore.collection('passRequest');
-     final snapshot=await passRequestRef.get();
-     return snapshot.docs.map((doc) {
-    return PasswordRequest.fromMap(doc.data() as Map<String, dynamic>);
-  }).toList();
+Future<List<PasswordRequest>> getRequest() async {
+  try {
+    final passRequestRef = _firebaseFirestore.collection('passRequest');
+    final snapshot = await passRequestRef.get();
+    
+    // Return an empty list if no documents are found
+    if (snapshot.docs.isEmpty) {
+      return [];
+    }
 
+    return snapshot.docs.map((doc) {
+      // Ensure the data is not null and correctly mapped
+      final data = doc.data() as Map<String, dynamic>? ?? {};
+      return PasswordRequest.fromMap(data);
+    }).toList();
+  } catch (e) {
+    // Handle the error appropriately
+    print('Error fetching password requests: $e');
+    return [];
+  }
 }
+
   Future<PasswordRequest?> addRequest ({required email})async{
     bool isUser;
     String role;
