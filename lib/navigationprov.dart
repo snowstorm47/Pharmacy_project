@@ -104,9 +104,13 @@ case   '/branch/refill_request':
   case '/reports/purchase': 
   _currentScreen=const ReportPGenerate();
   break;
-  case '/reports/generated_sales': 
-  _currentScreen= const GeneratedSReports(fromDate: '', toDate: '',);
-  break;
+  case '/reports/generated_sales':
+        // Removed 'const' and updated to pass required parameters
+        _currentScreen = GeneratedSReports(
+          fromDate: DateTime.now(), // Set a default or initial value
+          toDate: DateTime.now(),   // Set a default or initial value
+        );
+        break;
   case '/reports/sales': 
   _currentScreen=const ReportGenerate();
   break;

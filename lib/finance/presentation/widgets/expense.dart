@@ -23,7 +23,7 @@ class _ExpensePageState extends State<ExpensePage> {
     Future.microtask(() async{
       final provider = Provider.of<FinanceProvider>(context, listen: false);
      
-      await provider.getlistIncome();
+      await provider.getlistExpense();
      
     });
   }
@@ -151,7 +151,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     ElevatedButton(
                       onPressed: () async{
                         final provider= Provider.of<FinanceProvider>(context,listen:false);
-                        provider.addExpense(branchId: branchController.text, amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
+                    await    provider.addExpense(branchId: branchController.text, amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
@@ -231,12 +231,12 @@ class _ExpensePageState extends State<ExpensePage> {
                                         });
                                       }
                                     },
-                                    child: const Text('Select Date of Birth'),
+                                    child: const Text('Select Date Added'),
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
                                     dateAdded != null
-                                        ? 'Date Birth: ${dateAdded.toString().split(' ')[0]}'
+                                        ? 'Date Added: ${dateAdded.toString().split(' ')[0]}'
                                         : 'No date selected',
                                   ),
                                 ],
@@ -268,7 +268,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     ElevatedButton(
                       onPressed: () async {
                         final provider= Provider.of<FinanceProvider>(context,listen:false);
-                        provider.addExpense(branchId: user.user!.branch.toString(), amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
+                       await provider.addExpense(branchId: user.user!.branch.toString(), amount: double.parse(amountController.text), catagory: categoryController.text, expenseHead: expenseHeadController.text, createdAt:dateAdded! );
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(

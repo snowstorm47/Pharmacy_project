@@ -1,10 +1,10 @@
-import 'package:clean_a/report/presentation/widgets/generated_sales_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/shared/reusable/date_picker.dart';
-//import 'package:clean_a/sales_report/generated_s_reports.dart'; // Import the GeneratedSReports screen
+import 'package:intl/intl.dart'; // Import for date parsing
+import 'package:clean_a/report/presentation/widgets/generated_sales_reports.dart'; // Import the GeneratedSReports screen
 
 class ReportGenerate extends StatefulWidget {
   const ReportGenerate({super.key});
@@ -28,25 +28,28 @@ class _ReportGenerateState extends State<ReportGenerate> {
   }
 
   void _submit() {
-    if (_fromDateController.text.isNotEmpty && _toDateController.text.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => GeneratedSReports(
-            fromDate: _fromDateController.text,
-            toDate: _toDateController.text,
-          ),
+  if (_fromDateController.text.isNotEmpty && _toDateController.text.isNotEmpty) {
+    final DateTime fromDate = DateFormat('yyyy-MM-dd').parse(_fromDateController.text);
+    final DateTime toDate = DateFormat('yyyy-MM-dd').parse(_toDateController.text);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GeneratedSReports(
+          fromDate: fromDate,
+          toDate: toDate,
         ),
-      );
-    } else {
-      // Show a snackbar or dialog to inform the user to select both dates
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please select both dates'),
-        ),
-      );
-    }
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Please select both dates'),
+      ),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

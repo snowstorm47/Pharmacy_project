@@ -18,8 +18,8 @@ class _PasswordRequestsPageState extends State<PasswordRequestsPage> {
    @override
   void initState(){
     super.initState();
-    Future.microtask(() {
-      Provider.of<SettingProvider>(context, listen: false).getPassReq();
+    Future.microtask(() async{
+      await Provider.of<SettingProvider>(context, listen: false).getPassReq();
     });
   }
   @override

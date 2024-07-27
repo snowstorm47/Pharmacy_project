@@ -23,8 +23,8 @@ class _RefillRequestContentState extends State<RefillRequestContent> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<BranchProvider>(context, listen: false).getRefill();
+    Future.microtask(() async{
+     await Provider.of<BranchProvider>(context, listen: false).getRefill();
     });
   }
 
@@ -93,7 +93,7 @@ class _RefillRequestContentState extends State<RefillRequestContent> {
         padding: EdgeInsets.all(isTablet ? 12.0 : 8.0),
         child: Row(
           children: [
-            _buildHeaderCell('Name', isTablet),
+            _buildHeaderCell('Branch Name', isTablet),
             _buildHeaderCell('Request', isTablet),
             _buildHeaderCell('Date', isTablet),
             _buildHeaderCell('Requested By', isTablet),

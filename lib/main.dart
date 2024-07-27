@@ -7,6 +7,7 @@ import 'package:clean_a/customer/providers/customerProviders.dart';
 import 'package:clean_a/dummy/register.dart';
 import 'package:clean_a/finance/provider/finance_provider.dart';
 import 'package:clean_a/medicine/providers/medicine_provider.dart';
+import 'package:clean_a/report/provider/report_provider.dart';
 import 'package:clean_a/sales/presentation/widgets/screen/CreditCustomerSelectionScreen.dart';
 import 'package:clean_a/sales/provider/sales_provider.dart';
 import 'package:clean_a/settings/provider/setting_provider.dart';
@@ -64,6 +65,9 @@ void main() async {
         ChangeNotifierProvider<SalesProvider>(create:(_)=>SalesProvider()),
       ChangeNotifierProvider<SupplierProvider>(create:(_)=>SupplierProvider()),
       ChangeNotifierProvider<SettingProvider>(create:(_)=>SettingProvider()),
+      ChangeNotifierProvider<FinanceProvider>(create:(_)=>FinanceProvider()),
+      ChangeNotifierProvider<SettingProvider>(create:(_)=>SettingProvider()),
+        ChangeNotifierProvider<ReportProvider>(create:(_)=>ReportProvider())
 // Added MedicineProvider
       ],
       child: MyApp(),
