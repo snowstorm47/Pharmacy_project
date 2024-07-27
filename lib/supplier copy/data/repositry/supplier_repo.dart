@@ -1,5 +1,6 @@
 
-import 'package:clean_a/supplier/domain/entities/supplier.dart';
+import 'package:clean_a/supplier%20copy/domain/entities/supplier.dart';
+//import 'package:clean_a/supplier/domain/entities/supplier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -58,7 +59,7 @@ await _firebaseFirestore.runTransaction((transaction) async {
 Future<void> sendEmail({
   required String Subject,
   required String  body,
-  required id,
+  required id, required String subject,
 }
 )async{
 final supplierRef = _firebaseFirestore.collection('suppliers');

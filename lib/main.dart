@@ -9,12 +9,14 @@ import 'package:clean_a/finance/provider/finance_provider.dart';
 import 'package:clean_a/medicine/providers/medicine_provider.dart';
 import 'package:clean_a/sales/presentation/widgets/screen/CreditCustomerSelectionScreen.dart';
 import 'package:clean_a/sales/provider/sales_provider.dart';
+import 'package:clean_a/settings/provider/setting_provider.dart';
 
 
 import 'package:clean_a/shared/services/providers/authProvider.dart';
 import 'package:clean_a/shared/services/providers/registrationProvider.dart';
 import 'package:clean_a/sign_in/reset_password_otp.dart';
 import 'package:clean_a/sign_in/sign_in_page.dart';
+import 'package:clean_a/supplier%20copy/provider/supplier_provider.dart';
 import 'package:clean_a/wrapper.dart';
 
 import 'package:flutter/material.dart';
@@ -56,9 +58,12 @@ void main() async {
         ChangeNotifierProvider<imageProvider>(create:(_)=> imageProvider()),
         ChangeNotifierProvider<cvProvider>(create:(_)=> cvProvider()),
         ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider()),
+        ChangeNotifierProvider<FinanceProvider>(create:(_)=>FinanceProvider()),
+        ChangeNotifierProvider<registrationProvider>(create:(_)=>registrationProvider()),
         ChangeNotifierProvider<CustomerProvider>(create: (_)=>CustomerProvider()),
         ChangeNotifierProvider<SalesProvider>(create:(_)=>SalesProvider()),
-      ChangeNotifierProvider<FinanceProvider>(create:(_)=>FinanceProvider()),
+      ChangeNotifierProvider<SupplierProvider>(create:(_)=>SupplierProvider()),
+      ChangeNotifierProvider<SettingProvider>(create:(_)=>SettingProvider()),
 // Added MedicineProvider
       ],
       child: MyApp(),

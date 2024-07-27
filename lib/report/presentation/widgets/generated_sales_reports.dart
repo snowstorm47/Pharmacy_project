@@ -5,7 +5,10 @@ import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/shared/constants/dataR.dart';
 
 class GeneratedSReports extends StatefulWidget {
-  const GeneratedSReports({super.key});
+  final String fromDate;
+  final String toDate;
+
+  const GeneratedSReports({super.key, required this.fromDate, required this.toDate});
 
   @override
   GeneratedSReportsState createState() => GeneratedSReportsState();
@@ -102,9 +105,9 @@ class GeneratedSReportsState extends State<GeneratedSReports> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            const Text(
-                              'List of Sales Reports',
-                              style: TextStyle(
+                            Text(
+                              'Sales Reports from ${widget.fromDate} to ${widget.toDate}',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
                               ),

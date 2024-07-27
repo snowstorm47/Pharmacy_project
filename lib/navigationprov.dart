@@ -9,6 +9,7 @@ import 'package:clean_a/employee/presentation/page/salary_list_page.dart';
 import 'package:clean_a/medicine/presentation/pages/medicine_detail.dart';
 
 import 'package:clean_a/sales/presentation/widgets/sales_page.dart';
+import 'package:clean_a/supplier%20copy/presentation/widgets/supplier_list.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/dashboard/presentation/pages/dashboard_screen.dart';
 
@@ -32,8 +33,8 @@ import 'stock/presentation/widgets/expired_medicines.dart';
 import 'stock/presentation/widgets/list_of_stock.dart';
 import 'stock/presentation/widgets/out_of_stock.dart';
 import 'stock/presentation/widgets/stock_detail.dart';
-import 'supplier/presentation/widgets/add_supplier.dart';
-import 'supplier/presentation/widgets/supplier_list.dart';
+//import 'supplier/presentation/widgets/add_supplier.dart';
+//import 'supplier/presentation/widgets/supplier_list.dart';
  
         
 
@@ -104,7 +105,7 @@ case   '/branch/refill_request':
   _currentScreen=const ReportPGenerate();
   break;
   case '/reports/generated_sales': 
-  _currentScreen= const GeneratedSReports();
+  _currentScreen= const GeneratedSReports(fromDate: '', toDate: '',);
   break;
   case '/reports/sales': 
   _currentScreen=const ReportGenerate();
@@ -140,7 +141,7 @@ case '/stock/details':
 _currentScreen= const StockDetailPage();
 break;
 case   '/supplier/add':
-_currentScreen= const AddSupplier();
+//_currentScreen= const AddSupplier();
 break;
 case '/supplier/list': 
 _currentScreen=const SupplierLists();

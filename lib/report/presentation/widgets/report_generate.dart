@@ -1,8 +1,10 @@
+import 'package:clean_a/report/presentation/widgets/generated_sales_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_a/Drawer/sidemenupage.dart';
 import 'package:clean_a/dashboard/presentation/pages/header_page.dart';
 import 'package:clean_a/shared/utility/responsiveDrawer.dart';
 import 'package:clean_a/shared/reusable/date_picker.dart';
+//import 'package:clean_a/sales_report/generated_s_reports.dart'; // Import the GeneratedSReports screen
 
 class ReportGenerate extends StatefulWidget {
   const ReportGenerate({super.key});
@@ -22,6 +24,27 @@ class _ReportGenerateState extends State<ReportGenerate> {
       setState(() {
         controller.text = "${pickedDate.toLocal()}".split(' ')[0];
       });
+    }
+  }
+
+  void _submit() {
+    if (_fromDateController.text.isNotEmpty && _toDateController.text.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => GeneratedSReports(
+            fromDate: _fromDateController.text,
+            toDate: _toDateController.text,
+          ),
+        ),
+      );
+    } else {
+      // Show a snackbar or dialog to inform the user to select both dates
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select both dates'),
+        ),
+      );
     }
   }
 
@@ -61,197 +84,78 @@ class _ReportGenerateState extends State<ReportGenerate> {
                         isSideMenuOpen: showSideMenu,
                       ),
                       Expanded(
-                        child: SingleChildScrollView(
+                        child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Sales Reports',
-                                    style: TextStyle(
-                                      fontSize: isDesktop ? 23 : 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 16),
-                                      child: Text(
-                                        'Generate Report',
-                                        style: TextStyle(
-                                          fontSize: isDesktop ? 13 : 11,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                'Generate Sales Report',
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                              const SizedBox(height: 20),
-                              Center(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 5),
-                                      ),
-                                    ],
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Select date range to generate the sales report',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              const SizedBox(height: 30),
+                              TextField(
+                                controller: _fromDateController,
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  hintText: 'From Date',
+                                  prefixIcon: const Icon(Icons.calendar_today),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide.none,
                                   ),
-                                  width: isDesktop ? 600 : double.infinity,
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Generate Report',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black87,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              // Handle close action
-                                            },
-                                            child: const Icon(
-                                              Icons.close,
-                                              color: Colors.black87,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20),
-                                      const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'From',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black87,
-                                            ),
-                                          ),
-                                          Text(
-                                            'To',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black87,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _fromDateController,
-                                              readOnly: true,
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                labelText: 'From',
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                ),
-                                                suffixIcon: InkWell(
-                                                  onTap: () => _selectDate(
-                                                      _fromDateController),
-                                                  child: const Icon(
-                                                    Icons.calendar_today,
-                                                    size: 20,
-                                                    color: Colors.black87,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _toDateController,
-                                              readOnly: true,
-                                              textAlign: TextAlign.center,
-                                              decoration: InputDecoration(
-                                                labelText: 'To',
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                ),
-                                                suffixIcon: InkWell(
-                                                  onTap: () => _selectDate(
-                                                      _toDateController),
-                                                  child: const Icon(
-                                                    Icons.calendar_today,
-                                                    size: 20,
-                                                    color: Colors.black87,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Center(
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            backgroundColor: Colors.green,
-                                          ),
-                                          onPressed: () {},
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 14.0,
-                                                horizontal: 24.0),
-                                            child: Text(
-                                              'Submit',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0.0,
+                                    horizontal: 16.0,
                                   ),
+                                ),
+                                onTap: () => _selectDate(_fromDateController),
+                              ),
+                              const SizedBox(height: 16),
+                              TextField(
+                                controller: _toDateController,
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  hintText: 'To Date',
+                                  prefixIcon: const Icon(Icons.calendar_today),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 0.0,
+                                    horizontal: 16.0,
+                                  ),
+                                ),
+                                onTap: () => _selectDate(_toDateController),
+                              ),
+                              const SizedBox(height: 30),
+                              ElevatedButton(
+                                onPressed: _submit,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Generate Report',
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ],
